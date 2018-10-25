@@ -36,7 +36,7 @@ dll
 node_modules
 lib
 
-*.xml
+
 *.iml
 *.ipr
 *.iws
