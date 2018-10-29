@@ -81,8 +81,14 @@
     }
     .MuiPaper-root-19.MuiPaper-elevation4-25.MuiAppBar-root-10.MuiAppBar-positionStatic-14.MuiAppBar-colorDefault-16{
       height: 80px;
-      margin-bottom: 0px;
+      margin-bottom: 0;
       background-color: #f9f9f9;
+      .MuiTabs-flexContainer-47{
+        height: 80px;
+        .MuiTabs-scroller-49.MuiTabs-scrollable-51{
+          height: 80px;
+        }
+      }
     }
     .MuiPrivateTabScrollButton-root-55{
       display: none;
