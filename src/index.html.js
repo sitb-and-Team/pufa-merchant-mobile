@@ -1,11 +1,27 @@
-module.exports = function (params) {
+const PROFILE_API = {
+  development: '',
+  beta: 'http://apptest.shangfudata.com/merchant/api',
+  production: 'https://merchant.shangfudata.com/api'
+};
+
+module.exports = function ({htmlWebpackPlugin}) {
+  const {debug, env} = htmlWebpackPlugin.options;
+  const {PROFILE = 'development'} = env;
+
+  const api = debug ? `http://' + location.hostname + ':' + location.port + '/api` : PROFILE_API[PROFILE];
+
   return `
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-  <title></title>
+  <title>webApp</title>
+    <script>
+    window.config = {
+      api: '${api}'
+    };
+  </script>
 </head>
 <body>
 <noscript>
