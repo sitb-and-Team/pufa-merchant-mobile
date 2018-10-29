@@ -29,6 +29,7 @@
     "@sitb/wbs": "^1.0.83",
     "connected-react-router": "^4.5.0",
     "es6-promise": "^4.2.5",
+    "material-design-icons": "^3.0.1",
     "normalize.css": "^8.0.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
