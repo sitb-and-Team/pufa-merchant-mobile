@@ -1,0 +1,100 @@
+.Home{
+  width: 100%;
+  min-height: 100vh;
+  text-align: center;
+  background-color: #eaeaea;
+  .header{
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    background-color: #f2f2f2;
+    .close{
+      float: left;
+      margin: 13px 10px;
+    }
+    .title{
+      float: left;
+      font-size: 1.1rem;
+    }
+    .more{
+      float: right;
+      margin: 13px 15px;
+    }
+  }
+  .income{
+    width: 100%;
+    height: 180px;
+    background-color: #00bcd4;
+    padding: 3rem 0;
+    box-sizing: border-box;
+    .todayIncome{
+      color: #ccf2f6;
+      font-size: 0.9rem;
+    }
+    .income-today{
+      display: block;
+      color: #fff;
+      margin-top: 10px;
+      font-size: 3rem;
+    }
+  }
+  .content{
+    width: 100%;
+    height: 120px;
+    //margin-bottom: 100px;
+    background-color: #fff;
+    padding: 24px 0;
+    box-sizing: border-box;
+    .option{
+      width: 33.33%;
+      height: 100%;
+      float: left;
+
+      .optionIcon {
+        color: #6196ed;
+        font-size: 2.5rem;
+      }
+      .cloRecord{
+        width: 100%;
+        color: #f1c029;
+      }
+      .option-text{
+        display: block;
+        width: 100%;
+        height: 24px;
+        line-height: 24px;
+        font-size: 0.8rem;
+      }
+    }
+  }
+  .footerBar{
+    width: 100%;
+    height: 80px;
+    background-color: #f9f9f9;
+    position: fixed;
+    bottom: 0;
+    .icon{
+      //display: inline-block;
+      color: #727272;
+      font-size: 1.6rem;
+      position: absolute;
+    }
+    .MuiPaper-root-19.MuiPaper-elevation4-25.MuiAppBar-root-10.MuiAppBar-positionStatic-14.MuiAppBar-colorDefault-16{
+      height: 80px;
+      margin-bottom: 0px;
+      background-color: #f9f9f9;
+    }
+    .MuiPrivateTabScrollButton-root-55{
+      display: none;
+    }
+    .MuiButtonBase-root-68.MuiTab-root-56.MuiTab-textColorPrimary-59.MuiTab-labelIcon-57{
+      width: 33.33%;
+    }
+    .MuiTab-selected-61{
+      color: #00bcd4;
+    }
+    .MuiPrivateTabIndicator-root-87.MuiPrivateTabIndicator-colorPrimary-88.MuiTabs-indicator-54{
+      background-color: rgba(0,0,0,0);
+    }
+  }
+}
