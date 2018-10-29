@@ -17,6 +17,7 @@ module.exports = function ({htmlWebpackPlugin}) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <title>webApp</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script>
     window.config = {
       api: '${api}'
