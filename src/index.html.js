@@ -1,6 +1,6 @@
 const PROFILE_API = {
   development: '',
-  beta: 'http://apptest.shangfudata.com/merchant/api',
+  beta: '',
   production: 'https://merchant.shangfudata.com/api'
 };
 
