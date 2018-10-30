@@ -31,7 +31,7 @@ export default class App extends React.Component<any, any> {
         <React.Fragment>
           <Route exact
                  path="/"
-                 render={() => (<Redirect to="/home"/>)}
+                 render={() => (<Redirect to="/app"/>)}
           />
           {routes.map((route: any, index) => (
             <Route path={route.path}
