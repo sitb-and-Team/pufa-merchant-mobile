@@ -27,6 +27,7 @@
     "@material-ui/icons": "^3.0.1",
     "@sitb/svg-icon": "^1.0.1-es5",
     "@sitb/wbs": "^1.0.83",
+    "classnames": "^2.2.6",
     "connected-react-router": "^4.5.0",
     "es6-promise": "^4.2.5",
     "normalize.css": "^8.0.0",
