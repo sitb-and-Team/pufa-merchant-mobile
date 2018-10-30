@@ -5,9 +5,10 @@ import bootstrap from 'veigar/bootstrap';
 import { Provider } from 'react-redux';
 import { ConnectedRouter, connectRouter, routerMiddleware } from 'connected-react-router';
 import createHashHistory from 'history/createHashHistory';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import create from '@sitb/svg-icon/create';
+import cyan from '@material-ui/core/colors/cyan';
+import grey from '@material-ui/core/colors/grey';
 
 import { create as createAppStore } from './core/store';
 import App from './container';
@@ -25,16 +26,21 @@ const store = createAppStore({}, {}, [historyMiddleware], reducer => connectRout
 // 主题配置
 const theme = createMuiTheme({
   palette: {
-    primary: { main: purple[500] },
-    secondary: { main: '#11cb5f' }
+    primary: {main: cyan[500]},
+    secondary: {main: cyan[200]},
+    background: {default: cyan[500]},
+    text: {
+      primary: grey[900],
+      secondary: grey[300]
     }
+  }
 });
 
 bootstrap(() => (
   <Provider store={store}>
     <ConnectedRouter history={hashHistory}>
       <MuiThemeProvider theme={theme}>
-      <App/>
+        <App/>
       </MuiThemeProvider>
     </ConnectedRouter>
   </Provider>
