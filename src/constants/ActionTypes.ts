@@ -7,6 +7,13 @@ function create(type: String, actions: Object) {
   return result;
 }
 
+// 交易
+export const trade: any = create('trade', {
+  startQuery: null,
+  queryComplete: null
+});
+
+// 导航
 export const navigator: any = create('navigator', {
   navigate: null,
   back: null,
