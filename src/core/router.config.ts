@@ -1,10 +1,16 @@
-import { Home } from '../container/Home';
+import { App } from '../container/Application/App';
 import { Trade } from '../container/Trade';
 
+// 路由列表
+export const routerPath = {
+  'app': '/app',
+  'trade': '/trade'
+};
+
 export default [{
-  path: '/home',
-  component: Home,
+  path: routerPath.app,
+  component: App,
 }, {
-  path: '/trade',
-  component: Trade,
+  path: routerPath.trade,
+  component: Trade
 }];
