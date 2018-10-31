@@ -4,15 +4,29 @@
  * date: 2018/10/31
  */
 import * as React from 'react';
+import Form from 'veigar/Form';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Form from 'veigar/Form';
 import { renderFieldGroup } from '../../component/Form/Input';
-import {SitbButton} from '../../component/SitbButton';
-import { lang } from '../../locale';
-import Typography from '@material-ui/core/Typography';
+import { SitbButton } from '../../component/SitbButton';
+import { autoBind } from '@sitb/wbs/autoBind';
+
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+import DialogActions from '@material-ui/core/DialogActions';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import CardActions from '@material-ui/core/CardActions';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+
+import { lang } from '../../locale';
 
 // css
 const styles: any = theme => ({
@@ -36,9 +50,14 @@ const styles: any = theme => ({
   },
   mainFootBtn: {
     color: theme.palette.text.primary
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 150
   }
 });
 
+@autoBind
 class Container extends React.Component<any, any> {
   form;
 
@@ -52,8 +71,31 @@ class Container extends React.Component<any, any> {
       /**
        * 提交按钮禁用
        */
-      submitLoading: false
+      submitLoading: false,
+      /**
+       * 打开商户列表
+       */
+      isMerchantSelect: false,
+      merchant: '',
+      /**
+       * 是否进入绑定页面状态
+       */
+      isBind: false
     };
+  }
+
+  handleChange = name => event => {
+    this.setState({[name]: Number(event.target.value)});
+  };
+
+  merchantSwitch(status) {
+    this.setState({isMerchantSelect: status});
+  }
+
+  bindSwitch() {
+    this.setState(prefix => ({
+      isBind: !prefix.isBind
+    }));
   }
 
   handleSubmit(e) {
@@ -75,8 +117,9 @@ class Container extends React.Component<any, any> {
   }
 
   render() {
-    const {countDown, submitLoading} = this.state;
+    const {countDown, submitLoading, merchant, isBind, isMerchantSelect} = this.state;
     const {classes} = this.props;
+    //表单配置
     const fields: any = [{
       label: lang.merchantNo,
       name: 'merchantNo',
@@ -89,43 +132,44 @@ class Container extends React.Component<any, any> {
       },
       after: (
         <SitbButton loading={countDown !== 0}
-                key="submit"
-                fullWidth={false}
-                style={{
-                  width: 110,
-                  height: 32,
-                  pointerEvents: countDown === 0 ? 'auto' : 'none',
-                  color: '#fff'
-                }}
-                onClick={e => this.handleSand(e)}
+                    key="submit"
+                    fullWidth={false}
+                    style={{
+                      width: 110,
+                      height: 32,
+                      pointerEvents: countDown === 0 ? 'auto' : 'none',
+                      color: '#fff'
+                    }}
+                    onClick={e => this.handleSand(e)}
         >
           {countDown === 0 ? '发送验证码' : countDown}
         </SitbButton>
       )
     }];
-
+    // 绑定按钮
     const serviceElement: any = (
-      <React.Fragment key="content-form-service">
-        <Typography component="p"
-                    color="textSecondary"
-                    align="right"
-        >
-          <a href="javascript:void(0);"
-             className={classes.formServiceReset}
-          >
-            {'忘记密码'}
-          </a>
-        </Typography>
-        <SitbButton loading={submitLoading}
-                key="submit"
-                className={classes.formServiceBtn}
-                onClick={e => this.handleSubmit(e)}
-        >
-          {'立即绑定'}
-        </SitbButton>
-      </React.Fragment>
+      <SitbButton loading={submitLoading}
+                  key="submit"
+                  size="large"
+                  className={classes.formServiceBtn}
+                  onClick={e => this.handleSubmit(e)}
+      >
+        {'立即绑定'}
+      </SitbButton>
     );
-
+    const merchantList = [{
+      merchantNo: '1000',
+      merchantName: 'test111'
+    }, {
+      merchantNo: '1001',
+      merchantName: 'test111'
+    }, {
+      merchantNo: '1002',
+      merchantName: 'test111'
+    }, {
+      merchantNo: '1003',
+      merchantName: 'test111'
+    }];
     return (
       <Grid container
             justify="center"
@@ -134,20 +178,51 @@ class Container extends React.Component<any, any> {
         <Grid item
               container
               justify="center"
-              alignItems="flex-end"
+              alignItems="center"
               xs={12}
         >
           <AccountCircle className={classes.mainLogo}/>
         </Grid>
+
         <Grid item
               xs={12}
               className={classes.mainForm}
         >
-          <Form ref={(form: Form) => this.form = form}
-                className="content-form"
-          >
-            {renderFieldGroup(fields, serviceElement)}
-          </Form>
+          {
+            isBind && (
+              <Form ref={(form: Form) => this.form = form}
+                    className="content-form"
+              >
+                {renderFieldGroup(fields, serviceElement)}
+              </Form>
+            ) || (
+              <Card className={classes.card}>
+                <CardContent>
+                  <Typography variant="h5"
+                              component="h3"
+                              gutterBottom
+                  >
+                    {'已绑定的商户'}
+                  </Typography>
+                  {
+                    merchantList.map((merchant, index) => (
+                      <Typography key={index}
+                                  component="p"
+                                  gutterBottom
+                      >
+                        {`${merchant.merchantNo}-${merchant.merchantName}`}
+                      </Typography>
+                    ))
+                  }
+                </CardContent>
+                <CardActions>
+                  <Button onClick={() => this.merchantSwitch(true)}
+                          color="primary"
+                  >{'请选择你要管理的商户'}</Button>
+                </CardActions>
+              </Card>
+            )
+          }
         </Grid>
         <Grid item
               xs={12}
@@ -158,10 +233,55 @@ class Container extends React.Component<any, any> {
           <Button component="span"
                   color="primary"
                   className={classes.mainFootBtn}
+                  onClick={this.bindSwitch}
           >
-            {'已有账户，选择商户管理'}
+            {isBind && '返回商户管理' || '绑定新商户'}
           </Button>
         </Grid>
+        <Dialog disableBackdropClick
+                disableEscapeKeyDown
+                open={isMerchantSelect}
+                onClose={() => this.merchantSwitch(false)}
+        >
+          <DialogTitle>{lang.merchant.list}</DialogTitle>
+          <DialogContent>
+            <form>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="age-native-simple">{lang.merchantNo}</InputLabel>
+                <Select native
+                        value={merchant}
+                        onChange={this.handleChange('merchant')}
+                        input={<Input id="age-native-simple"/>}
+                >
+                  <option value=""
+                          disabled
+                  />
+                  {
+                    merchantList.map((merchant, index) => (
+                      <option value={merchant.merchantNo}
+                              key={index}
+                      >
+                        {`${merchant.merchantNo}-${merchant.merchantName}`}
+                      </option>
+                    ))
+                  }
+                </Select>
+              </FormControl>
+            </form>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => this.merchantSwitch(false)}
+                    color="primary"
+            >
+              {"取消"}
+            </Button>
+            <Button onClick={() => this.merchantSwitch(false)}
+                    color="primary"
+            >
+              {"确认"}
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Grid>
     )
   }
