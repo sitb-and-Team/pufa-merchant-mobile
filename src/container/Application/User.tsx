@@ -17,91 +17,121 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Divider from '@material-ui/core/Divider';
 
 import { withStyles } from '@material-ui/core/styles';
-import {autoBind} from "@sitb/wbs/autoBind";
+import { autoBind } from "@sitb/wbs/autoBind";
+import Grid from '@material-ui/core/Grid';
 
 const styles: any = theme => ({
-  root: {
-    width: '100%',
-    maxWidth: 380,
-    backgroundColor: theme.palette.background.paper,
-  },
   header: {
-    width: '100%',
-    height: 100,
-    backgroundColor: "#00bcd4",
+    backgroundColor: theme.palette.primary.main
   },
-  avatar: {
+  headerItem: {
+    height: 100
+  },
+  itemAvatar: {
     width: 40,
     height: 40,
     color: "#000",
     backgroundColor: "#a4dce3",
   },
-  user: {
+  itemMerchantNo: {
     maxWidth: 300,
     color: "#fff",
   },
-  item: {
+  contentItem: {
     width: '100%',
     maxWidth: 380,
     height: "50px",
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.paper
   },
-  exit: {
-    height: "60px",
+  contentExit: {
+    paddingLeft: 16,
     textAlign: "center",
-    marginLeft: -20,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.paper
+  },
+  contentExitValue: {
+    paddingRight: 0
   }
 });
 
 @autoBind
 class Container extends React.Component<any, any> {
 
+  /**
+   * 渲染list
+   * @param config
+   * @returns {any}
+   */
+  renderContent(config) {
+    const {classes} = this.props;
+    return config.map((item, index) => {
+      const {name, Icon} = item;
+      return (
+        <React.Fragment key={index}>
+          <ListItem button
+                    className={classes.contentItem}
+          >
+            <ListItemIcon>
+              <Icon/>
+            </ListItemIcon>
+            <ListItemText inset
+                          primary={name}
+            />
+            <ChevronRightIcon/>
+          </ListItem>
+          <Divider inset
+                   component="li"
+          />
+        </React.Fragment>
+      )
+    })
+  }
 
-  render(){
-    const { classes } = this.props;
+  render() {
+    const {classes} = this.props;
+    const config = [{
+      name: '商家信息',
+      Icon: StoreIcon,
+      path: ''
+    }, {
+      name: '完善经营信息',
+      Icon: PersonIcon,
+      path: ''
+    }, {
+      name: '修改结算信息',
+      Icon: RateReviewIcon,
+      path: ''
+    }];
     return (
-      <div className={classes.root}>
-        <List component="nav" style={{padding:0}}>
-          <ListItem className={classes.header}>
-            <ListItemIcon>
-              <Avatar className={classes.avatar}>
-                <StoreIcon />
-              </Avatar>
-            </ListItemIcon>
-            <ListItemText inset primary="000000000028089" className={classes.user} />
-          </ListItem>
-        </List>
-        <List component="nav">
-          <ListItem button className={classes.item}>
-            <ListItemIcon>
-              <StoreIcon />
-            </ListItemIcon>
-            <ListItemText inset primary="商家信息" />
-            <ChevronRightIcon />
-          </ListItem>
-          <Divider inset component="li" />
-          <ListItem button className={classes.item}>
-            <ListItemIcon>
-              <PersonIcon />
-            </ListItemIcon>
-            <ListItemText inset primary="完善经营信息" />
-            <ChevronRightIcon />
-          </ListItem>
-          <Divider inset component="li" />
-          <ListItem button className={classes.item}>
-            <ListItemIcon>
-              <RateReviewIcon />
-            </ListItemIcon>
-            <ListItemText inset primary="修改结算信息" />
-            <ChevronRightIcon />
-          </ListItem>
-          <Divider inset component="li" />
-          <ListItem button className={classes.exit}>
-            <ListItemText inset primary="安全退出" />
-          </ListItem>
-        </List>
-      </div>
+      <Grid container>
+        <Grid item
+              xs={12}
+        >
+          <List component="nav"
+                className={classes.header}
+          >
+            <ListItem className={classes.headerItem}>
+              <ListItemIcon>
+                <Avatar className={classes.itemAvatar}>
+                  <StoreIcon/>
+                </Avatar>
+              </ListItemIcon>
+              <ListItemText inset
+                            primary={<span className={classes.itemMerchantNo}>{'000000000028089'}</span>}
+              />
+            </ListItem>
+          </List>
+          <List component="nav">
+            {this.renderContent(config)}
+            <ListItem button
+                      className={classes.contentExit}
+            >
+              <ListItemText disableTypography
+                            className={classes.contentExitValue}
+                            primary="安全退出"/>
+            </ListItem>
+          </List>
+        </Grid>
+      </Grid>
     )
   }
 }
