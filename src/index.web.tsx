@@ -28,7 +28,10 @@ const theme = createMuiTheme({
   palette: {
     primary: {main: cyan[500]},
     secondary: {main: cyan[200]},
-    background: {default: cyan[500]},
+    background: {
+      default: cyan[500],
+      paper: 'rgba(255,255,255,1)'
+    },
     text: {
       primary: grey[900],
       secondary: grey[300]
