@@ -12,6 +12,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Tab from '@material-ui/core/Tab';
 import EventNoteIcon from '@material-ui/icons/EventNote';
+import { getActions } from '../../core/store';
+import { routerPath } from '../../core/router.config';
 
 // css
 const styles: any = theme => ({
@@ -45,6 +47,13 @@ function TabContainer(props) {
 
 class Container extends React.Component<any> {
 
+  /**
+   * 跳转到交易记录
+   */
+  handleGoToTrade() {
+    getActions().navigator.navigate(routerPath.trade);
+  }
+
   render() {
     const {classes} = this.props;
     return (
@@ -61,7 +70,6 @@ class Container extends React.Component<any> {
         <Card className={classes.card}>
           <CardContent>
             <Grid container
-                  justify="center"
                   spacing={24}
             >
               <Grid item
@@ -69,7 +77,10 @@ class Container extends React.Component<any> {
                     justify="center"
                     xs={4}
               >
-                <Tab label="收款记录" icon={<EventNoteIcon/>}/>
+                <Tab label="收款记录"
+                     icon={<EventNoteIcon/>}
+                     onClick={this.handleGoToTrade}
+                />
               </Grid>
             </Grid>
           </CardContent>
