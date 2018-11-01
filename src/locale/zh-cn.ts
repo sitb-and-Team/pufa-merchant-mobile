@@ -20,10 +20,12 @@ export const lang = {
   merchantName: '商户名',
   merchantNo: '商户号',
   checkValue: '验证码',
+  tradeRecord: '交易记录',
   merchant: {
     basic: '商户基本信息',
     cost: '商户结算信息',
-    list: '商户列表'
+    list: '商户列表',
+    binding: '商户绑定'
   }
 };
 
