@@ -16,7 +16,7 @@ import grey from '@material-ui/core/colors/grey';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import StoreIcon from '@material-ui/icons/Store';
 
-import { lang } from '../../locale';
+import { menu } from '../../locale';
 import { routerPath } from '../../core/router.config';
 import { getActions } from '../../core/store';
 
@@ -87,11 +87,11 @@ class Container extends React.Component<any> {
     const {classes} = this.props;
     // tab配置
     const config = [{
-      label: lang.tradeRecord,
+      label: menu.tradeRecord,
       Icon: EventNoteIcon,
       path: routerPath.trade
     }, {
-      label: lang.merchant.binding,
+      label: menu.merchantBinding,
       Icon: StoreIcon,
       path: routerPath.merchantBinding
     }];
