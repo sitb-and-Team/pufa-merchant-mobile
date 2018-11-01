@@ -14,6 +14,7 @@ import Tab from '@material-ui/core/Tab';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import { getActions } from '../../core/store';
 import { routerPath } from '../../core/router.config';
+import grey from '@material-ui/core/colors/grey';
 
 // css
 const styles: any = theme => ({
@@ -22,10 +23,10 @@ const styles: any = theme => ({
     paddingBottom: 40
   },
   header_mode: {
-    backgroundColor: theme.palette.background.default
+    backgroundColor: theme.palette.primary.main
   },
   headerTitle_mode: {
-    color: theme.palette.text.secondary
+    color: grey[200]
   },
   headerMoney_mode: {
     fontSize: 40,
