@@ -69,15 +69,15 @@ class Container extends React.Component<any, any> {
     }];
     const configs = [{
       title: lang.merchant.basic,
-      config: basic,
-      dataResource: data
+      config: basic
     }, {
       title: lang.merchant.cost,
-      config: cost,
-      dataResource: data
+      config: cost
     }];
     return (
-      <SitbCard configs={configs}/>
+      <SitbCard configs={configs}
+                dataResource={data}
+      />
     )
   }
 }
