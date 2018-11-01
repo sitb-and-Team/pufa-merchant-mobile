@@ -11,10 +11,14 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Tab from '@material-ui/core/Tab';
-import EventNoteIcon from '@material-ui/icons/EventNote';
-import { getActions } from '../../core/store';
-import { routerPath } from '../../core/router.config';
 import grey from '@material-ui/core/colors/grey';
+
+import EventNoteIcon from '@material-ui/icons/EventNote';
+import StoreIcon from '@material-ui/icons/Store';
+
+import { lang } from '../../locale';
+import { routerPath } from '../../core/router.config';
+import { getActions } from '../../core/store';
 
 // css
 const styles: any = theme => ({
@@ -49,14 +53,48 @@ function TabContainer(props) {
 class Container extends React.Component<any> {
 
   /**
-   * 跳转到交易记录
+   * 路由跳转
    */
-  handleGoToTrade() {
-    getActions().navigator.navigate(routerPath.trade);
+  handleGoToTrade(path) {
+    getActions().navigator.navigate(path);
+  }
+
+  /**
+   * 渲染tab图标
+   * @param tabs    配置参数
+   * @returns {any}
+   */
+  renderTabItem(tabs) {
+    return tabs.map((tab, index) => {
+      const {label, Icon, path} = tab;
+      return (
+        <Grid item
+              container
+              key={index}
+              justify="center"
+              xs={4}
+        >
+          <Tab label={label}
+               icon={<Icon/>}
+               onClick={() => this.handleGoToTrade(path)}
+          />
+        </Grid>
+      )
+    })
   }
 
   render() {
     const {classes} = this.props;
+    // tab配置
+    const config = [{
+      label: lang.tradeRecord,
+      Icon: EventNoteIcon,
+      path: routerPath.trade
+    }, {
+      label: lang.merchant.binding,
+      Icon: StoreIcon,
+      path: routerPath.merchantBinding
+    }];
     return (
       <Grid>
         <Grid item
@@ -73,16 +111,9 @@ class Container extends React.Component<any> {
             <Grid container
                   spacing={24}
             >
-              <Grid item
-                    container
-                    justify="center"
-                    xs={4}
-              >
-                <Tab label="收款记录"
-                     icon={<EventNoteIcon/>}
-                     onClick={this.handleGoToTrade}
-                />
-              </Grid>
+              {
+                this.renderTabItem(config)
+              }
             </Grid>
           </CardContent>
         </Card>
