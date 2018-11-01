@@ -17,10 +17,12 @@ export const lang = {
   settleBankNo: '结算银行行号',
   accountName: '结算账户名',
   accountNumber: '结算账户号',
-  merchantName:'商户名',
+  merchantName: '商户名',
   merchantNo: '商户号',
   checkValue: '验证码',
   merchant: {
+    basic: '商户基本信息',
+    cost: '商户结算信息',
     list: '商户列表'
   }
 };
