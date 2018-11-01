@@ -3,13 +3,15 @@ import { Trade } from '../container/Trade';
 import { Binding } from '../container/Merchant/Binding';
 import { MerchantInfo } from '../container/Merchant/MerchantInfo';
 import { menu } from '../locale';
+import { MerchantRate } from '../container/Merchant/MerchantRate';
 
 // 路由列表
 export const routerPath = {
   app: '/app',
   trade: '/trade',
   merchantBinding: '/Binding',
-  merchantInfo: '/merchantInfo'
+  merchantInfo: '/merchantInfo',
+  merchantRate: '/merchantRate'
 };
 
 export default [{
@@ -27,4 +29,8 @@ export default [{
   path: routerPath.merchantInfo,
   component: MerchantInfo,
   title: menu.merchantInfo
+}, {
+  path: routerPath.merchantRate,
+  component: MerchantRate,
+  title: menu.merchantRate
 }];
