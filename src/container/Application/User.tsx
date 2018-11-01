@@ -4,6 +4,7 @@
  * date: 2018/10/30
  */
 import * as React from 'react';
+import classNames from 'classnames';
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -19,9 +20,11 @@ import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/core/styles';
 import { autoBind } from "@sitb/wbs/autoBind";
 import Grid from '@material-ui/core/Grid';
+import { getActions } from '../../core/store';
+import { routerPath } from '../../core/router.config';
 
 const styles: any = theme => ({
-  header: {
+  header_mode: {
     backgroundColor: theme.palette.primary.main
   },
   headerItem: {
@@ -29,23 +32,27 @@ const styles: any = theme => ({
   },
   itemAvatar: {
     width: 40,
-    height: 40,
-    color: "#000",
-    backgroundColor: "#a4dce3",
+    height: 40
   },
-  itemMerchantNo: {
-    maxWidth: 300,
-    color: "#fff",
+  itemAvatar_mode: {
+    color: "#000",
+    backgroundColor: "#a4dce3"
+  },
+  itemMerchantNo_mode: {
+    color: "#fff"
+  },
+  content_mode: {
+    backgroundColor: theme.palette.background.paper
   },
   contentItem: {
     width: '100%',
-    maxWidth: 380,
-    height: "50px",
-    backgroundColor: theme.palette.background.paper
+    height: "50px"
   },
   contentExit: {
     paddingLeft: 16,
-    textAlign: "center",
+    textAlign: "center"
+  },
+  contentExit_mode: {
     backgroundColor: theme.palette.background.paper
   },
   contentExitValue: {
@@ -64,10 +71,11 @@ class Container extends React.Component<any, any> {
   renderContent(config) {
     const {classes} = this.props;
     return config.map((item, index) => {
-      const {name, Icon} = item;
+      const {name, Icon, path} = item;
       return (
         <React.Fragment key={index}>
           <ListItem button
+                    onClick={() => getActions().navigator.navigate(path)}
                     className={classes.contentItem}
           >
             <ListItemIcon>
@@ -79,7 +87,7 @@ class Container extends React.Component<any, any> {
             <ChevronRightIcon/>
           </ListItem>
           <Divider inset
-                   component="li"
+                   component="div"
           />
         </React.Fragment>
       )
@@ -89,13 +97,13 @@ class Container extends React.Component<any, any> {
   render() {
     const {classes} = this.props;
     const config = [{
-      name: '商家信息',
+      name: '费率信息',
       Icon: StoreIcon,
       path: ''
     }, {
-      name: '完善经营信息',
+      name: '商户信息',
       Icon: PersonIcon,
-      path: ''
+      path: routerPath.merchantInfo
     }, {
       name: '修改结算信息',
       Icon: RateReviewIcon,
@@ -104,26 +112,29 @@ class Container extends React.Component<any, any> {
     return (
       <Grid container>
         <Grid item
+              xl={12}
               xs={12}
         >
           <List component="nav"
-                className={classes.header}
+                className={classes.header_mode}
           >
             <ListItem className={classes.headerItem}>
               <ListItemIcon>
-                <Avatar className={classes.itemAvatar}>
+                <Avatar className={classNames(classes.itemAvatar, classes.itemAvatar_mode)}>
                   <StoreIcon/>
                 </Avatar>
               </ListItemIcon>
               <ListItemText inset
-                            primary={<span className={classes.itemMerchantNo}>{'000000000028089'}</span>}
+                            primary={<span className={classes.itemMerchantNo_mode}>{'000000000028089'}</span>}
               />
             </ListItem>
           </List>
-          <List component="nav">
+          <List component="nav"
+                className={classes.content_mode}
+          >
             {this.renderContent(config)}
             <ListItem button
-                      className={classes.contentExit}
+                      className={classNames(classes.contentExit, classes.contentExit_mode)}
             >
               <ListItemText disableTypography
                             className={classes.contentExitValue}
