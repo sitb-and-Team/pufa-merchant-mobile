@@ -2,6 +2,7 @@ import { App } from '../container/Application/App';
 import { Trade } from '../container/Trade';
 import { Binding } from '../container/Merchant/Binding';
 import { MerchantInfo } from '../container/Merchant/MerchantInfo';
+import { menu } from '../locale';
 
 // 路由列表
 export const routerPath = {
@@ -13,14 +14,17 @@ export const routerPath = {
 
 export default [{
   path: routerPath.app,
-  component: App,
+  component: App
 }, {
   path: routerPath.trade,
-  component: Trade
+  component: Trade,
+  title: menu.tradeRecord
 }, {
   path: routerPath.merchantBinding,
-  component: Binding
+  component: Binding,
+  title: menu.merchantBinding
 }, {
   path: routerPath.merchantInfo,
-  component: MerchantInfo
+  component: MerchantInfo,
+  title: menu.merchantInfo
 }];
