@@ -4,93 +4,17 @@
  * date: 2018/10/31
  */
 import * as React from 'react';
-import classNames from 'classnames';
-import objectPath from 'object-path';
 
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
 import { lang } from '../../locale';
+import { SitbCard } from '../../component/Card';
 
 // css
-const styles: any = theme => ({
-  main: {
-    paddingTop: 12,
-    paddingBottom: 12,
-    height: '100%'
-  },
-  main_mode: {
-    backgroundColor: 'rgba(0,0,0,0.1)'
-  },
-  mainCard: {
-    marginLeft: 16,
-    marginRight: 16
-  },
-  cardMedia: {
-    objectFit: 'cover'
-  },
-  cardTitle: {
-    marginTop: 24
-  },
-  cardItem: {
-    marginTop: 5
-  },
-  itemLabel_mode: {
-    color: theme.palette.text.secondary
-  },
-  itemValue_mode: {
-    color: theme.palette.text.primary
-  }
-});
+const styles: any = theme => ({});
 
-class Container extends React.Component<any> {
-
-  /**
-   * 渲染内容
-   * @param title   标题
-   * @param config  row列表
-   * @param data    后台数据
-   * @returns {any}
-   */
-  renderCardContent(title, config, data) {
-    const {classes} = this.props;
-    return (
-      <React.Fragment>
-        <Typography gutterBottom
-                    variant="h5"
-                    component="h2"
-                    className={classes.cardTitle}
-        >
-          {title}
-        </Typography>
-        <Typography gutterBottom
-                    component="div"
-        >
-          {
-            config.map((values, index) => (
-              <Grid item
-                    container
-                    key={index}
-                    justify="space-between"
-                    className={classes.cardItem}
-              >
-                <div className={classes.itemLabel_mode}>{`${values.label}:`}</div>
-                <div className={classes.itemValue_mode}>{objectPath.get(data, values.value)}</div>
-              </Grid>
-            ))
-          }
-        </Typography>
-      </React.Fragment>
-    )
-  }
+class Container extends React.Component<any, any> {
 
   render() {
-    const {classes} = this.props;
     const data = {
       merchantNo: '123123',
       merchantName: 'test',
@@ -143,29 +67,19 @@ class Container extends React.Component<any> {
       label: lang.accountNumber,
       value: 'accountNumber'
     }];
+    const configs = [{
+      title: lang.merchant.basic,
+      config: basic,
+      dataResource: data
+    }, {
+      title: lang.merchant.cost,
+      config: cost,
+      dataResource: data
+    }];
     return (
-      <Grid container
-            alignItems="center"
-            justify="center"
-            className={classNames(classes.main, classes.main_mode)}
-      >
-        <Card className={classes.mainCard}>
-          <CardActionArea>
-            <CardMedia component="img"
-                       className={classes.cardMedia}
-                       image="http://img.zcool.cn/community/01f9eb5768ee240000018c1b3f524a.jpg"
-                       title="Contemplative Reptile"
-            />
-            <CardContent>
-              {this.renderCardContent(lang.merchant.basic, basic, data)}
-              <Divider component="div"/>
-              {this.renderCardContent(lang.merchant.cost, cost, data)}
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
+      <SitbCard configs={configs}/>
     )
   }
 }
 
-export const MerchantInfo = withStyles(styles)(Container as any);
+export const MerchantInfo = withStyles(styles)(Container);
