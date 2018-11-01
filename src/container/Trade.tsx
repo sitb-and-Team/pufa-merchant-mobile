@@ -19,6 +19,7 @@ import weChat from '@sitb/svg-icon/weChat';
 import aliPay from '@sitb/svg-icon/aliPay';
 import quickPay from '@sitb/svg-icon/quickPay';
 import money from '@sitb/svg-icon/money';
+import { background } from '../styles/color';
 
 // css
 const styles = theme => ({
@@ -60,18 +61,12 @@ class Container extends React.Component<any> {
       'aliPay': aliPay,
       'quickPay': quickPay
     };
-    // 圆环背景颜色
-    let background = {
-      'weChat': '#62b900',
-      'aliPay': '#009fe9',
-      'quickPay': '#f98e09'
-    };
     return (
       <ListItem button
                 key={index}
                 divider={index % 5 === 0}
       >
-        <Avatar style={{background: background[type] || '#e25400'}}>
+        <Avatar style={{background: background[type] || background.default}}>
           {svg[type] && svg[type](svgProps) || money(svgProps)}
         </Avatar>
         <ListItemText primary={`Photos${item.id}`} secondary={`Jan 9, 2014${index}`}/>
