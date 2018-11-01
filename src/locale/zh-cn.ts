@@ -20,19 +20,20 @@ export const lang = {
   merchantName: '商户名',
   merchantNo: '商户号',
   checkValue: '验证码',
-  tradeRecord: '交易记录',
   merchant: {
     basic: '商户基本信息',
     cost: '商户结算信息',
-    list: '商户列表',
-    binding: '商户绑定'
+    list: '商户列表'
   }
 };
 
 
 export const menu = {
   home: '首页',
-  user: '我'
+  user: '我',
+  tradeRecord: '交易记录',
+  merchantBinding: '商户绑定',
+  merchantInfo: '商户信息'
 };
 
 export const resErrMsg = {};
