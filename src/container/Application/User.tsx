@@ -99,7 +99,7 @@ class Container extends React.Component<any, any> {
     const config = [{
       name: '费率信息',
       Icon: StoreIcon,
-      path: ''
+      path: routerPath.merchantRate
     }, {
       name: '商户信息',
       Icon: PersonIcon,
