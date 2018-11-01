@@ -51,21 +51,28 @@ export interface Props {
   /**
    * 后台数据
    */
-  dataResource?: any
+  dataResource?: any;
+  titleIcon?: any;
 }
 
 class Container extends React.Component<Props> {
 
   render() {
-    const {classes, title, config, dataResource} = this.props;
+    const {classes, titleIcon, title, config, dataResource} = this.props;
     return (
       <React.Fragment>
         <Typography gutterBottom
                     variant="h5"
-                    component="h2"
+                    component="h5"
                     className={classes.cardTitle}
         >
-          {title}
+          <Grid item
+                container
+                alignItems="center"
+          >
+            {titleIcon}
+            {title}
+          </Grid>
         </Typography>
         <Typography gutterBottom
                     component="div"
