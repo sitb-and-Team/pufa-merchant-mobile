@@ -19,7 +19,8 @@ const styles: any = theme => ({
   main: {
     paddingTop: 12,
     paddingBottom: 12,
-    height: '100%'
+    height: '100%',
+    minHeight: '100vh'
   },
   main_mode: {
     backgroundColor: 'rgba(0,0,0,0.1)'
@@ -39,15 +40,18 @@ export interface Props {
    * 卡片配置
    */
   configs: Array<CardProps>;
+  /**
+   * 后台数据
+   */
+  dataResource: any;
 }
 
 class Container extends React.Component<Props> {
 
   render() {
-    const {classes, configs} = this.props;
+    const {classes, configs, dataResource} = this.props;
     return (
       <Grid container
-            alignItems="center"
             justify="center"
             className={classNames(classes.main, classes.main_mode)}
       >
@@ -58,18 +62,19 @@ class Container extends React.Component<Props> {
                        image="http://img.zcool.cn/community/01f9eb5768ee240000018c1b3f524a.jpg"
                        title="Contemplative Reptile"
             />
-            <CardContent>
-              {
-                configs.map((config, index) => (
-                  <SitbCardContent key={index}
-                                   title={config.title}
-                                   config={config.config}
-                                   dataResource={config.dataResource}
-                  />
-                ))
-              }
-            </CardContent>
           </CardActionArea>
+          <CardContent>
+            {
+              configs.map((config, index) => (
+                <SitbCardContent key={index}
+                                 title={config.title}
+                                 config={config.config}
+                                 titleIcon={config.titleIcon}
+                                 dataResource={dataResource}
+                />
+              ))
+            }
+          </CardContent>
         </Card>
       </Grid>
     )
