@@ -42,9 +42,6 @@ const styles: any = theme => ({
 @autoBind
 class Container extends React.Component<any, any> {
 
-  componentWillMount() {
-    getActions().session.startQuery();
-  }
   /**
    * Component封装修改对应title
    * @param Component   对应组件
