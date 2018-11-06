@@ -29,6 +29,11 @@ export const session: any = create('session', {
   profileComplete: null
 });
 
+export const payment: any = create('payment', {
+  startQuery: null,
+  queryComplete: null
+});
+
 export const root: any = create('root', {
   start: null
 });
