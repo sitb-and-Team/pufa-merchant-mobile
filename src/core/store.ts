@@ -5,6 +5,7 @@ import * as commonReducers from '../reducers';
 import * as commonEpics from '../epics';
 
 import * as actionTypes from '../constants/ActionTypes';
+import badCredentialCheck from '../middlewares/badCredentialCheck';
 
 const data: any = {};
 
@@ -57,6 +58,7 @@ export function create(reducers, epics, middlewares: Array<any>, reducerWrapper?
     compose(
       applyMiddleware(
         ...middlewares,
+        badCredentialCheck,
         epicMiddleware
       )
     )
