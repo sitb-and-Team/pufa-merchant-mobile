@@ -22,8 +22,11 @@ export const navigator: any = create('navigator', {
 });
 
 export const session: any = create('session', {
-  startQuery: null,
-  queryComplete: null
+  /**
+   * 获取个人信息
+   */
+  startProfile: null,
+  profileComplete: null
 });
 
 export const root: any = create('root', {
