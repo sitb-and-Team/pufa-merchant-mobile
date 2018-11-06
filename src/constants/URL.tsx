@@ -6,5 +6,6 @@
 const {api} = (global as any).config;
 
 export default {
-  setUrl: url => `${api}/${url}`
+  setUrl: url => `${api}/${url}`,
+  session: `${api}/session`
 }

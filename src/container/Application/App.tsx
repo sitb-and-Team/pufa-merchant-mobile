@@ -4,7 +4,8 @@
  * date: 2018/10/30
  */
 import * as React from 'react';
-import { Route, Switch as SwitchRouter } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {Route, Switch as SwitchRouter} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -12,13 +13,13 @@ import HomeIcon from '@material-ui/icons/Home';
 import PersonIcon from '@material-ui/icons/Person';
 import Paper from '@material-ui/core/Paper';
 
-import { withStyles } from '@material-ui/core/styles';
-import { autoBind } from '@sitb/wbs/autoBind';
-import { getActions } from '../../core/store';
+import {withStyles} from '@material-ui/core/styles';
+import {autoBind} from '@sitb/wbs/autoBind';
+import {getActions} from '../../core/store';
 
-import { User } from './User';
-import { Home } from './Home';
-import { menu } from '../../locale';
+import {User} from './User';
+import {Home} from './Home';
+import {menu} from '../../locale';
 
 const styles: any = theme => ({
   tabs: {
@@ -29,9 +30,21 @@ const styles: any = theme => ({
   }
 });
 
+/**
+ * connect
+ */
+@connect(({app}) => ({
+  /*processing: app.processing,
+  searchParams: app.searchParams,
+  page: app.page*/
+}))
+
 @autoBind
 class Container extends React.Component<any, any> {
 
+  componentWillMount() {
+    getActions().session.startQuery();
+  }
   /**
    * Component封装修改对应title
    * @param Component   对应组件

@@ -21,6 +21,11 @@ export const navigator: any = create('navigator', {
   reset: null
 });
 
+export const session: any = create('session', {
+  startQuery: null,
+  queryComplete: null
+});
+
 export const root: any = create('root', {
   start: null
 });
