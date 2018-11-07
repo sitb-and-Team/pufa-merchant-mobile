@@ -88,6 +88,6 @@ export function dispatch(...args) {
   data.store.dispatch(...args);
 }
 
-export function getActions() {
+export function getActions(): { [key: string]: { [key: string]: any } } {
   return data.actions;
 }

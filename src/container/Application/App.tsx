@@ -4,7 +4,6 @@
  * date: 2018/10/30
  */
 import * as React from 'react';
-import {connect} from 'react-redux';
 import {Route, Switch as SwitchRouter} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Tabs from '@material-ui/core/Tabs';
@@ -30,21 +29,9 @@ const styles: any = theme => ({
   }
 });
 
-/**
- * connect
- */
-@connect(({app}) => ({
-  /*processing: app.processing,
-  searchParams: app.searchParams,
-  page: app.page*/
-}))
 
 @autoBind
 class Container extends React.Component<any, any> {
-
-  componentWillMount() {
-    getActions().session.startQuery();
-  }
   /**
    * Component封装修改对应title
    * @param Component   对应组件

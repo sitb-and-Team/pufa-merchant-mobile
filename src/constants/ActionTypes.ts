@@ -34,6 +34,13 @@ export const payment: any = create('payment', {
   queryComplete: null
 });
 
+export const binding: any = create('binding', {
+  startQuery: null,
+  queryComplete: null,
+  sendVerificationCode: null,
+  sendVerificationCodeComplete: null,
+});
+
 export const root: any = create('root', {
   start: null
 });

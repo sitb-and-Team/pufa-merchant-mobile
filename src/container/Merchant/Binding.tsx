@@ -6,10 +6,11 @@
 import * as React from 'react';
 import Form from 'veigar/Form';
 import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
-import { renderFieldGroup } from '../../component/Form/Input';
-import { SitbButton } from '../../component/SitbButton';
-import { autoBind } from '@sitb/wbs/autoBind';
+import {withStyles} from '@material-ui/core/styles';
+import {renderFieldGroup} from '../../component/Form/Input';
+import {SitbButton} from '../../component/SitbButton';
+import {autoBind} from '@sitb/wbs/autoBind';
+import {getActions} from '../../core/store';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -26,7 +27,7 @@ import Typography from '@material-ui/core/Typography';
 import CardActions from '@material-ui/core/CardActions';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
-import { lang } from '../../locale';
+import {lang} from '../../locale';
 
 // css
 const styles: any = theme => ({
@@ -107,12 +108,19 @@ class Container extends React.Component<any, any> {
       return;
     }
     const values: any = this.form.getValue();
+    getActions().binding.startQuery(values.merchantNo);
     console.log('submit', values);
   }
 
   handleSand(e) {
     e.preventDefault();
     const values: any = this.form.getValue();
+    const {merchantNo} = values;
+    if (!merchantNo) {
+      alert('请输入商户号');
+      return;
+    }
+    getActions().binding.sendVerificationCode({merchantNo});
     console.log('send', values);
   }
 
@@ -140,7 +148,7 @@ class Container extends React.Component<any, any> {
                       pointerEvents: countDown === 0 ? 'auto' : 'none',
                       color: '#fff'
                     }}
-                    onClick={e => this.handleSand(e)}
+                    onClick={this.handleSand}
         >
           {countDown === 0 ? '发送验证码' : countDown}
         </SitbButton>

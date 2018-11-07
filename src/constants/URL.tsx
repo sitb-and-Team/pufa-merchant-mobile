@@ -7,5 +7,8 @@ const {api} = (global as any).config;
 
 export default {
   setUrl: url => `${api}/${url}`,
-  session: `${api}/session`
+  session: `${api}/session`,
+  binding: `${api}/binding`,
+  bindSend: `${api}/agency-check-value`,
+  payment: `${api}/payment`,
 }
