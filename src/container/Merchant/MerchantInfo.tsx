@@ -4,10 +4,16 @@
  * date: 2018/10/31
  */
 import * as React from 'react';
-
+// import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { lang } from '../../locale';
 import { SitbCard } from '../../component/Card';
+
+
+/*@connect(({session}) => ({
+  hasLogin: agency.hasLogin,
+  agencies: agency.agencies
+}))*/
 
 // css
 const styles: any = theme => ({});
@@ -29,6 +35,7 @@ class Container extends React.Component<any, any> {
       accountName: '阳尧',
       accountNumber: '43012030210203'
     };
+    // 商户基本信息
     const basic = [{
       label: lang.merchantNo,
       value: 'merchantNo'
@@ -54,6 +61,7 @@ class Container extends React.Component<any, any> {
       label: lang.address,
       value: 'address'
     }];
+    // 商户结算信息
     const cost = [{
       label: lang.settleBankName,
       value: 'settleBankName'
