@@ -108,7 +108,7 @@ class Container extends React.Component<any, any> {
       return;
     }
     const values: any = this.form.getValue();
-    getActions().binding.startQuery(values.merchantNo);
+    getActions().binding.startQuery(values);
     console.log('submit', values);
   }
 
