@@ -38,8 +38,11 @@ export const session: any = create('session', {
 });
 
 export const payment: any = create('payment', {
-  startQuery: null,
-  queryComplete: null
+  /**
+   * 交易信息查询
+   */
+  searchPaymentTrade: null,
+  searchPaymentTradeComplete: null
 });
 
 export const binding: any = create('binding', {

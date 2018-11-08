@@ -18,6 +18,7 @@ import StoreIcon from '@material-ui/icons/Store';
 
 import { menu } from '../../locale';
 import { routerPath } from '../../core/router.config';
+import {loginMerchant} from "../Merchant/MerchantInfo";
 import { getActions } from '../../core/store';
 
 // css
@@ -56,7 +57,19 @@ class Container extends React.Component<any> {
    * 路由跳转
    */
   handleGoToTrade(path) {
+    this.searchPaymentTrade()
+    // const {merchantNo} = loginMerchant;
     getActions().navigator.navigate(path);
+  }
+
+  /**
+   * 交易信息查询
+   */
+  searchPaymentTrade(){
+    const {merchantNo} = loginMerchant;
+    // console.log(merchantNo)
+    getActions().payment.searchPaymentTrade({merchantNo});
+    console.log(merchantNo)
   }
 
   /**

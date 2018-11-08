@@ -1,6 +1,7 @@
 import navigator from './navigator';
 import root from './root';
 import trade from './trade';
+import payment from './payment';
 import session from './session';
 
 /**
@@ -9,6 +10,7 @@ import session from './session';
 export {
   navigator,
   trade,
+  payment,
   session,
   root
 };
