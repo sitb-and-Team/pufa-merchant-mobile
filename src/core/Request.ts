@@ -4,14 +4,14 @@
  * date: 2018/4/25
  */
 import Request, { Params } from '@sitb/wbs/utils/Request';
-import { getAccessToken, getAgencyId } from './SessionServices';
+import { getAccessToken, getMerchantId } from './SessionServices';
 import { queryToObjectWithUrl, urlArgs } from '@sitb/wbs/utils/HttpUtil';
 
 export async function execute({headers, url, method, ...args}: Params) {
   const newHeaders: any = {
     ...headers,
     authorization: `Bearer ${getAccessToken()}`,
-    ['X-Agency-ID']: getAgencyId()
+    ['X-Agency-ID']: getMerchantId()
   };
   let newUrl = url;
   let newArgs: any = Object.assign({}, args);

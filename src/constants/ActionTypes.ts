@@ -26,7 +26,15 @@ export const session: any = create('session', {
    * 获取个人信息
    */
   startProfile: null,
-  profileComplete: null
+  profileComplete: null,
+  getSessionInfo: null,
+  getSessionInfoComplete: null,
+
+  /**
+   * 存储商户id
+   */
+  startMerchantId: '',
+  MerchantIdComplete: '',
 });
 
 export const payment: any = create('payment', {

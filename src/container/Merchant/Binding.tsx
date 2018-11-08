@@ -28,6 +28,9 @@ import CardActions from '@material-ui/core/CardActions';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import {lang} from '../../locale';
+import {connect} from "react-redux";
+import {routerPath} from "../../core/router.config";
+import {setMerchantId} from "../../core/SessionServices";
 
 // css
 const styles: any = theme => ({
@@ -58,6 +61,10 @@ const styles: any = theme => ({
   }
 });
 
+@connect(({session}) => ({
+  hasLogin: session.hasLogin,
+  agencies: session.agencies
+}))
 @autoBind
 class Container extends React.Component<any, any> {
   form;
@@ -77,13 +84,15 @@ class Container extends React.Component<any, any> {
        * 打开商户列表
        */
       isMerchantSelect: false,
-      merchant: '',
+      merchantNo: '',
       /**
        * 是否进入绑定页面状态
        */
       isBind: false
     };
+    console.log(this.props.match)
   }
+
 
   handleChange = name => event => {
     this.setState({[name]: Number(event.target.value)});
@@ -95,8 +104,25 @@ class Container extends React.Component<any, any> {
 
   bindSwitch() {
     this.setState(prefix => ({
-      isBind: !prefix.isBind
+      isBind: !prefix.isBind,
+      merchant: this.props.merchant
     }));
+  }
+
+
+  loginSubmit() {
+    /*const {agencies} = this.props;
+    console.log('this.props:::', agencies);
+    console.log('this.state:::', this.state);*/
+    const {merchantNo} = this.state;
+    if (!merchantNo) {
+      alert('请选择商户');
+      return;
+    }
+    this.merchantSwitch(false);
+    setMerchantId(merchantNo.toString());
+    getActions().navigator.navigate(routerPath.app);
+
   }
 
   handleSubmit(e) {
@@ -121,12 +147,13 @@ class Container extends React.Component<any, any> {
       return;
     }
     getActions().binding.sendVerificationCode({merchantNo});
+    getActions().session.startProfile(values);
     console.log('send', values);
   }
 
   render() {
     const {countDown, submitLoading, merchant, isBind, isMerchantSelect} = this.state;
-    const {classes} = this.props;
+    const {classes, agencies} = this.props;
     //表单配置
     const fields: any = [{
       label: lang.merchantNo,
@@ -165,19 +192,6 @@ class Container extends React.Component<any, any> {
         {'立即绑定'}
       </SitbButton>
     );
-    const merchantList = [{
-      merchantNo: '1000',
-      merchantName: 'test111'
-    }, {
-      merchantNo: '1001',
-      merchantName: 'test111'
-    }, {
-      merchantNo: '1002',
-      merchantName: 'test111'
-    }, {
-      merchantNo: '1003',
-      merchantName: 'test111'
-    }];
     return (
       <Grid container
             justify="center"
@@ -213,7 +227,7 @@ class Container extends React.Component<any, any> {
                     {'已绑定的商户'}
                   </Typography>
                   {
-                    merchantList.map((merchant, index) => (
+                    agencies.map((merchant, index) => (
                       <Typography key={index}
                                   component="p"
                                   gutterBottom
@@ -258,14 +272,14 @@ class Container extends React.Component<any, any> {
                 <InputLabel htmlFor="age-native-simple">{lang.merchantNo}</InputLabel>
                 <Select native
                         value={merchant}
-                        onChange={this.handleChange('merchant')}
+                        onChange={this.handleChange('merchantNo')}
                         input={<Input id="age-native-simple"/>}
                 >
                   <option value=""
                           disabled
                   />
                   {
-                    merchantList.map((merchant, index) => (
+                    agencies.map(({...merchant}, index) => (
                       <option value={merchant.merchantNo}
                               key={index}
                       >
@@ -283,7 +297,7 @@ class Container extends React.Component<any, any> {
             >
               {"取消"}
             </Button>
-            <Button onClick={() => this.merchantSwitch(false)}
+            <Button onClick={this.loginSubmit}
                     color="primary"
             >
               {"确认"}

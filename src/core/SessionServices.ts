@@ -33,12 +33,12 @@ export function getAgencies() {
  */
 export function getAgencyRules() {
   const agencies = getAgencies();
-  const agencyId = getAgencyId();
+  const merchantId = getMerchantId();
   // 默认为false
   let agency: any = false;
-  if ((agencies && Array.isArray(agencies)) && agencyId) {
+  if ((agencies && Array.isArray(agencies)) && merchantId) {
     agencies.forEach(agencyItem => {
-      if (`${agencyItem.id}` === `${agencyId}`) {
+      if (`${agencyItem.id}` === `${merchantId}`) {
         agency = agencyItem;
       }
     });
@@ -59,11 +59,11 @@ export function setAccessToken(accessToken: string) {
   sessionStorage.setItem(SessionKey.accessToken, accessToken);
 }
 
-export function getAgencyId() {
+export function getMerchantId() {
   return sessionStorage.getItem(SessionKey.agencyId) || '';
 }
 
-export function setAgencyId(agencyId) {
+export function setMerchantId(agencyId) {
   return sessionStorage.setItem(SessionKey.agencyId, `${agencyId}`);
 }
 

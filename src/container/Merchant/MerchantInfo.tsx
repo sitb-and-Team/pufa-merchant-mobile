@@ -4,36 +4,41 @@
  * date: 2018/10/31
  */
 import * as React from 'react';
-// import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { lang } from '../../locale';
 import { SitbCard } from '../../component/Card';
+import {connect} from "react-redux";
+import {getMerchantId, getOperator} from "../../core/SessionServices";
 
-
-/*@connect(({session}) => ({
-  hasLogin: agency.hasLogin,
-  agencies: agency.agencies
-}))*/
+// 匹配出当前merchant
+export const loginMerchant = getOperator().find(merchant => merchant.merchantNo === getMerchantId()) || {};
 
 // css
 const styles: any = theme => ({});
 
+@connect(({session}) => ({
+  hasLogin: session.hasLogin,
+  agencies: session.agencies
+}))
+
 class Container extends React.Component<any, any> {
 
   render() {
+    // const {agencies} = this.props;
+    // console.log("loginMerchant==>",loginMerchant);
     const data = {
-      merchantNo: '123123',
-      merchantName: 'test',
-      address: '浦东大道',
-      legalPerson: '阳尧',
-      legalPersonPhone: '17717213771',
-      legalEmail: '878723@qq.com',
-      idType: 'ID_CARD',
-      idNo: '43012030210203',
-      settleBankName: '华夏银行',
-      settleBankNo: '43012030210203',
-      accountName: '阳尧',
-      accountNumber: '43012030210203'
+      merchantNo: loginMerchant.merchantNo,
+      merchantName: loginMerchant.merchantName,
+      address: loginMerchant.address.province,
+      legalPerson: loginMerchant.legalPerson.name,
+      legalPersonPhone: loginMerchant.legalPerson.phoneNo,
+      legalEmail: loginMerchant.legalPerson.email,
+      idType: loginMerchant.legalPerson.idCard.type,
+      idNo: loginMerchant.legalPerson.idCard.number,
+      settleBankName: loginMerchant.settleAccount.bankName,
+      settleBankNo: loginMerchant.settleAccount.bankNo,
+      accountName: loginMerchant.settleAccount.name,
+      accountNumber: loginMerchant.settleAccount.number
     };
     // 商户基本信息
     const basic = [{
@@ -87,6 +92,7 @@ class Container extends React.Component<any, any> {
                 dataResource={data}
       />
     )
+
   }
 }
 

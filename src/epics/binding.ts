@@ -24,9 +24,6 @@ export function startQuery(action$) {
         body: JSON.stringify({checkValue}),
       })
     }),
-    /*mapTo(({
-      type: types.queryComplete
-    }))),*/
     mergeMap((payload: any) => {
       const {success} = payload;
       const result = [of({
