@@ -5,83 +5,123 @@
  */
 import * as React from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
-import { lang } from '../../locale';
-import { SitbCard } from '../../component/Card';
+import {withStyles} from '@material-ui/core/styles';
+import {lang} from '../../locale';
+import {SitbCard} from '../../component/Card';
 import weChat from '@sitb/svg-icon/weChat';
 import aliPay from '@sitb/svg-icon/aliPay';
 import quickPay from '@sitb/svg-icon/quickPay';
-import { background } from '../../styles/color';
+import {loginMerchant} from "./MerchantInfo";
+import {connect} from "react-redux";
+import {background} from "../../styles/color";
+
+
 
 // css
 const styles: any = theme => ({});
 
-class Container extends React.Component<any, any> {
+@connect(({session}) => ({
+  hasLogin: session.hasLogin,
+  agencies: session.agencies
+}))
 
+class Container extends React.Component<any, any> {
   render() {
-    const data = {
-      weChat: {
-        normalFeeRate: {
-          fee: '0.48%'
-        },
-        serviceFeeRate: {
-          fee: '3元'
-        }
-      },
-      aliPay: {
-        normalFeeRate: {
-          fee: '0.48%'
-        },
-        serviceFeeRate: {
-          fee: '3元'
-        }
-      },
-      quickPay: {
-        normalFeeRate: {
-          fee: '0.48%'
-        },
-        serviceFeeRate: {
-          fee: '3元'
+    console.log("loginMerchant==>", loginMerchant.businesses);
+
+    const configs: any = [];
+    // 匹配出当前loginMerchantBusiness
+    loginMerchant.businesses.forEach((business) => {
+      let Default_business: any = {};
+      if (business.businessType === "WeChat_PAY") {
+        const weChatConfig = [{
+          label: lang.normalFeeRate.fee,
+          value: 'normalFeeRate.fee'
+        }, {
+          label: lang.normalFeeRate.min,
+          value: 'normalFeeRate.min'
+        }, {
+          label: lang.normalFeeRate.type,
+          value: 'normalFeeRate.type'
+        }, {
+          label: lang.serviceFeeRate.fee,
+          value: 'serviceFeeRate.fee'
+        }, {
+          label: lang.serviceFeeRate.min,
+          value: 'serviceFeeRate.min'
+        }, {
+          label: lang.serviceFeeRate.type,
+          value: 'serviceFeeRate.type'
+        }];
+
+        Default_business = {
+          title: lang.weChat,
+          titleIcon: weChat({fill: background.weChat, width: 30, height: 30}),
+          config: weChatConfig
         }
       }
-    };
-    const weChatConfig = [{
-      label: lang.normalFeeRate.fee,
-      value: 'weChat.normalFeeRate.fee'
-    }, {
-      label: lang.serviceFeeRate.fee,
-      value: 'weChat.serviceFeeRate.fee'
-    }];
-    const aliPayConfig = [{
-      label: lang.normalFeeRate.fee,
-      value: 'aliPay.normalFeeRate.fee'
-    }, {
-      label: lang.serviceFeeRate.fee,
-      value: 'aliPay.serviceFeeRate.fee'
-    }];
-    const quickPayConfig = [{
-      label: lang.normalFeeRate.fee,
-      value: 'quickPay.normalFeeRate.fee'
-    }, {
-      label: lang.serviceFeeRate.fee,
-      value: 'quickPay.serviceFeeRate.fee'
-    }];
-    const configs = [{
-      title: lang.weChat,
-      titleIcon: weChat({width: 30, height: 30}),
-      config: weChatConfig
-    }, {
-      title: lang.aliPay,
-      titleIcon: aliPay({fill: background.aliPay, width: 30, height: 30}),
-      config: aliPayConfig
-    }, {
-      title: lang.quickPay,
-      titleIcon: quickPay({fill: background.quickPay, width: 30, height: 30}),
-      config: quickPayConfig
-    }];
+
+      if (business.businessType === "AliPay_PAY") {
+        const aliPayConfig = [{
+          label: lang.normalFeeRate.fee,
+          value: 'normalFeeRate.fee'
+        }, {
+          label: lang.normalFeeRate.min,
+          value: 'normalFeeRate.min'
+        }, {
+          label: lang.normalFeeRate.type,
+          value: 'normalFeeRate.type'
+        }, {
+          label: lang.serviceFeeRate.fee,
+          value: 'serviceFeeRate.fee'
+        }, {
+          label: lang.serviceFeeRate.min,
+          value: 'serviceFeeRate.min'
+        }, {
+          label: lang.serviceFeeRate.type,
+          value: 'serviceFeeRate.type'
+        }];
+        Default_business = {
+          title: lang.aliPay,
+          titleIcon: aliPay({fill: background.aliPay, width: 30, height: 30}),
+          config: aliPayConfig
+        }
+      }
+
+      if (business.businessType === "UNION_PAY") {
+        const quickPayConfig = [{
+          label: lang.normalFeeRate.fee,
+          value: 'normalFeeRate.fee'
+        }, {
+          label: lang.normalFeeRate.min,
+          value: 'normalFeeRate.min'
+        }, {
+          label: lang.normalFeeRate.type,
+          value: 'normalFeeRate.type'
+        }, {
+          label: lang.serviceFeeRate.fee,
+          value: 'serviceFeeRate.fee'
+        }, {
+          label: lang.serviceFeeRate.min,
+          value: 'serviceFeeRate.min'
+        }, {
+          label: lang.serviceFeeRate.type,
+          value: 'serviceFeeRate.type'
+        }];
+        Default_business = {
+          title: lang.quickPay,
+          titleIcon: quickPay({fill: background.quickPay, width: 30, height: 30}),
+          config: quickPayConfig
+        }
+      }
+      configs.push(Default_business);
+    });
+
+    console.log(configs);
+
     return (
       <SitbCard configs={configs}
-                dataResource={data}
+                dataResource={loginMerchant.businesses}
       />
     )
   }

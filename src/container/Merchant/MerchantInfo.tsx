@@ -24,22 +24,7 @@ const styles: any = theme => ({});
 class Container extends React.Component<any, any> {
 
   render() {
-    // const {agencies} = this.props;
-    // console.log("loginMerchant==>",loginMerchant);
-    const data = {
-      merchantNo: loginMerchant.merchantNo,
-      merchantName: loginMerchant.merchantName,
-      address: loginMerchant.address.province,
-      legalPerson: loginMerchant.legalPerson.name,
-      legalPersonPhone: loginMerchant.legalPerson.phoneNo,
-      legalEmail: loginMerchant.legalPerson.email,
-      idType: loginMerchant.legalPerson.idCard.type,
-      idNo: loginMerchant.legalPerson.idCard.number,
-      settleBankName: loginMerchant.settleAccount.bankName,
-      settleBankNo: loginMerchant.settleAccount.bankNo,
-      accountName: loginMerchant.settleAccount.name,
-      accountNumber: loginMerchant.settleAccount.number
-    };
+    console.log("loginMerchant==>",loginMerchant);
     // 商户基本信息
     const basic = [{
       label: lang.merchantNo,
@@ -49,36 +34,36 @@ class Container extends React.Component<any, any> {
       value: 'merchantName'
     }, {
       label: lang.legalPerson,
-      value: 'legalPerson'
+      value: 'legalPerson.name'
     }, {
       label: lang.legalPersonPhone,
-      value: 'legalPersonPhone'
+      value: 'legalPerson.phoneNo'
     }, {
       label: lang.legalEmail,
-      value: 'legalEmail'
+      value: 'legalPerson.email'
     }, {
       label: lang.idType,
-      value: 'idType'
+      value: 'legalPerson.idCard.type'
     }, {
       label: lang.idNo,
-      value: 'idNo'
+      value: 'legalPerson.idCard.number'
     }, {
       label: lang.address,
-      value: 'address'
+      value: 'address.province'
     }];
     // 商户结算信息
     const cost = [{
       label: lang.settleBankName,
-      value: 'settleBankName'
+      value: 'settleAccount.bankName'
     }, {
       label: lang.settleBankNo,
-      value: 'settleBankNo'
+      value: 'settleAccount.bankNo'
     }, {
       label: lang.accountName,
-      value: 'accountName'
+      value: 'settleAccount.name'
     }, {
       label: lang.accountNumber,
-      value: 'accountNumber'
+      value: 'settleAccount.number'
     }];
     const configs = [{
       title: lang.merchant.basic,
@@ -89,7 +74,7 @@ class Container extends React.Component<any, any> {
     }];
     return (
       <SitbCard configs={configs}
-                dataResource={data}
+                dataResource={loginMerchant}
       />
     )
 

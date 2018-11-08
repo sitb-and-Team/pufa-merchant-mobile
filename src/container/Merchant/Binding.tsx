@@ -154,6 +154,7 @@ class Container extends React.Component<any, any> {
   render() {
     const {countDown, submitLoading, merchant, isBind, isMerchantSelect} = this.state;
     const {classes, agencies} = this.props;
+    // console.log(agencies);
     //表单配置
     const fields: any = [{
       label: lang.merchantNo,
@@ -271,6 +272,7 @@ class Container extends React.Component<any, any> {
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="age-native-simple">{lang.merchantNo}</InputLabel>
                 <Select native
+                        displayEmpty={false}
                         value={merchant}
                         onChange={this.handleChange('merchantNo')}
                         input={<Input id="age-native-simple"/>}

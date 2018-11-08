@@ -1,6 +1,6 @@
 import {ofType} from 'redux-observable';
 import {session as types} from '../constants/ActionTypes';
-import {filter, map, switchMap} from "rxjs/operators";
+import {filter, switchMap, tap} from "rxjs/operators";
 import {execute} from "../core/Request";
 import URL from "../constants/URL";
 import {saveOperator, setMerchantId} from '../core/SessionServices';
@@ -14,14 +14,12 @@ export function startProfile(action$) {
   return action$.pipe(
     ofType(types.startProfile),
     switchMap(() => execute({
-      url: `${URL.session}/me`
+      url: `${URL.session}/me`,
+      type: types.profileComplete
     })),
-    map((payload: any) => {
+    tap((payload: any) => {
       if (payload.success) {
         saveOperator(payload.payload);
-      }
-      return {
-        type: types.profileComplete
       }
     }))
 }
