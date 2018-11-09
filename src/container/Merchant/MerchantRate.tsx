@@ -27,7 +27,7 @@ const styles: any = theme => ({});
 
 class Container extends React.Component<any, any> {
   render() {
-    console.log("loginMerchant==>", loginMerchant.businesses);
+    // console.log("loginMerchant==>", loginMerchant.businesses);
 
     const configs: any = [];
     // 匹配出当前loginMerchantBusiness
@@ -117,7 +117,7 @@ class Container extends React.Component<any, any> {
       configs.push(Default_business);
     });
 
-    console.log(configs);
+    // console.log(configs);
 
     return (
       <SitbCard configs={configs}
