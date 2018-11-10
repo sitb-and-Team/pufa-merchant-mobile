@@ -4,22 +4,27 @@
  * date: 2018/10/30
  */
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
+import {connect} from 'react-redux';
+import moment from 'moment';
+import {withStyles} from '@material-ui/core/styles';
 import List from 'veigar/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { autoBind } from '@sitb/wbs/autoBind';
-import { getActions } from '../core/store';
+import {autoBind} from '@sitb/wbs/autoBind';
+import {getActions} from '../core/store';
 
 import Grid from '@material-ui/core/Grid';
 import weChat from '@sitb/svg-icon/weChat';
 import aliPay from '@sitb/svg-icon/aliPay';
 import quickPay from '@sitb/svg-icon/quickPay';
 import money from '@sitb/svg-icon/money';
-import { background } from '../styles/color';
+import {background} from '../styles/color';
+import {loginMerchant} from "./Merchant/MerchantInfo";
+import {routerPath} from "../core/router.config";
+import {momentCommon} from "../constants/objectKey";
+
 
 // css
 const styles = theme => ({
@@ -39,13 +44,37 @@ const styles = theme => ({
   }
 });
 
-@connect(({trade}) => ({
-  searchParams: trade.searchParams,
-  processing: trade.processing,
-  page: trade.page
+@connect(({payment}) => ({
+  searchParams: payment.searchParams,
+  processing: payment.processing,
+  page: payment.page
 }))
 @autoBind
-class Container extends React.Component<any> {
+class Container extends React.Component<any, any> {
+
+  /**
+   * 交易信息查询
+   */
+  componentWillMount() {
+    const {merchantNo} = loginMerchant;
+    this.handleSearch({merchantNo, page: 0})
+  }
+
+  componentDidMount() {
+    const {page: {content}} = this.props;
+
+    this.setState({
+      record: content
+    });
+  }
+
+  /**
+   * 路由跳转
+   */
+  handleGoToTradeDetail(path) {
+    getActions().navigator.navigate(path);
+  }
+
   /**
    * 渲染list
    * @param {any} item  当前行数据
@@ -53,7 +82,8 @@ class Container extends React.Component<any> {
    * @returns {any}
    */
   renderItem({item, index}) {
-    const {type} = item;
+    const {businessType} = item;
+    let type = businessType;
     // svg默认props
     let svgProps = {fill: '#fff', width: 30, height: 30};
     let svg = {
@@ -61,15 +91,29 @@ class Container extends React.Component<any> {
       'aliPay': aliPay,
       'quickPay': quickPay
     };
+    if (businessType.search("we") !== -1) {
+      type = svg.weChat;
+    }
+    if (businessType.search("ali") !== -1) {
+      type = svg.aliPay;
+    }
+    if (businessType.search("quick") !== -1) {
+      type = svg.quickPay
+    }
+    const {id} = item;
+    item.paymentAt = item && moment(item.paymentAt).format(momentCommon.DATETIME_FORMAT);
     return (
       <ListItem button
                 key={index}
                 divider={index % 5 === 0}
+                onClick={() => this.handleGoToTradeDetail(`${routerPath.trade}/${id}`)}
       >
         <Avatar style={{background: background[type] || background.default}}>
           {svg[type] && svg[type](svgProps) || money(svgProps)}
         </Avatar>
-        <ListItemText primary={`Photos${item.id}`} secondary={`Jan 9, 2014${index}`}/>
+        <ListItemText primary={`${item.merchant.merchantNo}-${item.merchant.merchantName}`}
+                      secondary={`${item.paymentAt}`}/>
+        <ListItemText primary={`${item.totalAmount} 元`} secondary={`${item.status}`}/>
       </ListItem>
     )
   }
@@ -104,14 +148,14 @@ class Container extends React.Component<any> {
    *  下拉时触发
    */
   handleLoadMore() {
-    const {listLoading, page} = this.props;
+    const {processing, page} = this.props;
     const {last, number} = page;
-    if (listLoading || last) {
+    if (processing || last) {
       return;
     }
     this.handleSearch({
       ...this.props.searchParams,
-      pageable: number + 1
+      page: number + 1
     });
   }
 
@@ -121,7 +165,7 @@ class Container extends React.Component<any> {
    */
   handleSearch(params) {
     console.log('search', params);
-    getActions().trade.startQuery(params);
+    getActions().payment.searchPaymentTrade(params);
   }
 
   render() {

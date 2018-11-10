@@ -24,19 +24,25 @@ const DEFAULT_STATE = {
 
 export default compose((state = DEFAULT_STATE, action): StoreState => {
   // type是动作类型，payload是发送请求的其他参数
-  const {payload, type, status} = action;
+  const {payload, type, status, success} = action;
   switch (type) {
-    case types.startQuery: {
+    case types.searchPaymentTrade: {
       return {
         ...state,
         processing: true,
         searchParams: {
           ...state.searchParams,
-          ...type === types.startQuery && payload
+          ...type === types.searchPaymentTrade && payload
         }
       };
     }
-    case types.queryComplete: {
+    case types.searchPaymentTradeComplete: {
+      const {content} = payload;
+      const oldItem: any = state.page.content;
+      if (success === true){
+        content.push(...oldItem)
+      }
+
       return {
         ...state,
         page: (status === '0000' && payload instanceof Object) && payload || state.page,

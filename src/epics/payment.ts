@@ -3,6 +3,7 @@ import {ofType} from 'redux-observable';
 import {switchMap} from 'rxjs/operators';
 import {payment as types} from '../constants/ActionTypes';
 import {execute} from '../core/Request';
+import {urlArgs} from "@sitb/wbs/utils/HttpUtil";
 
 /**
  * 查看交易信息
@@ -11,10 +12,10 @@ import {execute} from '../core/Request';
 export function searchPaymentTrade(action$) {
   return action$.pipe(
     ofType(types.searchPaymentTrade),
-    switchMap(({payload}) => {
-      const {merchantNo} = payload;
+    switchMap(({payload}: any) => {
+      const {merchantNo, ...other} = payload;
       return execute({
-        url: `${URL.payment}/trades/${merchantNo}`,
+        url: `${URL.payment}/trades/${merchantNo}?${urlArgs(other)}`,
         type: types.searchPaymentTradeComplete
       })
     }))
