@@ -11,7 +11,7 @@ import {connect} from "react-redux";
 import {getMerchantId, getOperator} from "../../core/SessionServices";
 
 // 匹配出当前merchant
-export const loginMerchant = getOperator().find(merchant => merchant.merchantNo === getMerchantId()) || {};
+export const loginMerchant = getOperator() && getOperator().find(merchant => merchant.merchantNo === getMerchantId()) || {};
 
 // css
 const styles: any = theme => ({});
