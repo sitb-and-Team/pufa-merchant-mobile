@@ -6,7 +6,7 @@
 import * as React from 'react';
 import objectPath from 'object-path';
 
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
@@ -57,6 +57,15 @@ export interface Props {
 
 class Container extends React.Component<Props> {
 
+  filterValue(dataResource, item) {
+    let value: any = objectPath.get(dataResource, item.value);
+    if (item.setValue) {
+      value = item.setValue(value);
+    }
+    // console.log(dataResource, item, value);
+    return value;
+  }
+
   render() {
     const {classes, titleIcon, title, config, dataResource} = this.props;
     return (
@@ -86,7 +95,7 @@ class Container extends React.Component<Props> {
                     className={classes.cardItem}
               >
                 <div className={classes.itemLabel_mode}>{`${values.label}:`}</div>
-                <div className={classes.itemValue_mode}>{objectPath.get(dataResource, values.value)}</div>
+                <div className={classes.itemValue_mode}>{this.filterValue(dataResource, values)}</div>
               </Grid>
             ))
           }

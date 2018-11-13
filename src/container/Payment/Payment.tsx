@@ -26,16 +26,7 @@ class Container extends React.Component<any, any> {
 
   render() {
     const {params} = this.props;
-    console.log(this.props);
-    /*const data = {
-      merchantNo: '商户号',
-      merchantName: '商户名',
-      auditNumber: '流水号',
-      totalAmount: '总支付金额',
-      status: '支付状态',
-      paymentAt: '支付时间',
-      remark: '支付描述'
-    };*/
+    // console.log(params);
     const basic = [{
       label: lang.merchantNo,
       value: 'merchant.merchantNo'
@@ -47,7 +38,8 @@ class Container extends React.Component<any, any> {
       value: 'auditNumber'
     }, {
       label: lang.payment.totalAmount,
-      value: 'totalAmount'
+      value: 'totalAmount',
+      setValue: string => `${string} 元`
     }, {
       label: lang.payment.status,
       value: 'status'
