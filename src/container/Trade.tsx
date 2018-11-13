@@ -60,19 +60,14 @@ class Container extends React.Component<any, any> {
     this.handleSearch({merchantNo, page: 0})
   }
 
-  componentDidMount() {
-    const {page: {content}} = this.props;
-
-    this.setState({
-      record: content
-    });
-  }
-
   /**
    * 路由跳转
    */
-  handleGoToTradeDetail(path) {
-    getActions().navigator.navigate(path);
+  handleGoToTradeDetail(params) {
+    getActions().navigator.navigate({
+      routeName: routerPath.paymentDetail,
+      params
+    });
   }
 
   /**
@@ -91,27 +86,71 @@ class Container extends React.Component<any, any> {
       'aliPay': aliPay,
       'quickPay': quickPay
     };
-    if (businessType.search("we") !== -1) {
-      type = svg.weChat;
+    if (businessType.search("We") !== -1) {
+      type = "weChat";
     }
-    if (businessType.search("ali") !== -1) {
-      type = svg.aliPay;
+    if (businessType.search("Ali") !== -1) {
+      type = "aliPay";
     }
-    if (businessType.search("quick") !== -1) {
-      type = svg.quickPay
+    if (businessType.search("UNION") !== -1) {
+      type = "quickPay";
     }
-    const {id} = item;
+
     item.paymentAt = item && moment(item.paymentAt).format(momentCommon.DATETIME_FORMAT);
+
+    //交易状态
+    //成功
+    if (item.status.search("SUCCESS") !== -1) {
+      item.status = "交易成功"
+    }
+    //失败
+    if (item.status.search("FAILURE") !== -1) {
+      item.status = "交易失败"
+    }
+    //待支付
+    if (item.status.search("WAIT_PAYMENT") !== -1) {
+      item.status = "待支付"
+    }
+    //处理中
+    if (item.status.search("PROCESSING") !== -1) {
+      item.status = "处理中"
+    }
+    //交易撤销
+    if (item.status.search("CANCELLED") !== -1) {
+      item.status = "交易撤销"
+    }
+    //交易已经退货
+    if (item.status.search("REFUNDED") !== -1) {
+      item.status = "交易已经退货"
+    }
+    //已经部分退货
+    if (item.status.search("REFUNDED_PART") !== -1) {
+      item.status = "已经部分退货"
+    }
+    //交易关闭
+    if (item.status.search("CLOSE") !== -1) {
+      item.status = "交易关闭"
+    }
+    //删除
+    if (item.status.search("DELETE") !== -1) {
+      item.status = "删除"
+    }
+   /* let RENDER_VALUE: any = `${item}`;
+    if(item.totalAmount){
+      RENDER_VALUE = item.totalAmount + '元'
+    }
+    return RENDER_VALUE;*/
+
     return (
       <ListItem button
                 key={index}
                 divider={index % 5 === 0}
-                onClick={() => this.handleGoToTradeDetail(`${routerPath.trade}/${id}`)}
+                onClick={() => this.handleGoToTradeDetail(item)}
       >
         <Avatar style={{background: background[type] || background.default}}>
           {svg[type] && svg[type](svgProps) || money(svgProps)}
         </Avatar>
-        <ListItemText primary={`${item.merchant.merchantNo}-${item.merchant.merchantName}`}
+        <ListItemText primary={`${item.merchant.merchantName}`}
                       secondary={`${item.paymentAt}`}/>
         <ListItemText primary={`${item.totalAmount} 元`} secondary={`${item.status}`}/>
       </ListItem>
@@ -164,7 +203,7 @@ class Container extends React.Component<any, any> {
    * @param params 搜索参数
    */
   handleSearch(params) {
-    console.log('search', params);
+    /*console.log('search', params);*/
     getActions().payment.searchPaymentTrade(params);
   }
 

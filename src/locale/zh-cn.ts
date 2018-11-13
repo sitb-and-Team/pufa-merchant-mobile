@@ -30,6 +30,7 @@ export const lang = {
   settleBankNo: '结算银行行号',
   accountName: '结算账户名',
   accountNumber: '结算账户号',
+  auditNumber: "交易流水号",
   merchantName: '商户名',
   merchantNo: '商户号',
   checkValue: '验证码',
@@ -37,7 +38,14 @@ export const lang = {
     basic: '商户基本信息',
     cost: '商户结算信息',
     list: '商户列表'
-  }
+  },
+  payment: {
+    at: "支付时间",
+    remark: "描述",
+    status: "支付状态",
+    totalAmount: "支付金额"
+  },
+  paymentDetail: '交易详情'
 };
 
 
@@ -47,7 +55,8 @@ export const menu = {
   tradeRecord: '交易记录',
   merchantBinding: '商户绑定',
   merchantInfo: '商户信息',
-  merchantRate: '费率信息'
+  merchantRate: '费率信息',
+  paymentDetail: '交易详情'
 };
 
 export const resErrMsg = {};

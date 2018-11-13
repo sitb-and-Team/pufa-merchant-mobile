@@ -90,7 +90,6 @@ class Container extends React.Component<any, any> {
        */
       isBind: false
     };
-    console.log(this.props.match)
   }
 
 
