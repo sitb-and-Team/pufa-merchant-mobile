@@ -14,7 +14,6 @@ import Tab from '@material-ui/core/Tab';
 import grey from '@material-ui/core/colors/grey';
 
 import EventNoteIcon from '@material-ui/icons/EventNote';
-import StoreIcon from '@material-ui/icons/Store';
 
 import { menu } from '../../locale';
 import { routerPath } from '../../core/router.config';
@@ -60,7 +59,6 @@ class Container extends React.Component<any> {
   }
 
 
-
   /**
    * 渲染tab图标
    * @param tabs    配置参数
@@ -92,10 +90,6 @@ class Container extends React.Component<any> {
       label: menu.tradeRecord,
       Icon: EventNoteIcon,
       path: routerPath.trade
-    }, {
-      label: menu.merchantBinding,
-      Icon: StoreIcon,
-      path: routerPath.merchantBinding
     }];
     return (
       <Grid>
