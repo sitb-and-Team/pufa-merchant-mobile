@@ -9,5 +9,5 @@ export default {
   /**
    * 当前选择的机构信息
    */
-  agencyId: 'PUFA_MOBILE_MERCHANT_ID'
+  merchantId: 'PUFA_MOBILE_MERCHANT_ID'
 };
