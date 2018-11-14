@@ -10,7 +10,7 @@ import { PaymentDetail } from '../container/Payment/Payment';
 export const routerPath = {
   app: '/app',
   trade: '/trade',
-  merchantBinding: '/Binding',
+  merchantBinding: '/binding',
   merchantInfo: '/merchantInfo',
   merchantRate: '/merchantRate',
   paymentDetail: '/paymentDetail'
