@@ -6,12 +6,12 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import {CardContent as SitbCardContent, Props as CardProps} from './CardContent';
+import { CardContent as SitbCardContent, Props as CardProps } from './CardContent';
 import Grid from '@material-ui/core/Grid';
 
 // css
@@ -65,6 +65,7 @@ class Container extends React.Component<Props> {
           </CardActionArea>
           <CardContent>
             {
+              (!configs.length || !dataResource.length) && '无数据' ||
               configs.map((config, index) => {
                 let newDataResource: any = dataResource;
                 if (Array.isArray(dataResource)) {
