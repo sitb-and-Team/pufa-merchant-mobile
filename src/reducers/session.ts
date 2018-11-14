@@ -3,10 +3,10 @@ import { session as types } from '../constants/ActionTypes';
 
 const DEFAULT_STATE = {
   /**
-   * 判断是否跳转到登录
+   * 判断是否绑定
    */
-  hasLogin: false,
-  agencies: []
+  hasBinding: false,
+  merchants: []
 };
 
 /**
@@ -19,15 +19,15 @@ export default compose((state = DEFAULT_STATE, action) => {
     case types.startProfile:
       return {
         ...state,
-        hasLogin: false
+        hasBinding: false
       };
     // 获取个人机构信息end
     case types.profileComplete: {
       return {
         ...state,
-        hasLogin: !success,
-        agencies: success && payload || state.agencies
-      }
+        hasBinding: success && payload.length > 0,
+        merchants: success && payload || state.merchants
+      };
     }
     default:
       return state;
