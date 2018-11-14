@@ -8,6 +8,7 @@ import { merge, of } from 'rxjs/index';
 import { getActions, getState } from '../core/store';
 import { map, tap } from 'rxjs/internal/operators';
 import actionToast from '../core/actionToast';
+import { routerPath } from '../core/router.config';
 
 /**
  * 绑定用户
@@ -35,6 +36,7 @@ export function startQuery(action$) {
       // 成功发起query请求
       if (success) {
         // 重置验证码、获取商户信息
+        getActions().navigator.navigate(routerPath.merchantLogin);
         getActions().binding.countDownComplete();
         getActions().session.startProfile();
       }
