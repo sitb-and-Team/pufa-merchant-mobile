@@ -1,10 +1,11 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { HashRouter, Redirect, Route } from 'react-router-dom';
 import { queryToObjectWithUrl } from '@sitb/wbs/utils/HttpUtil';
 
 import { getActions, getState } from '../core/store';
 import { setAccessToken } from '../core/SessionServices';
-import routes from '../core/router.config';
+import routes, { routerPath } from '../core/router.config';
 
 function createRender(route) {
   return props => {
@@ -22,6 +23,9 @@ function createRender(route) {
 /**
  * @author 田尘殇Sean(sean.snow@live.com) create at 2018/10/2
  */
+@connect(({session}) => ({
+  hasBinding: session.hasBinding
+}))
 export default class App extends React.Component<any, any> {
 
   componentWillMount() {
@@ -42,12 +46,15 @@ export default class App extends React.Component<any, any> {
   }
 
   render() {
+    const {hasBinding} = this.props;
+    // 判断绑定状态，跳转path
+    const path = hasBinding && routerPath.merchantBinding || routerPath.merchantRegister;
     return (
       <HashRouter>
         <React.Fragment>
           <Route exact
                  path="/"
-                 render={() => (<Redirect to="/app"/>)}
+                 render={() => (<Redirect to={path}/>)}
           />
           {routes.map((route: any, index) => (
             <Route path={route.path}
