@@ -61,10 +61,6 @@ export interface Props {
 @autoBind
 class Container extends React.Component<Props, any> {
 
-  handleUpdateProfileSwitch(path) {
-    getActions().navigator.navigate(path);
-  }
-
   render() {
     const {classes, serviceButtonName, serviceButtonBan = false, routePath} = this.props;
     return (
@@ -97,7 +93,7 @@ class Container extends React.Component<Props, any> {
                   color="primary"
                   disabled={serviceButtonBan}
                   className={classes.mainFootBtn}
-                  onClick={() => this.handleUpdateProfileSwitch(routePath)}
+                  onClick={() => getActions().navigator.navigate(routePath)}
           >
             {serviceButtonName}
           </Button>
