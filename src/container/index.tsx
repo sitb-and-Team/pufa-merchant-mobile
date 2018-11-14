@@ -48,7 +48,7 @@ export default class App extends React.Component<any, any> {
   render() {
     const {hasBinding} = this.props;
     // 判断绑定状态，跳转path
-    const path = hasBinding && routerPath.merchantBinding || routerPath.merchantRegister;
+    const path = hasBinding && routerPath.merchantLogin || routerPath.merchantBinding;
     return (
       <HashRouter>
         <React.Fragment>
