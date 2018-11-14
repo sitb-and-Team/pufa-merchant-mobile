@@ -5,9 +5,9 @@
  */
 export default {
   loginOperator: 'PUFA_MOBILE_LOGIN_USER',
-  accessToken: 'PUFA_MOBILE_ACCESS_TOKEN',
+  accessToken: 'PUFA_MOBILE_MERCHANT_TOKEN',
   /**
    * 当前选择的机构信息
    */
-  agencyId: 'PUFA_MOBILE_AGENCY_ID'
+  agencyId: 'PUFA_MOBILE_MERCHANT_ID'
 };
