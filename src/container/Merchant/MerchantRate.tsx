@@ -27,11 +27,11 @@ const styles: any = theme => ({});
 
 class Container extends React.Component<any, any> {
   render() {
-    // console.log("loginMerchant==>", loginMerchant.businesses);
-
     const configs: any = [];
+
+    const businesses = loginMerchant && loginMerchant.businesses || [];
     // 匹配出当前loginMerchantBusiness
-    loginMerchant.businesses.forEach((business) => {
+    businesses.forEach((business) => {
       let Default_business: any = {};
       if (business.businessType === "WeChat_PAY") {
         const weChatConfig = [{
@@ -116,8 +116,6 @@ class Container extends React.Component<any, any> {
       }
       configs.push(Default_business);
     });
-
-    // console.log(configs);
 
     return (
       <SitbCard configs={configs}
