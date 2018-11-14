@@ -59,7 +59,7 @@ class Container extends React.Component<Props> {
           <CardActionArea>
             <CardMedia component="img"
                        className={classes.cardMedia}
-                       image="http://img.zcool.cn/community/01f9eb5768ee240000018c1b3f524a.jpg"
+                       image={require('../../assets/pictureInfo.png')}
                        title="Contemplative Reptile"
             />
           </CardActionArea>
