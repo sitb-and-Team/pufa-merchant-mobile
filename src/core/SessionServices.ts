@@ -19,38 +19,6 @@ export function getOperator() {
   return null;
 }
 
-/**
- * 获取当前操作员拥有的机构信息
- */
-export function getAgencies() {
-  const {agencies} = getOperator() || {agencies: []};
-  return agencies;
-}
-
-/**
- * 获取机构权限
- * @returns {any}
- */
-export function getAgencyRules() {
-  const agencies = getAgencies();
-  const merchantId = getMerchantId();
-  // 默认为false
-  let agency: any = false;
-  if ((agencies && Array.isArray(agencies)) && merchantId) {
-    agencies.forEach(agencyItem => {
-      if (`${agencyItem.id}` === `${merchantId}`) {
-        agency = agencyItem;
-      }
-    });
-  }
-  if (agency) {
-    return agency.roles[0].rules;
-  }
-  // 清空机构id，并返回false
-  resetAgencyId();
-  return agency;
-}
-
 export function getAccessToken() {
   return sessionStorage.getItem(SessionKey.accessToken) || '';
 }
@@ -60,17 +28,17 @@ export function setAccessToken(accessToken: string) {
 }
 
 export function getMerchantId() {
-  return sessionStorage.getItem(SessionKey.agencyId) || '';
+  return sessionStorage.getItem(SessionKey.merchantId) || '';
 }
 
 export function setMerchantId(agencyId) {
-  return sessionStorage.setItem(SessionKey.agencyId, `${agencyId}`);
+  return sessionStorage.setItem(SessionKey.merchantId, `${agencyId}`);
 }
 
 
 // 清除当前选择的机构
-export function resetAgencyId() {
-  sessionStorage.removeItem(SessionKey.agencyId);
+export function resetMerchantId() {
+  sessionStorage.removeItem(SessionKey.merchantId);
 }
 
 // 清除缓存
@@ -79,5 +47,5 @@ export function resetStorage() {
   sessionStorage.removeItem(SessionKey.loginOperator);
   // 清除access token
   sessionStorage.removeItem(SessionKey.accessToken);
-  resetAgencyId();
+  resetMerchantId();
 }
