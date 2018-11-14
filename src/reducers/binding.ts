@@ -10,12 +10,25 @@ const DEFAULT_STATE = {
   /**
    * 验证码倒计时
    */
-  countDown: 0
+  countDown: 0,
+  processing: false
 };
 
 export default compose((state = DEFAULT_STATE, action) => {
   const {payload, type} = action;
   switch (type) {
+    case types.startQuery: {
+      return {
+        ...state,
+        processing: true
+      };
+    }
+    case types.queryComplete: {
+      return {
+        ...state,
+        processing: false
+      };
+    }
     // 初始化倒计时时间
     case types.resetCountDown: {
       return {
