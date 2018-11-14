@@ -29,7 +29,6 @@ export const session: any = create('session', {
   profileComplete: null,
   getSessionInfo: null,
   getSessionInfoComplete: null,
-
   /**
    * 存储商户id
    */
@@ -50,6 +49,15 @@ export const binding: any = create('binding', {
   queryComplete: null,
   sendVerificationCode: null,
   sendVerificationCodeComplete: null,
+  /**
+   * 倒计时
+   */
+  startCountDown: null,
+  countDownComplete: null,
+  /**
+   * 重置倒计时时间
+   */
+  resetCountDown: null
 });
 
 export const root: any = create('root', {
