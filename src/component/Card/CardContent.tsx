@@ -13,11 +13,8 @@ import Divider from '@material-ui/core/Divider';
 
 // css
 const styles: any = theme => ({
-  cardTitle: {
-    marginTop: 24
-  },
   cardItem: {
-    marginTop: 5
+    marginBottom: 10
   },
   itemLabel_mode: {
     color: theme.palette.text.secondary
@@ -69,11 +66,10 @@ class Container extends React.Component<Props> {
   render() {
     const {classes, titleIcon, title, config, dataResource} = this.props;
     return (
-      <React.Fragment>
+      <Grid className={classes.cardItem}>
         <Typography gutterBottom
-                    variant="h5"
-                    component="h5"
-                    className={classes.cardTitle}
+                    variant="h6"
+                    component="div"
         >
           <Grid item
                 container
@@ -101,7 +97,7 @@ class Container extends React.Component<Props> {
           }
         </Typography>
         <Divider component="div"/>
-      </React.Fragment>
+      </Grid>
     )
   }
 }
