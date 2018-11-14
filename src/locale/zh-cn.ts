@@ -54,9 +54,23 @@ export const menu = {
   user: '我',
   tradeRecord: '交易记录',
   merchantBinding: '商户绑定',
+  merchantRegister: '商户注册',
   merchantInfo: '商户信息',
   merchantRate: '费率信息',
   paymentDetail: '交易详情'
 };
 
 export const resErrMsg = {};
+
+export const statusCode = {
+  '0000': '请求成功',
+  '1000': '未授权',
+  '1001': '无访问权限',
+  '1002': '无效授权或者密码不正确',
+  '1103': '用户已经存在',
+  '1104': '用户不存在',
+  '1203': '客户端已经存在',
+  '1204': '客户端不存在',
+  '3001': '无效的手机号或者Email',
+  '3002': '验证码不正确或者超时'
+};
