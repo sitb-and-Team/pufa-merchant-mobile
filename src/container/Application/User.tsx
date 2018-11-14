@@ -13,7 +13,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import StoreIcon from '@material-ui/icons/Store';
 import PersonIcon from '@material-ui/icons/Person';
-import RateReviewIcon from '@material-ui/icons/RateReview';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Divider from '@material-ui/core/Divider';
 
@@ -104,10 +103,6 @@ class Container extends React.Component<any, any> {
       name: '商户信息',
       Icon: PersonIcon,
       path: routerPath.merchantInfo
-    }, {
-      name: '修改结算信息',
-      Icon: RateReviewIcon,
-      path: ''
     }];
     return (
       <Grid container>
