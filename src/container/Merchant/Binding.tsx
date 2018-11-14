@@ -5,16 +5,17 @@
  */
 import * as React from 'react';
 import Form from 'veigar/Form';
-import { withStyles } from '@material-ui/core/styles';
-import { renderFieldGroup } from '../../component/Form/Input';
-import { SitbButton } from '../../component/SitbButton';
+import { connect } from "react-redux";
 import { autoBind } from '@sitb/wbs/autoBind';
+import { withStyles } from '@material-ui/core/styles';
+import { SitbButton } from '../../component/SitbButton';
 import { getActions } from '../../core/store';
+import { renderFieldGroup } from '../../component/Form/Input';
 
 import { lang } from '../../locale';
-import { connect } from "react-redux";
 import alert from '../../component/Alert';
 import { BrandTemplate } from './BrandTemplate';
+import { routerPath } from '../../core/router.config';
 
 // css
 const styles: any = theme => ({
@@ -25,7 +26,6 @@ const styles: any = theme => ({
 
 @connect(({session, binding}) => ({
   hasBinding: session.hasBinding,
-  agencies: session.agencies,
   countDown: binding.countDown,
   processing: binding.processing
 }))
@@ -64,7 +64,7 @@ class Container extends React.Component<any, any> {
   }
 
   render() {
-    const {classes, countDown, processing} = this.props;
+    const {classes, countDown, processing, hasBinding} = this.props;
     //表单配置
     const fields: any = [{
       label: lang.merchantNo,
@@ -104,7 +104,10 @@ class Container extends React.Component<any, any> {
       </SitbButton>
     );
     return (
-      <BrandTemplate serviceButtonName="返回商户管理">
+      <BrandTemplate serviceButtonName="返回商户管理"
+                     serviceButtonBan={!hasBinding}
+                     routePath={routerPath.merchantLogin}
+      >
         <Form ref={(form: Form) => this.form = form}
               className="content-form"
         >
