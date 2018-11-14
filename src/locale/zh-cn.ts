@@ -54,7 +54,7 @@ export const menu = {
   user: '我',
   tradeRecord: '交易记录',
   merchantBinding: '商户绑定',
-  merchantRegister: '商户注册',
+  merchantLogin: '商户登录',
   merchantInfo: '商户信息',
   merchantRate: '费率信息',
   paymentDetail: '交易详情'
@@ -72,5 +72,5 @@ export const statusCode = {
   '1203': '客户端已经存在',
   '1204': '客户端不存在',
   '3001': '无效的手机号或者Email',
-  '3002': '验证码不正确或者超时'
+  '3000': '验证码不正确或者超时'
 };
