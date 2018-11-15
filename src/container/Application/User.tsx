@@ -16,6 +16,13 @@ import PersonIcon from '@material-ui/icons/Person';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Divider from '@material-ui/core/Divider';
 
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 import { withStyles } from '@material-ui/core/styles';
 import { autoBind } from "@sitb/wbs/autoBind";
 import Grid from '@material-ui/core/Grid';
@@ -94,6 +101,19 @@ class Container extends React.Component<any, any> {
     })
   }
 
+  state = {
+    open: false,
+  };
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+    getActions().session.startEntityExit();
+  };
+
   render() {
     const {classes} = this.props;
     const config = [{
@@ -129,13 +149,39 @@ class Container extends React.Component<any, any> {
                 className={classes.content_mode}
           >
             {this.renderContent(config)}
-            <ListItem button
+            {<ListItem button
                       className={classNames(classes.contentExit, classes.contentExit_mode)}
             >
-              <ListItemText disableTypography
+              {/*<ListItemText disableTypography
                             className={classes.contentExitValue}
-                            primary="安全退出"/>
-            </ListItem>
+                            primary="安全退出"/>*/}
+              <Button onClick={this.handleClickOpen}
+                      className={classes.contentExitValue}
+                      fullWidth = {true}
+              >安全退出</Button>
+              <Dialog
+                open={this.state.open}
+                onClose={this.handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">{"安全退出"}</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    您确定要退出吗？
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={this.handleClose} color="primary">
+                    取消
+                  </Button>
+                  <Button onClick={this.handleClose} color="primary" autoFocus>
+                    确定
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            </ListItem>}
+
           </List>
         </Grid>
       </Grid>
