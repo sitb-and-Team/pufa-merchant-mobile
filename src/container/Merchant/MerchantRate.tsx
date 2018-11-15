@@ -30,7 +30,6 @@ class Container extends React.Component<any, any> {
     const configs: any = [];
 
     const businesses = loginMerchant && loginMerchant.businesses || [];
-    console.log(businesses);
     // 匹配出当前loginMerchantBusiness
     businesses.forEach((business) => {
       let Default_business: any = {};
@@ -60,38 +59,33 @@ class Container extends React.Component<any, any> {
         value: 'serviceFeeRate.type'
       }];
       if (business.businessType === "WeChat_PAY") {
-        const weChatConfig = basic;
-
         Default_business = {
           title: lang.weChat,
           titleIcon: weChat({fill: background.weChat, width: 30, height: 30}),
-          config: weChatConfig
+          config: basic
         }
       }
 
       if (business.businessType === "AliPay_PAY") {
-        const aliPayConfig = basic;
         Default_business = {
           title: lang.aliPay,
           titleIcon: aliPay({fill: background.aliPay, width: 30, height: 30}),
-          config: aliPayConfig
+          config: basic
         }
       }
 
       if (business.businessType === "UNION_PAY") {
-        const quickPayConfig = basic;
         Default_business = {
           title: lang.quickPay,
           titleIcon: quickPay({fill: background.quickPay, width: 30, height: 30}),
-          config: quickPayConfig
+          config: basic
         }
       }
       if (business.businessType === "POS_PAY") {
-        const posPayConfig = basic;
         Default_business = {
           title: lang.mpos,
           titleIcon: mposPay({fill: background.default, width: 30, height: 30}),
-          config: posPayConfig
+          config: basic
         }
       }
       configs.push(Default_business);
