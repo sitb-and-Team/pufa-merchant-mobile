@@ -17,6 +17,16 @@ export const lang = {
   legalEmail: '法人邮箱',
   idType: '证件类型',
   idNo: '证件号',
+
+  idCard: '身份证',
+  tmpIdCard: '临时身份证',
+  officer: '官员证',
+  civil: '公民证',
+  policeOfficer: '警官证',
+  soldiers: '士兵证',
+  passport: '护照',
+  hkMacao: '港澳通行证',
+
   normalFeeRate: {
     fee: '费率',
     type: '费率类型',
