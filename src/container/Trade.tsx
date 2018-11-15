@@ -24,6 +24,7 @@ import {background} from '../styles/color';
 import {loginMerchant} from "./Merchant/MerchantInfo";
 import {routerPath} from "../core/router.config";
 import {momentCommon} from "../constants/objectKey";
+import {tradeStatusOptions} from '../constants/tradeStatus';
 
 
 // css
@@ -98,7 +99,7 @@ class Container extends React.Component<any, any> {
 
     item.paymentAt = item && moment(item.paymentAt).format(momentCommon.DATETIME_FORMAT);
 
-    //交易状态
+    /*//交易状态
     //成功
     if (item.status.search("SUCCESS") !== -1) {
       item.status = "交易成功"
@@ -134,12 +135,7 @@ class Container extends React.Component<any, any> {
     //删除
     if (item.status.search("DELETE") !== -1) {
       item.status = "删除"
-    }
-   /* let RENDER_VALUE: any = `${item}`;
-    if(item.totalAmount){
-      RENDER_VALUE = item.totalAmount + '元'
-    }
-    return RENDER_VALUE;*/
+    }*/
 
     return (
       <ListItem button
@@ -152,7 +148,7 @@ class Container extends React.Component<any, any> {
         </Avatar>
         <ListItemText primary={`${item.merchant.merchantName}`}
                       secondary={`${item.paymentAt}`}/>
-        <ListItemText primary={`${item.totalAmount} 元`} secondary={`${item.status}`}/>
+        <ListItemText primary={`${item.totalAmount} 元`} secondary={`${tradeStatusOptions[item.status]}`}/>
       </ListItem>
     )
   }
