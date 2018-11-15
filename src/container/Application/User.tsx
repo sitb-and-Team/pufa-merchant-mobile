@@ -7,6 +7,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
+import Grid from '@material-ui/core/Grid';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -25,10 +26,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { withStyles } from '@material-ui/core/styles';
 import { autoBind } from "@sitb/wbs/autoBind";
-import Grid from '@material-ui/core/Grid';
 import { getActions } from '../../core/store';
+import { getMerchantId } from '../../core/SessionServices';
 import { routerPath } from '../../core/router.config';
-import {loginMerchant} from "../Merchant/MerchantInfo";
+import { menu } from '../../locale';
 
 const styles: any = theme => ({
   header_mode: {
@@ -69,6 +70,9 @@ const styles: any = theme => ({
 
 @autoBind
 class Container extends React.Component<any, any> {
+  state = {
+    isExit: false
+  };
 
   /**
    * 渲染list
@@ -101,30 +105,35 @@ class Container extends React.Component<any, any> {
     })
   }
 
-  state = {
-    open: false,
-  };
+  /**
+   * 退出弹框开关
+   * @param status
+   */
+  handleExitSwitch(status) {
+    this.setState({isExit: status});
+  }
 
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
+  /**
+   * 退出清空缓存
+   */
+  handleExit() {
     getActions().session.startEntityExit();
-  };
+    // 重载页面
+    location.reload();
+  }
 
   render() {
     const {classes} = this.props;
     const config = [{
-      name: '费率信息',
+      name: menu.merchantRate,
       Icon: StoreIcon,
       path: routerPath.merchantRate
     }, {
-      name: '商户信息',
+      name: menu.merchantInfo,
       Icon: PersonIcon,
       path: routerPath.merchantInfo
     }];
+
     return (
       <Grid container>
         <Grid item
@@ -141,7 +150,7 @@ class Container extends React.Component<any, any> {
                 </Avatar>
               </ListItemIcon>
               <ListItemText inset
-                            primary={<span className={classes.itemMerchantNo_mode}>{loginMerchant.merchantNo}</span>}
+                            primary={<span className={classes.itemMerchantNo_mode}>{getMerchantId()}</span>}
               />
             </ListItem>
           </List>
@@ -150,20 +159,16 @@ class Container extends React.Component<any, any> {
           >
             {this.renderContent(config)}
             {<ListItem button
-                      className={classNames(classes.contentExit, classes.contentExit_mode)}
+                       className={classNames(classes.contentExit, classes.contentExit_mode)}
             >
-              {/*<ListItemText disableTypography
-                            className={classes.contentExitValue}
-                            primary="安全退出"/>*/}
-              <Button onClick={this.handleClickOpen}
+              <Button onClick={() => this.handleExitSwitch(true)}
                       className={classes.contentExitValue}
-                      fullWidth = {true}
+                      fullWidth={true}
               >安全退出</Button>
-              <Dialog
-                open={this.state.open}
-                onClose={this.handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
+              <Dialog open={this.state.isExit}
+                      onClose={() => this.handleExitSwitch(false)}
+                      aria-labelledby="alert-dialog-title"
+                      aria-describedby="alert-dialog-description"
               >
                 <DialogTitle id="alert-dialog-title">{"安全退出"}</DialogTitle>
                 <DialogContent>
@@ -172,10 +177,15 @@ class Container extends React.Component<any, any> {
                   </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={this.handleClose} color="primary">
+                  <Button onClick={() => this.handleExitSwitch(false)}
+                          color="primary"
+                  >
                     取消
                   </Button>
-                  <Button onClick={this.handleClose} color="primary" autoFocus>
+                  <Button onClick={this.handleExit}
+                          color="primary"
+                          autoFocus
+                  >
                     确定
                   </Button>
                 </DialogActions>
