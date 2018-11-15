@@ -34,6 +34,11 @@ export const session: any = create('session', {
    */
   startMerchantId: '',
   MerchantIdComplete: '',
+  /**
+   *
+   */
+  startEntityExit: "",
+  entityExitComplete: "",
 });
 
 export const payment: any = create('payment', {
