@@ -65,7 +65,7 @@ class Container extends React.Component<Props> {
           </CardActionArea>
           <CardContent>
             {
-              (!configs.length || !dataResource.length) && '无数据' ||
+              (configs.length === 0 || dataResource.length === 0) && '无数据' ||
               configs.map((config, index) => {
                 let newDataResource: any = dataResource;
                 if (Array.isArray(dataResource)) {
