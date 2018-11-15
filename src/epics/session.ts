@@ -3,7 +3,7 @@ import {session as types} from '../constants/ActionTypes';
 import {filter, switchMap, tap} from "rxjs/operators";
 import {execute} from "../core/Request";
 import URL from "../constants/URL";
-import {saveOperator, setMerchantId} from '../core/SessionServices';
+import {resetStorage, saveOperator, setMerchantId} from '../core/SessionServices';
 
 /**
  * 获取当前账户信息
@@ -41,4 +41,19 @@ export function startMerchantId(action$) {
       return false;
     })
   );
+}
+
+/**
+ * 退出
+ * @param action$
+ * @returns {any}
+ */
+export function startEntityExit(action$) {
+  return action$.pipe(
+    ofType(types.startEntityExit),
+    tap(resetStorage),
+    filter(() => {
+      return false;
+    })
+  )
 }
