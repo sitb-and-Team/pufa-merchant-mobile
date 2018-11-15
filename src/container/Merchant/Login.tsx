@@ -26,7 +26,7 @@ import CardActions from '@material-ui/core/CardActions';
 import { lang } from '../../locale';
 import { connect } from "react-redux";
 import { routerPath } from "../../core/router.config";
-import { setMerchantId } from "../../core/SessionServices";
+import { getOperator, setMerchantId } from "../../core/SessionServices";
 import alert from '../../component/Alert';
 import { BrandTemplate } from './BrandTemplate';
 
@@ -82,11 +82,16 @@ class Container extends React.Component<any, any> {
     }
     setMerchantId(merchantNo.toString());
     getActions().navigator.navigate(routerPath.app);
+    this.setState({
+      merchantNo: ''
+    });
   }
 
   render() {
     const {merchantNo, isMerchantSelect} = this.state;
-    const {classes, merchants, hasBinding} = this.props;
+    const {classes, hasBinding} = this.props;
+    // 取缓存merchants
+    const merchants = getOperator() || [];
     return (
       <Grid>
         <BrandTemplate serviceButtonName="绑定新商户"
