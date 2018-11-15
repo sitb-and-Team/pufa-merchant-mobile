@@ -4,10 +4,12 @@
  * date: 2018/10/31
  */
 import * as React from 'react';
+import {connect} from "react-redux";
 import { withStyles } from '@material-ui/core/styles';
+
+import { IdTypeOptions } from '../../constants/selectObj/IdType';
 import { lang } from '../../locale';
 import { SitbCard } from '../../component/Card';
-import {connect} from "react-redux";
 import {getMerchantId, getOperator} from "../../core/SessionServices";
 
 // 匹配出当前merchant
@@ -43,13 +45,19 @@ class Container extends React.Component<any, any> {
       value: 'legalPerson.email'
     }, {
       label: lang.idType,
-      value: 'legalPerson.idCard.type'
+      value: 'legalPerson.idCard.type',
+      mappingObject: IdTypeOptions
     }, {
       label: lang.idNo,
       value: 'legalPerson.idCard.number'
     }, {
       label: lang.address,
-      value: 'address.province'
+      value: [
+        'address.province',
+        'address.county',
+        'address.city',
+        'address.street'
+      ]
     }];
     // 商户结算信息
     const cost = [{
