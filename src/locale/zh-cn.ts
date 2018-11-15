@@ -7,6 +7,7 @@ export const lang = {
   aliPay: '支付宝支付',
   weChat: '微信支付',
   quickPay: '快捷支付',
+  mpos: 'POS支付',
   address: '地址',
   confirm: '确认',
   cancel: '取消',
@@ -19,12 +20,14 @@ export const lang = {
   normalFeeRate: {
     fee: '费率',
     type: '费率类型',
-    min: '最低费率'
+    min: '最低费率',
+    max: '最高费率'
   },
   serviceFeeRate: {
     fee: '服务费率',
     type: '服务费类型',
-    min: '最低服务费'
+    min: '最低服务费',
+    max: '最高服务费'
   },
   settleBankName: '结算银行名称',
   settleBankNo: '结算银行行号',
