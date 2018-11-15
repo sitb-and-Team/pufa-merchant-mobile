@@ -5,17 +5,17 @@
  */
 import * as React from 'react';
 
-import {withStyles} from '@material-ui/core/styles';
-import {lang} from '../../locale';
-import {SitbCard} from '../../component/Card';
+import { withStyles } from '@material-ui/core/styles';
+import { lang } from '../../locale';
+import { SitbCard } from '../../component/Card';
 import weChat from '@sitb/svg-icon/weChat';
 import aliPay from '@sitb/svg-icon/aliPay';
 import quickPay from '@sitb/svg-icon/quickPay';
 import mposPay from '@sitb/svg-icon/mpos';
-import {loginMerchant} from "./MerchantInfo";
-import {connect} from "react-redux";
-import {background} from "../../styles/color";
-
+import { loginMerchant } from "./MerchantInfo";
+import { connect } from "react-redux";
+import { background } from "../../styles/color";
+import { RateTypeOptions } from '../../constants/selectObj/RateType';
 
 // css
 const styles: any = theme => ({});
@@ -44,7 +44,8 @@ class Container extends React.Component<any, any> {
         value: 'normalFeeRate.max'
       }, {
         label: lang.normalFeeRate.type,
-        value: 'normalFeeRate.type'
+        value: 'normalFeeRate.type',
+        mappingObject: RateTypeOptions
       }, {
         label: lang.serviceFeeRate.fee,
         value: 'serviceFeeRate.fee'
@@ -56,7 +57,8 @@ class Container extends React.Component<any, any> {
         value: 'serviceFeeRate.max'
       }, {
         label: lang.serviceFeeRate.type,
-        value: 'serviceFeeRate.type'
+        value: 'serviceFeeRate.type',
+        mappingObject: RateTypeOptions
       }];
       if (business.businessType === "WeChat_PAY") {
         Default_business = {
@@ -84,7 +86,7 @@ class Container extends React.Component<any, any> {
       if (business.businessType === "POS_PAY") {
         Default_business = {
           title: lang.mpos,
-          titleIcon: mposPay({fill: background.default, width: 30, height: 30}),
+          titleIcon: mposPay(),
           config: basic
         }
       }
