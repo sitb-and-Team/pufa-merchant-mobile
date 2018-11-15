@@ -43,6 +43,18 @@ export const lang = {
     min: '最低服务费',
     max: '最高服务费'
   },
+  debitFeeRate: {
+    fee: '借记卡费率',
+    type: '借记卡类型',
+    min: '最低借记费',
+    max: '最高借记费'
+  },
+  creditFeeRate: {
+    fee: '贷记卡费率',
+    type: '贷记卡类型',
+    min: '最低贷记费',
+    max: '最高贷记费'
+  },
   settleBankName: '结算银行名称',
   settleBankNo: '结算银行行号',
   accountName: '结算账户名',

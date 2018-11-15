@@ -31,8 +31,12 @@ class Container extends React.Component<any, any> {
 
     const businesses = loginMerchant && loginMerchant.businesses || [];
     // 匹配出当前loginMerchantBusiness
-    businesses.forEach((business) => {
+    businesses.map((business) => {
+      console.log(business)
       let Default_business: any = {};
+      /**
+       * 公有
+       */
       const basic = [{
         label: lang.normalFeeRate.fee,
         value: 'normalFeeRate.fee'
@@ -60,6 +64,36 @@ class Container extends React.Component<any, any> {
         value: 'serviceFeeRate.type',
         mappingObject: RateTypeOptions
       }];
+      /**
+       * POS独有
+       */
+      const posRate = [{
+        label: lang.creditFeeRate.fee,
+        value: 'creditFeeRate.fee'
+      }, {
+        label: lang.creditFeeRate.min,
+        value: 'creditFeeRate.min'
+      }, {
+        label: lang.creditFeeRate.max,
+        value: 'creditFeeRate.max'
+      }, {
+        label: lang.creditFeeRate.type,
+        value: 'creditFeeRate.type',
+        mappingObject: RateTypeOptions
+      }, {
+        label: lang.debitFeeRate.fee,
+        value: 'debitFeeRate.fee'
+      }, {
+        label: lang.debitFeeRate.min,
+        value: 'debitFeeRate.min'
+      }, {
+        label: lang.debitFeeRate.max,
+        value: 'debitFeeRate.max'
+      }, {
+        label: lang.debitFeeRate.type,
+        value: 'debitFeeRate.type',
+        mappingObject: RateTypeOptions
+      }];
       if (business.businessType === "WeChat_PAY") {
         Default_business = {
           title: lang.weChat,
@@ -84,11 +118,13 @@ class Container extends React.Component<any, any> {
         }
       }
       if (business.businessType === "POS_PAY") {
+        basic.push(...posRate);
         Default_business = {
           title: lang.mpos,
-          titleIcon: mposPay(),
+          titleIcon: mposPay({fill: background.default, width: 30, height: 30}),
           config: basic
         }
+        console.log(posRate);
       }
       configs.push(Default_business);
     });
