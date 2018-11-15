@@ -23,7 +23,7 @@ export function startQuery(action$) {
       return execute({
         url: `${URL.binding}/${merchantNo}`,
         method: 'PUT',
-        body: JSON.stringify({checkValue}),
+        body: checkValue,
       })
     }),
     tap(actionToast()),
