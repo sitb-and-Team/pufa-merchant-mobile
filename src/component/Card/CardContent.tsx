@@ -56,8 +56,12 @@ class Container extends React.Component<Props> {
 
   filterValue(dataResource, item) {
     let value: any = objectPath.get(dataResource, item.value);
+    let DEFAULT_VALUE: any = '-';
     if (item.setValue) {
       value = item.setValue(value);
+    }
+    if (!value) {
+      return DEFAULT_VALUE;
     }
     // console.log(dataResource, item, value);
     return value;
