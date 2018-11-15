@@ -11,10 +11,10 @@ import {SitbCard} from '../../component/Card';
 import weChat from '@sitb/svg-icon/weChat';
 import aliPay from '@sitb/svg-icon/aliPay';
 import quickPay from '@sitb/svg-icon/quickPay';
+import mposPay from '@sitb/svg-icon/mpos';
 import {loginMerchant} from "./MerchantInfo";
 import {connect} from "react-redux";
 import {background} from "../../styles/color";
-
 
 
 // css
@@ -30,29 +30,37 @@ class Container extends React.Component<any, any> {
     const configs: any = [];
 
     const businesses = loginMerchant && loginMerchant.businesses || [];
+    console.log(businesses);
     // 匹配出当前loginMerchantBusiness
     businesses.forEach((business) => {
       let Default_business: any = {};
+      const basic = [{
+        label: lang.normalFeeRate.fee,
+        value: 'normalFeeRate.fee'
+      }, {
+        label: lang.normalFeeRate.min,
+        value: 'normalFeeRate.min'
+      }, {
+        label: lang.normalFeeRate.max,
+        value: 'normalFeeRate.max'
+      }, {
+        label: lang.normalFeeRate.type,
+        value: 'normalFeeRate.type'
+      }, {
+        label: lang.serviceFeeRate.fee,
+        value: 'serviceFeeRate.fee'
+      }, {
+        label: lang.serviceFeeRate.min,
+        value: 'serviceFeeRate.min'
+      }, {
+        label: lang.serviceFeeRate.max,
+        value: 'serviceFeeRate.max'
+      }, {
+        label: lang.serviceFeeRate.type,
+        value: 'serviceFeeRate.type'
+      }];
       if (business.businessType === "WeChat_PAY") {
-        const weChatConfig = [{
-          label: lang.normalFeeRate.fee,
-          value: 'normalFeeRate.fee'
-        }, {
-          label: lang.normalFeeRate.min,
-          value: 'normalFeeRate.min'
-        }, {
-          label: lang.normalFeeRate.type,
-          value: 'normalFeeRate.type'
-        }, {
-          label: lang.serviceFeeRate.fee,
-          value: 'serviceFeeRate.fee'
-        }, {
-          label: lang.serviceFeeRate.min,
-          value: 'serviceFeeRate.min'
-        }, {
-          label: lang.serviceFeeRate.type,
-          value: 'serviceFeeRate.type'
-        }];
+        const weChatConfig = basic;
 
         Default_business = {
           title: lang.weChat,
@@ -62,25 +70,7 @@ class Container extends React.Component<any, any> {
       }
 
       if (business.businessType === "AliPay_PAY") {
-        const aliPayConfig = [{
-          label: lang.normalFeeRate.fee,
-          value: 'normalFeeRate.fee'
-        }, {
-          label: lang.normalFeeRate.min,
-          value: 'normalFeeRate.min'
-        }, {
-          label: lang.normalFeeRate.type,
-          value: 'normalFeeRate.type'
-        }, {
-          label: lang.serviceFeeRate.fee,
-          value: 'serviceFeeRate.fee'
-        }, {
-          label: lang.serviceFeeRate.min,
-          value: 'serviceFeeRate.min'
-        }, {
-          label: lang.serviceFeeRate.type,
-          value: 'serviceFeeRate.type'
-        }];
+        const aliPayConfig = basic;
         Default_business = {
           title: lang.aliPay,
           titleIcon: aliPay({fill: background.aliPay, width: 30, height: 30}),
@@ -89,34 +79,23 @@ class Container extends React.Component<any, any> {
       }
 
       if (business.businessType === "UNION_PAY") {
-        const quickPayConfig = [{
-          label: lang.normalFeeRate.fee,
-          value: 'normalFeeRate.fee'
-        }, {
-          label: lang.normalFeeRate.min,
-          value: 'normalFeeRate.min'
-        }, {
-          label: lang.normalFeeRate.type,
-          value: 'normalFeeRate.type'
-        }, {
-          label: lang.serviceFeeRate.fee,
-          value: 'serviceFeeRate.fee'
-        }, {
-          label: lang.serviceFeeRate.min,
-          value: 'serviceFeeRate.min'
-        }, {
-          label: lang.serviceFeeRate.type,
-          value: 'serviceFeeRate.type'
-        }];
+        const quickPayConfig = basic;
         Default_business = {
           title: lang.quickPay,
           titleIcon: quickPay({fill: background.quickPay, width: 30, height: 30}),
           config: quickPayConfig
         }
       }
+      if (business.businessType === "POS_PAY") {
+        const posPayConfig = basic;
+        Default_business = {
+          title: lang.mpos,
+          titleIcon: mposPay({fill: background.default, width: 30, height: 30}),
+          config: posPayConfig
+        }
+      }
       configs.push(Default_business);
     });
-
     return (
       <SitbCard configs={configs}
                 dataResource={loginMerchant.businesses}
