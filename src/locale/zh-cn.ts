@@ -27,6 +27,10 @@ export const lang = {
   passport: '护照',
   hkMacao: '港澳通行证',
 
+  percentage: '百分比',
+  cap_percentage: '封顶加百分比',
+  cap: '固定值',
+
   normalFeeRate: {
     fee: '费率',
     type: '费率类型',
