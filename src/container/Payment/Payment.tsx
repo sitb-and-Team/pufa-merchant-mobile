@@ -9,6 +9,7 @@ import {lang} from "../../locale";
 import {SitbCard} from "../../component/Card";
 import {getActions} from "../../core/store";
 import {routerPath} from "../../core/router.config";
+import {tradeStatusOptions} from "../../constants/tradeStatus";
 
 
 // css
@@ -42,7 +43,8 @@ class Container extends React.Component<any, any> {
       setValue: string => `${string} 元`
     }, {
       label: lang.payment.status,
-      value: 'status'
+      value: 'status',
+      setValue: string => `${tradeStatusOptions[string]}`
     }, {
       label: lang.payment.at,
       value: 'paymentAt'
