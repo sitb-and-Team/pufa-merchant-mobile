@@ -65,6 +65,7 @@ export const menu = {
   home: '首页',
   user: '我',
   tradeRecord: '交易记录',
+  merchantIndex: '商户平台',
   merchantBinding: '商户绑定',
   merchantLogin: '商户登录',
   merchantInfo: '商户信息',
