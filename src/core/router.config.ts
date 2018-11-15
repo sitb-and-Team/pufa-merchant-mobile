@@ -4,6 +4,8 @@ import { App } from '../container/Application/App';
 
 import { PaymentDetail } from '../container/Payment/Payment';
 import { Trade } from '../container/Trade';
+
+import { MerchantIndex } from '../container/Merchant';
 import { MerchantLogin } from '../container/Merchant/Login';
 import { MerchantBinding } from '../container/Merchant/Binding';
 import { MerchantInfo } from '../container/Merchant/MerchantInfo';
@@ -15,6 +17,7 @@ export const routerPath = {
   trade: '/trade',
   merchantBinding: '/binding',
   merchantLogin: '/login',
+  merchantIndex: '/merchantIndex',
   merchantInfo: '/merchantInfo',
   merchantRate: '/merchantRate',
   paymentDetail: '/paymentDetail'
@@ -27,6 +30,10 @@ export default [{
   path: routerPath.trade,
   component: Trade,
   title: menu.tradeRecord
+}, {
+  path: routerPath.merchantIndex,
+  component: MerchantIndex,
+  title: menu.merchantIndex
 }, {
   path: routerPath.merchantBinding,
   component: MerchantBinding,
