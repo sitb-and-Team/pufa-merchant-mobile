@@ -21,6 +21,7 @@ import { autoBind } from "@sitb/wbs/autoBind";
 import Grid from '@material-ui/core/Grid';
 import { getActions } from '../../core/store';
 import { routerPath } from '../../core/router.config';
+import {loginMerchant} from "../Merchant/MerchantInfo";
 
 const styles: any = theme => ({
   header_mode: {
@@ -120,7 +121,7 @@ class Container extends React.Component<any, any> {
                 </Avatar>
               </ListItemIcon>
               <ListItemText inset
-                            primary={<span className={classes.itemMerchantNo_mode}>{'000000000028089'}</span>}
+                            primary={<span className={classes.itemMerchantNo_mode}>{loginMerchant.merchantNo}</span>}
               />
             </ListItem>
           </List>
