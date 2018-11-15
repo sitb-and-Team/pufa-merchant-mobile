@@ -28,11 +28,28 @@ export interface Item {
   /**
    * 标题
    */
-  label: string;
+  label?: string;
+  /**
+   * 图标type
+   */
+  icon?: any;
   /**
    * 值
    */
-  value: string;
+  value: string | Array<string>;
+  /**
+   * 需要映射展示的object
+   */
+  mappingObject?: object;
+
+  /**
+   * 手动setValue
+   */
+  setValue?: (any) => void;
+  /**
+   * 默认值
+   */
+  defaultValue?: string;
 }
 
 export interface Props {
@@ -54,17 +71,62 @@ export interface Props {
 
 class Container extends React.Component<Props> {
 
-  filterValue(dataResource, item) {
-    let value: any = objectPath.get(dataResource, item.value);
+  /**
+   * 根据对象路径取值
+   * @param obj   对象
+   * @param path  对象path
+   * @returns {any}
+   */
+  objectPathGet(obj, path) {
+    // 设置默认为xx
     let DEFAULT_VALUE: any = '-';
-    if (item.setValue) {
-      value = item.setValue(value);
+    if (path) {
+      // 处理为path 为[]的情况
+      path = path.replace(/\[/g, '.');
+      path = path.replace(/]/g, '');
+      let value = objectPath.get(obj, path);
+      // value有为0的情况
+      if (typeof value === 'number') {
+        return `${value}`;
+      }
+      if (!value) {
+        return DEFAULT_VALUE;
+      }
+      return value;
     }
-    if (!value) {
-      return DEFAULT_VALUE;
+    return DEFAULT_VALUE;
+  }
+
+  filterValue(dataResource, item) {
+    const {value, mappingObject, setValue, defaultValue} = item;
+
+    let RENDER_VALUE: any = `${item}`;
+    // 如果是多组string 拼接
+    if (Array.isArray(value)) {
+      // 临时数组变量
+      let DEFAULT_VALUE: any = [];
+      value.forEach(stringPath => {
+        DEFAULT_VALUE.push(this.objectPathGet(dataResource, stringPath));
+      });
+      RENDER_VALUE = DEFAULT_VALUE.join('-');
+    } else {
+      // 默认获取path
+      RENDER_VALUE = this.objectPathGet(dataResource, value);
     }
-    // console.log(dataResource, item, value);
-    return value;
+
+    // 配置默认值
+    if (defaultValue) {
+      RENDER_VALUE = defaultValue;
+    }
+    // 对象映射
+    if (mappingObject) {
+      RENDER_VALUE = mappingObject[RENDER_VALUE]
+    }
+    // set设置
+    if (setValue) {
+      RENDER_VALUE = setValue(RENDER_VALUE);
+    }
+    return RENDER_VALUE;
   }
 
   render() {
