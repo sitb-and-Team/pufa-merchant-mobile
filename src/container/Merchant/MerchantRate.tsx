@@ -15,7 +15,6 @@ import mposPay from '@sitb/svg-icon/mpos';
 import { loginMerchant } from "./MerchantInfo";
 import { connect } from "react-redux";
 import { background } from "../../styles/color";
-import { RateTypeOptions } from '../../constants/selectObj/RateType';
 
 // css
 const styles: any = theme => ({});
@@ -37,62 +36,62 @@ class Container extends React.Component<any, any> {
       /**
        * 公有
        */
+      console.log(business.normalFeeRate)
+      if (business.normalFeeRate.type == "PERCENTAGE"){
+        business.normalFeeRate.type === "%";
+      }
       const basic = [{
         label: lang.normalFeeRate.fee,
-        value: 'normalFeeRate.fee'
+        value: 'normalFeeRate.fee',
+        setValue: string=> `${string} %`
       }, {
         label: lang.normalFeeRate.min,
-        value: 'normalFeeRate.min'
+        value: 'normalFeeRate.min',
+        setValue: string=> `${string} %`
       }, {
         label: lang.normalFeeRate.max,
-        value: 'normalFeeRate.max'
-      }, {
-        label: lang.normalFeeRate.type,
-        value: 'normalFeeRate.type',
-        mappingObject: RateTypeOptions
-      }, {
+        value: 'normalFeeRate.max',
+        setValue: string=> `${string} %`
+      },{
         label: lang.serviceFeeRate.fee,
-        value: 'serviceFeeRate.fee'
+        value: 'serviceFeeRate.fee',
+        setValue: string=> `${string} %`
       }, {
         label: lang.serviceFeeRate.min,
-        value: 'serviceFeeRate.min'
+        value: 'serviceFeeRate.min',
+        setValue: string=> `${string} %`
       }, {
         label: lang.serviceFeeRate.max,
-        value: 'serviceFeeRate.max'
-      }, {
-        label: lang.serviceFeeRate.type,
-        value: 'serviceFeeRate.type',
-        mappingObject: RateTypeOptions
+        value: 'serviceFeeRate.max',
+        setValue: string=> `${string} %`
       }];
       /**
        * POS独有
        */
       const posRate = [{
         label: lang.creditFeeRate.fee,
-        value: 'creditFeeRate.fee'
+        value: 'creditFeeRate.fee',
+        setValue: string=> `${string} %`
       }, {
         label: lang.creditFeeRate.min,
-        value: 'creditFeeRate.min'
+        value: 'creditFeeRate.min',
+        setValue: string=> `${string} %`
       }, {
         label: lang.creditFeeRate.max,
-        value: 'creditFeeRate.max'
-      }, {
-        label: lang.creditFeeRate.type,
-        value: 'creditFeeRate.type',
-        mappingObject: RateTypeOptions
+        value: 'creditFeeRate.max',
+        setValue: string=> `${string} %`
       }, {
         label: lang.debitFeeRate.fee,
-        value: 'debitFeeRate.fee'
+        value: 'debitFeeRate.fee',
+        setValue: string=> `${string} %`
       }, {
         label: lang.debitFeeRate.min,
-        value: 'debitFeeRate.min'
+        value: 'debitFeeRate.min',
+        setValue: string=> `${string} %`
       }, {
         label: lang.debitFeeRate.max,
-        value: 'debitFeeRate.max'
-      }, {
-        label: lang.debitFeeRate.type,
-        value: 'debitFeeRate.type',
-        mappingObject: RateTypeOptions
+        value: 'debitFeeRate.max',
+        setValue: string=> `${string} %`
       }];
       if (business.businessType === "WeChat_PAY") {
         Default_business = {
