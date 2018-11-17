@@ -125,13 +125,13 @@ class Container extends React.Component<any, any> {
   render() {
     const {classes} = this.props;
     const config = [{
-      name: menu.merchantRate,
-      Icon: StoreIcon,
-      path: routerPath.merchantRate
-    }, {
       name: menu.merchantInfo,
       Icon: PersonIcon,
       path: routerPath.merchantInfo
+    }, {
+      name: menu.merchantRate,
+      Icon: StoreIcon,
+      path: routerPath.merchantRate
     }];
 
     return (
