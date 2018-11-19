@@ -19,7 +19,6 @@ import {getActions} from '../../core/store';
 import {User} from './User';
 import {Home} from './Home';
 import {menu} from '../../locale';
-import {getMerchantId, getOperator} from "../../core/SessionServices";
 
 const styles: any = theme => ({
   tabs: {
@@ -56,12 +55,10 @@ class Container extends React.Component<any, any> {
   };
 
   render() {
-    const loginMerchant = getOperator() && getOperator().find(merchant => merchant.merchantNo === getMerchantId()) || {};
-    const {merchantName} = loginMerchant;
     const {match, location, classes} = this.props;
     // 导航路由配置
     const routes = [{
-      path: `${match.url}/${merchantName}`,
+      path: `${match.url}/Home`,
       render: this.createRender(Home, menu.home),
       label: menu.home,
       Icon: HomeIcon
