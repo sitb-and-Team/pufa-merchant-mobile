@@ -5,11 +5,10 @@
  */
 import * as React from 'react';
 import {withStyles} from '@material-ui/core/styles';
-import classNames from 'classnames';
-import Card from "@material-ui/core/Card/Card";
-import CardActionArea from "@material-ui/core/CardActionArea/CardActionArea";
-import CardMedia from "@material-ui/core/CardMedia/CardMedia";
-import Grid from "@material-ui/core/Grid/Grid";
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+
 
 
 // css
@@ -21,23 +20,34 @@ export interface Props {
 
 class Container extends React.Component<any, any> {
 
+  state = {
+    selectedIndex: 1,
+  };
+  handleListItemClick = (event, index) => {
+    this.setState({selectedIndex: index});
+  };
+
   render() {
-    const {classes} = this.props;
+
     return (
-      <Grid container
-            justify="center"
-            className={classNames(classes.main, classes.main_mode)}
-      >
-        <Card className={classes.mainCard}>
-          <CardActionArea>
-            <CardMedia component="img"
-                       className={classes.cardMedia}
-                       image={require('../../assets/pictureInfo.png')}
-                       title="Contemplative Reptile"
-            />
-          </CardActionArea>
-        </Card>
-      </Grid>
+      <div>
+        <List component="nav">
+          <ListItem
+            button
+            selected={this.state.selectedIndex === 2}
+            onClick={event => this.handleListItemClick(event, 2)}
+          >
+            <ListItemText primary="Trash"/>
+          </ListItem>
+          <ListItem
+            button
+            selected={this.state.selectedIndex === 3}
+            onClick={event => this.handleListItemClick(event, 3)}
+          >
+            <ListItemText primary="Spam"/>
+          </ListItem>
+        </List>
+      </div>
     )
   }
 }

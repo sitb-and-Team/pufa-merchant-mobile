@@ -5,9 +5,9 @@
  */
 import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
-import { autoBind } from '@sitb/wbs/autoBind';
-import { getActions } from '../../core/store';
+import {withStyles} from '@material-ui/core/styles';
+import {autoBind} from '@sitb/wbs/autoBind';
+import {getActions} from '../../core/store';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -23,18 +23,25 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import CardActions from '@material-ui/core/CardActions';
 
-import { lang } from '../../locale';
-import { connect } from "react-redux";
-import { routerPath } from "../../core/router.config";
-import { getOperator, setMerchantId } from "../../core/SessionServices";
+import {lang} from '../../locale';
+import {connect} from "react-redux";
+import {routerPath} from "../../core/router.config";
+import {getOperator, setMerchantId} from "../../core/SessionServices";
 import alert from '../../component/Alert';
-import { BrandTemplate } from './BrandTemplate';
+import {BrandTemplate} from './BrandTemplate';
+/*import ListItem from "@material-ui/core/ListItem/ListItem";
+import ListItemText from "@material-ui/core/ListItemText/ListItemText";
+import List from "@material-ui/core/List/List";*/
 
 // css
 const styles: any = theme => ({
   formControl: {
     margin: theme.spacing.unit,
     minWidth: 150
+  },
+  listItem: {
+    paddingLeft: 0,
+    paddingRight: 0
   }
 });
 
@@ -87,9 +94,14 @@ class Container extends React.Component<any, any> {
     });
   }
 
+  handleListItemClick = (event, index) => {
+    this.setState({ selectedIndex: index });
+  };
+
   render() {
-    const {merchantNo, isMerchantSelect} = this.state;
+    const {merchantNo,isMerchantSelect} = this.state;
     const {classes, hasBinding} = this.props;
+    // const {hasBinding} = this.props;
     // 取缓存merchants
     const merchants = getOperator() || [];
     return (
@@ -131,10 +143,10 @@ class Container extends React.Component<any, any> {
         >
           <DialogTitle>{lang.merchant.list}</DialogTitle>
           <DialogContent>
-            <form>
+            {<form>
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="age-native-simple">{lang.merchantNo}</InputLabel>
-                <Select native
+                {<Select native
                         displayEmpty={false}
                         value={merchantNo}
                         onChange={this.handleChange('merchantNo')}
@@ -152,9 +164,24 @@ class Container extends React.Component<any, any> {
                       </option>
                     ))
                   }
-                </Select>
+                </Select>}
+                {/*<List onChange={this.handleChange(merchantNo)}>
+                  {
+                    merchants.map(({...merchant}, index) => (
+                      <ListItem button
+                                selected={this.state.selectedIndex === index}
+                                key={index}
+                                onClick={event => this.handleListItemClick(event, index)}
+                                className={classes.listItem}
+                      >
+                        <ListItemText primary={`${merchant.merchantNo}-${merchant.merchantName}`} />
+                      </ListItem>
+                    ))
+                  }
+                </List>*/}
               </FormControl>
-            </form>
+            </form>}
+
           </DialogContent>
           <DialogActions>
             <Button onClick={() => this.loginSwitch(false)}
