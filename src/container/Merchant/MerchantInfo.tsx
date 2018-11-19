@@ -15,6 +15,8 @@ import {getMerchantId, getOperator} from "../../core/SessionServices";
 // 匹配出当前merchant
 export const loginMerchant = getOperator() && getOperator().find(merchant => merchant.merchantNo === getMerchantId()) || {};
 
+
+console.log("loginMerchant==>",loginMerchant);
 // css
 const styles: any = theme => ({});
 
@@ -24,9 +26,13 @@ const styles: any = theme => ({});
 }))
 
 class Container extends React.Component<any, any> {
+  /*componentWillMount() {
+    const loginMerchant = getOperator() && getOperator().find(merchant => merchant.merchantNo === getMerchantId()) || {};
+    const merchantNo = getMerchantId();
+    console.log(merchantNo)
+  }*/
 
   render() {
-    console.log("loginMerchant==>",loginMerchant);
     // 商户基本信息
     const basic = [{
       label: lang.merchantNo,
@@ -80,6 +86,7 @@ class Container extends React.Component<any, any> {
       title: lang.merchant.cost,
       config: cost
     }];
+    const loginMerchant = getOperator() && getOperator().find(merchant => merchant.merchantNo === getMerchantId()) || {};
     return (
       <SitbCard configs={configs}
                 dataResource={loginMerchant}

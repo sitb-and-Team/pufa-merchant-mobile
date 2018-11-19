@@ -12,9 +12,9 @@ import weChat from '@sitb/svg-icon/weChat';
 import aliPay from '@sitb/svg-icon/aliPay';
 import quickPay from '@sitb/svg-icon/quickPay';
 import mposPay from '@sitb/svg-icon/mpos';
-import { loginMerchant } from "./MerchantInfo";
 import { connect } from "react-redux";
 import { background } from "../../styles/color";
+import {getMerchantId, getOperator} from "../../core/SessionServices";
 
 // css
 const styles: any = theme => ({});
@@ -26,6 +26,7 @@ const styles: any = theme => ({});
 
 class Container extends React.Component<any, any> {
   render() {
+    const loginMerchant = getOperator() && getOperator().find(merchant => merchant.merchantNo === getMerchantId()) || {};
     const configs: any = [];
 
     const businesses = loginMerchant && loginMerchant.businesses || [];

@@ -21,10 +21,10 @@ import aliPay from '@sitb/svg-icon/aliPay';
 import quickPay from '@sitb/svg-icon/quickPay';
 import money from '@sitb/svg-icon/money';
 import {background} from '../styles/color';
-import {loginMerchant} from "./Merchant/MerchantInfo";
 import {routerPath} from "../core/router.config";
 import {momentCommon} from "../constants/objectKey";
 import {tradeStatusOptions} from '../constants/tradeStatus';
+import {getMerchantId} from "../core/SessionServices";
 
 
 // css
@@ -57,7 +57,7 @@ class Container extends React.Component<any, any> {
    * 交易信息查询
    */
   componentWillMount() {
-    const {merchantNo} = loginMerchant;
+    const merchantNo = getMerchantId();
     this.handleSearch({merchantNo, page: 0})
   }
 
@@ -167,6 +167,7 @@ class Container extends React.Component<any, any> {
 
   render() {
     const {page} = this.props;
+    console.log(page);
     return (
       <List data={page.content}
             renderItem={this.renderItem}
