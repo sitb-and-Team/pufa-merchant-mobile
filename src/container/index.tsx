@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { HashRouter, Redirect, Route } from 'react-router-dom';
-import { queryToObjectWithUrl } from '@sitb/wbs/utils/HttpUtil';
+import {HashRouter, Redirect, Route, Switch} from 'react-router-dom';
+import {queryToObjectWithUrl} from '@sitb/wbs/utils/HttpUtil';
 
-import { getActions, getState } from '../core/store';
-import { getAccessToken, getMerchantId, getOperator, setAccessToken } from '../core/SessionServices';
-import routes, { routerPath } from '../core/router.config';
+import {getActions, getState} from '../core/store';
+import {getAccessToken, getMerchantId, getOperator, setAccessToken} from '../core/SessionServices';
+import routes, {routerPath} from '../core/router.config';
 
 function createRender(route) {
   return props => {
@@ -47,16 +47,18 @@ export default class App extends React.Component<any, any> {
     return (
       <HashRouter>
         <React.Fragment>
-          <Route exact
-                 render={() => (<Redirect to={path}/>)}
-          />
-          {routes.map((route: any, index) => (
-            <Route path={route.path}
-                   render={createRender(route)}
-                   key={index}
-                   exact={route.exact}
+          <Switch>
+            {routes.map((route: any, index) => (
+              <Route path={route.path}
+                     render={createRender(route)}
+                     key={index}
+                     exact={route.exact}
+              />
+            ))}
+            <Route exact
+                   render={() => (<Redirect to={path}/>)}
             />
-          ))}
+          </Switch>
         </React.Fragment>
       </HashRouter>
     );
