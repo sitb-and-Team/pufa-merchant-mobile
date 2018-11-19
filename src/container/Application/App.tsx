@@ -59,7 +59,6 @@ class Container extends React.Component<any, any> {
     const loginMerchant = getOperator() && getOperator().find(merchant => merchant.merchantNo === getMerchantId()) || {};
     const {merchantName} = loginMerchant;
     const {match, location, classes} = this.props;
-    console.log(this.props);
     // 导航路由配置
     const routes = [{
       path: `${match.url}/${merchantName}`,
