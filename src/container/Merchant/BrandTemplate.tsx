@@ -10,7 +10,7 @@ import { autoBind } from '@sitb/wbs/autoBind';
 import { getActions } from '../../core/store';
 
 import Button from '@material-ui/core/Button';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import StoreIcon from '@material-ui/icons/Store';
 
 // css
 const styles: any = theme => ({
@@ -74,7 +74,7 @@ class Container extends React.Component<Props, any> {
               alignItems="center"
               xs={12}
         >
-          <AccountCircle className={classes.mainLogo}/>
+          <StoreIcon className={classes.mainLogo}/>
         </Grid>
 
         <Grid item
