@@ -96,7 +96,8 @@ export const menu = {
   merchantLogin: '商户登录',
   merchantInfo: '商户信息',
   merchantRate: '费率信息',
-  paymentDetail: '交易详情'
+  paymentDetail: '交易详情',
+  qrCode: '我的银联收款码'
 };
 
 export const resErrMsg = {};

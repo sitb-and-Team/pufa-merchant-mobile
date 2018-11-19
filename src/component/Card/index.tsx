@@ -17,17 +17,11 @@ import Grid from '@material-ui/core/Grid';
 // css
 const styles: any = theme => ({
   main: {
-    paddingTop: 12,
-    paddingBottom: 12,
     height: '100%',
     minHeight: '100vh'
   },
   main_mode: {
     backgroundColor: 'rgba(0,0,0,0.1)'
-  },
-  mainCard: {
-    marginLeft: 16,
-    marginRight: 16
   },
   cardMedia: {
     objectFit: 'cover'
@@ -55,7 +49,7 @@ class Container extends React.Component<Props> {
             justify="center"
             className={classNames(classes.main, classes.main_mode)}
       >
-        <Card className={classes.mainCard}>
+        <Card>
           <CardActionArea>
             <CardMedia component="img"
                        className={classes.cardMedia}

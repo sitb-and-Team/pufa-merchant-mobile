@@ -32,12 +32,10 @@ class Container extends React.Component<any, any> {
     const businesses = loginMerchant && loginMerchant.businesses || [];
     // 匹配出当前loginMerchantBusiness
     businesses.map((business) => {
-      console.log(business)
       let Default_business: any = {};
       /**
        * 公有
        */
-      console.log(business.normalFeeRate)
       if (business.normalFeeRate.type == "PERCENTAGE"){
         business.normalFeeRate.type === "%";
       }
@@ -124,7 +122,6 @@ class Container extends React.Component<any, any> {
           titleIcon: mposPay({fill: background.default, width: 30, height: 30}),
           config: basic
         }
-        console.log(posRate);
       }
       configs.push(Default_business);
     });

@@ -14,6 +14,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import StoreIcon from '@material-ui/icons/Store';
 import PersonIcon from '@material-ui/icons/Person';
+import MoneyIcon from '@material-ui/icons/Money';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Divider from '@material-ui/core/Divider';
 
@@ -132,6 +133,10 @@ class Container extends React.Component<any, any> {
       name: menu.merchantRate,
       Icon: StoreIcon,
       path: routerPath.merchantRate
+    }, {
+      name: menu.qrCode,
+      Icon: MoneyIcon,
+      path: routerPath.qrCode
     }];
 
     return (
