@@ -12,11 +12,7 @@ import { lang } from '../../locale';
 import { SitbCard } from '../../component/Card';
 import {getMerchantId, getOperator} from "../../core/SessionServices";
 
-// 匹配出当前merchant
-export const loginMerchant = getOperator() && getOperator().find(merchant => merchant.merchantNo === getMerchantId()) || {};
 
-
-console.log("loginMerchant==>",loginMerchant);
 // css
 const styles: any = theme => ({});
 
@@ -26,11 +22,6 @@ const styles: any = theme => ({});
 }))
 
 class Container extends React.Component<any, any> {
-  /*componentWillMount() {
-    const loginMerchant = getOperator() && getOperator().find(merchant => merchant.merchantNo === getMerchantId()) || {};
-    const merchantNo = getMerchantId();
-    console.log(merchantNo)
-  }*/
 
   render() {
     // 商户基本信息
