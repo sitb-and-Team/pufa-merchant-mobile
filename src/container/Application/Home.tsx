@@ -32,6 +32,7 @@ import {background} from "../../styles/color";
 import money from "@sitb/svg-icon/money";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import {tradeStatusOptions} from "../../constants/tradeStatus";
+import {getMerchantId} from "../../core/SessionServices";
 
 // css
 const styles: any = theme => ({
@@ -70,10 +71,15 @@ function TabContainer(props) {
 @connect(({payment}) => ({
   searchParams: payment.searchParams,
   processing: payment.processing,
-  page: payment.page
+  isLoadMore: payment.isLoadMore,
+  homePage: payment.homePage
 }))
 @autoBind
 class Container extends React.Component<any> {
+  componentWillMount(){
+    const merchantNo = getMerchantId();
+    this.handleSearch({merchantNo, page: 0});
+  }
 
   /**
    * 路由跳转
@@ -86,7 +92,7 @@ class Container extends React.Component<any> {
    * @param params 搜索参数
    */
   handleSearch(params) {
-    getActions().payment.searchPaymentTrade(params);
+    getActions().payment.searchAppPayment(params);
   }
   /**
    * 路由跳转
@@ -167,7 +173,7 @@ class Container extends React.Component<any> {
   }
 
   render() {
-    const {classes, page} = this.props;
+    const {classes, homePage} = this.props;
     // tab配置
     const config = [{
       label: menu.tradeRecord,
@@ -198,7 +204,7 @@ class Container extends React.Component<any> {
             </CardContent>
           </Card>
         </Grid>
-        <List data={page.content}
+        <List data={homePage.content}
               className={classes.foot}
               renderItem={this.renderItem}
               onEndReachedThreshold={50}
