@@ -46,7 +46,7 @@ const styles = theme => ({
     background: '#62b900'
   },
   left: {
-    width: '55%',
+    width: '50%',
     padding: 15,
     paddingRight: 0,
     margin: 0,
@@ -191,7 +191,7 @@ class Container extends React.Component<any, any> {
             总笔数： {page.totalElements} 笔
           </Typography>
           <Typography component="p" className={classes.right} paragraph={true}>
-            总交易金额： {page.totalElements} 元
+            总交易金额： {page.value} 元
           </Typography>
         </Paper>
         <List data={page.content}
