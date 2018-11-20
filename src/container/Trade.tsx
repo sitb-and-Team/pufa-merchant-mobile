@@ -25,6 +25,8 @@ import {routerPath} from "../core/router.config";
 import {momentCommon} from "../constants/objectKey";
 import {tradeStatusOptions} from '../constants/tradeStatus';
 import {getMerchantId} from "../core/SessionServices";
+import Typography from "@material-ui/core/es/Typography/Typography";
+import Paper from "@material-ui/core/es/Paper/Paper";
 
 
 // css
@@ -42,6 +44,19 @@ const styles = theme => ({
   background: {
     border: '1px solid #d8d8d8',
     background: '#62b900'
+  },
+  left: {
+    width: '55%',
+    padding: 15,
+    paddingRight: 0,
+    margin: 0,
+    display: 'inline-block'
+  },
+  right: {
+    padding: 10,
+    right: 0,
+    margin: 0,
+    display: 'inline-block'
   }
 });
 
@@ -167,16 +182,26 @@ class Container extends React.Component<any, any> {
   }
 
   render() {
-    const {page} = this.props;
+    const {classes, page} = this.props;
     console.log(page);
     return (
-      <List data={page.content}
-            renderItem={this.renderItem}
-            renderFooter={this.renderFooter}
-            onEndReached={this.handleLoadMore}
-            onEndReachedThreshold={50}
-            useBodyScroll
-      />
+      <React.Fragment>
+        <Paper elevation={1}>
+          <Typography component="p" className={classes.left} paragraph={true}>
+            总笔数： {page.totalElements} 笔
+          </Typography>
+          <Typography component="p" className={classes.right} paragraph={true}>
+            总交易金额： {page.totalElements} 元
+          </Typography>
+        </Paper>
+        <List data={page.content}
+              renderItem={this.renderItem}
+              renderFooter={this.renderFooter}
+              onEndReached={this.handleLoadMore}
+              onEndReachedThreshold={50}
+              useBodyScroll
+        />
+      </React.Fragment>
     )
   }
 }
