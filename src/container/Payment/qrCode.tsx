@@ -8,14 +8,19 @@ import {withStyles} from '@material-ui/core/styles';
 import CardMedia from "@material-ui/core/CardMedia/CardMedia";
 import CardActionArea from "@material-ui/core/CardActionArea/CardActionArea";
 import Card from "@material-ui/core/es/Card/Card";
-import {getActions} from "../../core/store";
-
+import {getMerchantId} from "../../core/SessionServices";
+import URL from "../../constants/URL";
+import Typography from "@material-ui/core/es/Typography/Typography";
+import CardContent from '@material-ui/core/CardContent';
 
 
 // css
 const styles = theme => ({
   cardMedia: {
     objectFit: 'cover'
+  },
+  title: {
+    marginLeft: 30
   }
 });
 
@@ -23,26 +28,34 @@ export interface Props {
   classes?: any;
 }
 
-class Container extends React.Component<any, any> {
 
-  componentWillMount(){
-    getActions().qrCode.startQuery();
-    console.log(getActions().qrCode.startQuery())
-  }
+class Container extends React.Component<any, any> {
 
   render() {
     const {classes} = this.props;
+    // @ts-ignore
+    // @ts-ignore
     return (
       <div>
         <Card component="nav">
           <CardActionArea>
+            <CardContent>
+              <Typography gutterBottom
+                          variant="h5"
+                          component="h2"
+                          className={classes.title}
+              >
+                我的银联收款码
+              </Typography>
+            </CardContent>
             <CardMedia component="img"
                        className={classes.cardMedia}
-                       image={require('../../assets/pictureInfo.png')}
+                       image={`${URL.qrCode}?merchantCode=${getMerchantId()}`}
                        title="Contemplative Reptile"
             />
           </CardActionArea>
         </Card>
+        {/*<img className={classes.barcode} src={`${URL.qrCode}/barcode?content=${getMerchantId()}`}/>*/}
       </div>
     )
   }
