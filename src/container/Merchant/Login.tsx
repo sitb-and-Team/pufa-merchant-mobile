@@ -30,6 +30,9 @@ const styles: any = theme => ({
   listItem: {
     paddingLeft: 0,
     paddingRight: 0
+  },
+  contentExitValue: {
+    paddingRight: 0
   }
 });
 
@@ -98,7 +101,6 @@ class Container extends React.Component<any, any> {
 
               <RadioGroup aria-label={merchantNo}
                           name={merchantNo}
-                          className={classes.group}
                           value={merchantNo}
                           onChange={this.handleChange}
               >
@@ -108,13 +110,17 @@ class Container extends React.Component<any, any> {
                                         key={index}
                                         value={merchant.merchantNo}
                                         control={<Radio color="primary"/>}
-                      />
+                                        labelPlacement={"start"}
+                      >
+                      </FormControlLabel>
                     ))
                 }
               </RadioGroup>
             </FormControl>
           </form>
           <Button onClick={this.loginSubmit}
+                  className={classes.contentExitValue}
+                  fullWidth={true}
                   color="primary"
           >
             {"确认"}
