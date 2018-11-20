@@ -65,6 +65,7 @@ export const lang = {
   checkValue: '验证码',
   merchant: {
     basic: '基本信息',
+    cost: '结算信息',
     list: '商户列表'
   },
   payment: {
