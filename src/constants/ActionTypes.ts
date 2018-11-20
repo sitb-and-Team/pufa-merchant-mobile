@@ -49,6 +49,14 @@ export const payment: any = create('payment', {
   searchPaymentTradeComplete: null
 });
 
+export const qrCode: any = create('qrCode', {
+  /**
+   * 交易信息查询
+   */
+  startQuery: null,
+  queryComplete: null
+});
+
 export const binding: any = create('binding', {
   startQuery: null,
   queryComplete: null,
