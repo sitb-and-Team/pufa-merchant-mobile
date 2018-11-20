@@ -146,6 +146,7 @@ class Container extends React.Component<any, any> {
    */
   handleLoadMore() {
     const {processing, page} = this.props;
+    // console.log(this.props);
     const {last, number} = page;
     if (processing || last) {
       return;

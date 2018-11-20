@@ -15,6 +15,7 @@ import mposPay from '@sitb/svg-icon/mpos';
 import { connect } from "react-redux";
 import { background } from "../../styles/color";
 import {getMerchantId, getOperator} from "../../core/SessionServices";
+import ColumnUtil from "../../utils/ColumnUtil";
 
 // css
 const styles: any = theme => ({});
@@ -32,37 +33,35 @@ class Container extends React.Component<any, any> {
     const businesses = loginMerchant && loginMerchant.businesses || [];
     // 匹配出当前loginMerchantBusiness
     businesses.map((business) => {
+      console.log(business);
       let Default_business: any = {};
       /**
        * 公有
        */
-      if (business.normalFeeRate.type == "PERCENTAGE"){
-        business.normalFeeRate.type === "%";
-      }
       const basic = [{
         label: lang.normalFeeRate.fee,
         value: 'normalFeeRate.fee',
-        setValue: string=> `${string} %`
+        setValue: rate => rate && (business.normalFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.normalFeeRate.type)}` || `${rate}元`)
       }, {
         label: lang.normalFeeRate.min,
         value: 'normalFeeRate.min',
-        setValue: string=> `${string} %`
+        setValue: rate => rate && (business.normalFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.normalFeeRate.type)}` || `${rate}元`)
       }, {
         label: lang.normalFeeRate.max,
         value: 'normalFeeRate.max',
-        setValue: string=> `${string} %`
+        setValue: rate => rate && (business.normalFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.normalFeeRate.type)}` || `${rate}元`)
       },{
         label: lang.serviceFeeRate.fee,
         value: 'serviceFeeRate.fee',
-        setValue: string=> `${string} %`
+        setValue: rate => rate && (business.serviceFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.serviceFeeRate.type)}` || `${rate}元`)
       }, {
         label: lang.serviceFeeRate.min,
         value: 'serviceFeeRate.min',
-        setValue: string=> `${string} %`
+        setValue: rate => rate && (business.serviceFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.serviceFeeRate.type)}` || `${rate}元`)
       }, {
         label: lang.serviceFeeRate.max,
         value: 'serviceFeeRate.max',
-        setValue: string=> `${string} %`
+        setValue: rate => rate && (business.serviceFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.serviceFeeRate.type)}` || `${rate}元`)
       }];
       /**
        * POS独有
@@ -70,27 +69,27 @@ class Container extends React.Component<any, any> {
       const posRate = [{
         label: lang.creditFeeRate.fee,
         value: 'creditFeeRate.fee',
-        setValue: string=> `${string} %`
+        setValue: rate => rate && (business.creditFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.creditFeeRate.type)}` || `${rate}元`)
       }, {
         label: lang.creditFeeRate.min,
         value: 'creditFeeRate.min',
-        setValue: string=> `${string} %`
+        setValue: rate => rate && (business.creditFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.creditFeeRate.type)}` || `${rate}元`)
       }, {
         label: lang.creditFeeRate.max,
         value: 'creditFeeRate.max',
-        setValue: string=> `${string} %`
+        setValue: rate => rate && (business.creditFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.creditFeeRate.type)}` || `${rate}元`)
       }, {
         label: lang.debitFeeRate.fee,
         value: 'debitFeeRate.fee',
-        setValue: string=> `${string} %`
+        setValue: rate => rate && (business.debitFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.debitFeeRate.type)}` || `${rate}元`)
       }, {
         label: lang.debitFeeRate.min,
         value: 'debitFeeRate.min',
-        setValue: string=> `${string} %`
+        setValue: rate => rate && (business.debitFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.debitFeeRate.type)}` || `${rate}元`)
       }, {
         label: lang.debitFeeRate.max,
         value: 'debitFeeRate.max',
-        setValue: string=> `${string} %`
+        setValue: rate => rate && (business.debitFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.debitFeeRate.type)}` || `${rate}元`)
       }];
       if (business.businessType === "WeChat_PAY") {
         Default_business = {

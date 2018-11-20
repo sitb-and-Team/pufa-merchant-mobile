@@ -24,6 +24,10 @@ const styles: any = theme => ({});
 class Container extends React.Component<any, any> {
 
   render() {
+    /*const reg = /^(\d{3})\d*(\d{4})$/;
+    const reg2 = /^(\d{6})\d*(\d{4})$/;
+    const reg3 = /^\w*(\w{2})$/;*/
+    // const reg4 = /(.)(.*)/;
     // 商户基本信息
     const basic = [{
       label: lang.merchantNo,
@@ -33,20 +37,25 @@ class Container extends React.Component<any, any> {
       value: 'merchantName'
     }, {
       label: lang.legalPerson,
-      value: 'legalPerson.name'
+      value: 'legalPerson.name',
+      // setValue: string => new Array(string.length).join('*') + string.substr(-1)
+      setValue: string => string.replace(/.(?=.)/, '*')
     }, {
       label: lang.legalPersonPhone,
-      value: 'legalPerson.phoneNo'
+      value: 'legalPerson.phoneNo',
+      setValue: string => string.replace(/^(\d{3})\d*(\d{4})$/,'$1****$2')
     }, {
       label: lang.legalEmail,
-      value: 'legalPerson.email'
+      value: 'legalPerson.email',
+      setValue: string => string.replace(/(.=?)/, '*')
     }, {
       label: lang.idType,
       value: 'legalPerson.idCard.type',
       mappingObject: IdTypeOptions
     }, {
       label: lang.idNo,
-      value: 'legalPerson.idCard.number'
+      value: 'legalPerson.idCard.number',
+      setValue: string => string.replace(/^(\d{6})\d*(\d{4})$/,'$1****$2')
     }, {
       label: lang.address,
       value: [
@@ -56,26 +65,9 @@ class Container extends React.Component<any, any> {
         'address.street'
       ]
     }];
-    // 商户结算信息
-    const cost = [{
-      label: lang.settleBankName,
-      value: 'settleAccount.bankName'
-    }, {
-      label: lang.settleBankNo,
-      value: 'settleAccount.bankNo'
-    }, {
-      label: lang.accountName,
-      value: 'settleAccount.name'
-    }, {
-      label: lang.accountNumber,
-      value: 'settleAccount.number'
-    }];
     const configs = [{
       title: lang.merchant.basic,
       config: basic
-    }, {
-      title: lang.merchant.cost,
-      config: cost
     }];
     const loginMerchant = getOperator() && getOperator().find(merchant => merchant.merchantNo === getMerchantId()) || {};
     return (
