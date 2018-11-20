@@ -5,14 +5,19 @@
  */
 import * as React from 'react';
 import {withStyles} from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import CardMedia from "@material-ui/core/CardMedia/CardMedia";
+import CardActionArea from "@material-ui/core/CardActionArea/CardActionArea";
+import Card from "@material-ui/core/es/Card/Card";
+import {getActions} from "../../core/store";
 
 
 
 // css
-const styles = theme => ({});
+const styles = theme => ({
+  cardMedia: {
+    objectFit: 'cover'
+  }
+});
 
 export interface Props {
   classes?: any;
@@ -20,36 +25,28 @@ export interface Props {
 
 class Container extends React.Component<any, any> {
 
-  state = {
-    selectedIndex: 1,
-  };
-  handleListItemClick = (event, index) => {
-    this.setState({selectedIndex: index});
-  };
+  componentWillMount(){
+    getActions().qrCode.startQuery();
+    console.log(getActions().qrCode.startQuery())
+  }
 
   render() {
-
+    const {classes} = this.props;
     return (
       <div>
-        <List component="nav">
-          <ListItem
-            button
-            selected={this.state.selectedIndex === 2}
-            onClick={event => this.handleListItemClick(event, 2)}
-          >
-            <ListItemText primary="Trash"/>
-          </ListItem>
-          <ListItem
-            button
-            selected={this.state.selectedIndex === 3}
-            onClick={event => this.handleListItemClick(event, 3)}
-          >
-            <ListItemText primary="Spam"/>
-          </ListItem>
-        </List>
+        <Card component="nav">
+          <CardActionArea>
+            <CardMedia component="img"
+                       className={classes.cardMedia}
+                       image={require('../../assets/pictureInfo.png')}
+                       title="Contemplative Reptile"
+            />
+          </CardActionArea>
+        </Card>
       </div>
     )
   }
 }
 
+// @ts-ignore
 export const QrCode = withStyles(styles)(Container);
