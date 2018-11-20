@@ -9,6 +9,7 @@ import { payment as types } from '../constants/ActionTypes';
 export interface StoreState {
   page: any;
   processing: boolean;
+  isLoadMore: boolean;
   searchParams: object;
 }
 
@@ -19,6 +20,7 @@ const DEFAULT_STATE = {
     totalElements: 0
   },
   processing: false,
+  isLoadMore: false,
   searchParams: {}
 };
 
@@ -42,6 +44,14 @@ export default compose((state = DEFAULT_STATE, action): StoreState => {
       if (success === true){
         content.push(...oldItem)
       }
+
+      return {
+        ...state,
+        page: (status === '0000' && payload instanceof Object) && payload || state.page,
+        processing: false
+      };
+    }
+    case types.searchAppPaymentComplete: {
 
       return {
         ...state,
