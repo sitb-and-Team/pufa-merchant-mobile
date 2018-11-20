@@ -39,18 +39,6 @@ class Container extends React.Component<any, any> {
        * 公有
        */
       const basic = [{
-        label: lang.normalFeeRate.fee,
-        value: 'normalFeeRate.fee',
-        setValue: rate => rate && (business.normalFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.normalFeeRate.type)}` || `${rate}元`)
-      }, {
-        label: lang.normalFeeRate.min,
-        value: 'normalFeeRate.min',
-        setValue: rate => rate && (business.normalFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.normalFeeRate.type)}` || `${rate}元`)
-      }, {
-        label: lang.normalFeeRate.max,
-        value: 'normalFeeRate.max',
-        setValue: rate => rate && (business.normalFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.normalFeeRate.type)}` || `${rate}元`)
-      },{
         label: lang.serviceFeeRate.fee,
         value: 'serviceFeeRate.fee',
         setValue: rate => rate && (business.serviceFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.serviceFeeRate.type)}` || `${rate}元`)
@@ -62,6 +50,18 @@ class Container extends React.Component<any, any> {
         label: lang.serviceFeeRate.max,
         value: 'serviceFeeRate.max',
         setValue: rate => rate && (business.serviceFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.serviceFeeRate.type)}` || `${rate}元`)
+      }, {
+        label: lang.normalFeeRate.fee,
+        value: 'normalFeeRate.fee',
+        setValue: rate => rate && (business.normalFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.normalFeeRate.type)}` || `${rate}元`)
+      }, {
+        label: lang.normalFeeRate.min,
+        value: 'normalFeeRate.min',
+        setValue: rate => rate && (business.normalFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.normalFeeRate.type)}` || `${rate}元`)
+      }, {
+        label: lang.normalFeeRate.max,
+        value: 'normalFeeRate.max',
+        setValue: rate => rate && (business.normalFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.normalFeeRate.type)}` || `${rate}元`)
       }];
       /**
        * POS独有
