@@ -9,29 +9,17 @@ import {withStyles} from '@material-ui/core/styles';
 import {autoBind} from '@sitb/wbs/autoBind';
 import {getActions} from '../../core/store';
 
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import Input from '@material-ui/core/Input';
-import DialogActions from '@material-ui/core/DialogActions';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import CardActions from '@material-ui/core/CardActions';
-
-import {lang} from '../../locale';
 import {connect} from "react-redux";
 import {routerPath} from "../../core/router.config";
 import {getOperator, setMerchantId} from "../../core/SessionServices";
 import alert from '../../component/Alert';
 import {BrandTemplate} from './BrandTemplate';
-/*import ListItem from "@material-ui/core/ListItem/ListItem";
-import ListItemText from "@material-ui/core/ListItemText/ListItemText";
-import List from "@material-ui/core/List/List";*/
+import Button from '@material-ui/core/Button';
+import Radio from '@material-ui/core/Radio';
+import FormControlLabel from "@material-ui/core/es/FormControlLabel/FormControlLabel";
+import FormControl from "@material-ui/core/es/FormControl/FormControl";
+import RadioGroup from "@material-ui/core/es/RadioGroup/RadioGroup";
 
 // css
 const styles: any = theme => ({
@@ -56,33 +44,27 @@ class Container extends React.Component<any, any> {
   constructor(props, content) {
     super(props, content);
     this.state = {
-      isMerchantSelect: false,
       merchantNo: ''
     };
   }
 
   /**
    * 保存商户号
-   * @param name
    * @returns {(event) => void}
+   * @param e
+   * @param checked
    */
-  handleChange = name => event => {
-    this.setState({[name]: Number(event.target.value)});
+  handleChange(e, checked) {
+    this.setState({merchantNo: checked});
   };
 
-  /**
-   * 登录select
-   * @param status
-   */
-  loginSwitch(status) {
-    this.setState({isMerchantSelect: status});
-  }
 
   /**
    * 选择商户登录
    */
   loginSubmit() {
     const {merchantNo} = this.state;
+    console.log(merchantNo);
     if (!merchantNo) {
       alert('请选择商户');
       return;
@@ -94,14 +76,10 @@ class Container extends React.Component<any, any> {
     });
   }
 
-  handleListItemClick = (event, index) => {
-    this.setState({ selectedIndex: index });
-  };
 
   render() {
-    const {merchantNo,isMerchantSelect} = this.state;
-    const {classes, hasBinding} = this.props;
-    // const {hasBinding} = this.props;
+    const {merchantNo} = this.state;
+    const {classes} = this.props;
     // 取缓存merchants
     const merchants = getOperator() || [];
     return (
@@ -109,93 +87,39 @@ class Container extends React.Component<any, any> {
         <BrandTemplate serviceButtonName="绑定新商户"
                        routePath={routerPath.merchantBinding}
         >
-          <Card>
-            <CardContent>
-              <Typography variant="h5"
-                          component="h3"
-                          gutterBottom
-              >
-                {'已绑定的商户'}
-              </Typography>
-              {
-                merchants.map((merchant, index) => (
-                  <Typography key={index}
-                              component="p"
-                              gutterBottom
-                  >
-                    {`${merchant.merchantNo}-${merchant.merchantName}`}
-                  </Typography>
-                ))
-              }
-            </CardContent>
-            <CardActions>
-              <Button onClick={() => this.loginSwitch(true)}
-                      disabled={!hasBinding}
-                      color="primary"
-              >{'请选择你要管理的商户'}</Button>
-            </CardActions>
-          </Card>
-        </BrandTemplate>
-        <Dialog disableBackdropClick
-                disableEscapeKeyDown
-                open={isMerchantSelect}
-                onClose={() => this.loginSwitch(false)}
-        >
-          <DialogTitle>{lang.merchant.list}</DialogTitle>
-          <DialogContent>
-            {<form>
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="age-native-simple">{lang.merchantNo}</InputLabel>
-                {<Select native
-                        displayEmpty={false}
-                        value={merchantNo}
-                        onChange={this.handleChange('merchantNo')}
-                        input={<Input id="age-native-simple"/>}
-                >
-                  <option value=""
-                          disabled
-                  />
-                  {
-                    merchants.map(({...merchant}, index) => (
-                      <option value={merchant.merchantNo}
-                              key={index}
-                      >
-                        {`${merchant.merchantNo}-${merchant.merchantName}`}
-                      </option>
-                    ))
-                  }
-                </Select>}
-                {/*<List onChange={this.handleChange(merchantNo)}>
-                  {
-                    merchants.map(({...merchant}, index) => (
-                      <ListItem button
-                                selected={this.state.selectedIndex === index}
-                                key={index}
-                                onClick={event => this.handleListItemClick(event, index)}
-                                className={classes.listItem}
-                      >
-                        <ListItemText primary={`${merchant.merchantNo}-${merchant.merchantName}`} />
-                      </ListItem>
-                    ))
-                  }
-                </List>*/}
-              </FormControl>
-            </form>}
+          <Typography variant="h5"
+                      component="h3"
+                      gutterBottom
+          >
+            {'已绑定的商户'}
+          </Typography>
+          <form>
+            <FormControl className={classes.formControl}>
 
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => this.loginSwitch(false)}
-                    color="primary"
-            >
-              {"取消"}
-            </Button>
-            <Button onClick={this.loginSubmit}
-                    color="primary"
-            >
-              {"确认"}
-            </Button>
-          </DialogActions>
-        </Dialog>
+              <RadioGroup aria-label={merchantNo}
+                          name={merchantNo}
+                          className={classes.group}
+                          value={merchantNo}
+                          onChange={this.handleChange}
+              >
+                {
+                  merchants.map(({...merchant}, index) => (
+                      <FormControlLabel label={`${merchant.merchantNo}-${merchant.merchantName}`}
+                                        key={index}
+                                        value={merchant.merchantNo}
+                                        control={<Radio color="primary"/>}
+                      />
+                    ))
+                }
+              </RadioGroup>
+            </FormControl>
+          </form>
+          <Button onClick={this.loginSubmit}
+                  color="primary"
+          >
+            {"确认"}
+          </Button>
+        </BrandTemplate>
       </Grid>
     )
   }
