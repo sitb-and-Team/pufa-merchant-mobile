@@ -10,5 +10,6 @@ export default {
   session: `${api}/session`,
   binding: `${api}/binding`,
   bindSend: `${api}/agency-check-value`,
-  payment: `${api}/payment`
+  payment: `${api}/payment`,
+  qrCode: `${api}/qr-codes`,
 }
