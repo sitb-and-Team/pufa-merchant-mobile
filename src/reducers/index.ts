@@ -6,7 +6,6 @@ import payment from './payment';
 
 import session from './session';
 import root from './root';
-import qrcode from './qrcode';
 
 /**
  * @author 田尘殇Sean(sean.snow@live.com) create at 2018/5/4
@@ -17,6 +16,5 @@ export {
   trade,
   payment,
   session,
-  root,
-  qrcode
+  root
 };
