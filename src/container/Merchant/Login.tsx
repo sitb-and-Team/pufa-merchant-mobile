@@ -20,6 +20,8 @@ import Radio from '@material-ui/core/Radio';
 import FormControlLabel from "@material-ui/core/es/FormControlLabel/FormControlLabel";
 import FormControl from "@material-ui/core/es/FormControl/FormControl";
 import RadioGroup from "@material-ui/core/es/RadioGroup/RadioGroup";
+import CardContent from "@material-ui/core/CardContent/CardContent";
+import Card from "@material-ui/core/Card/Card";
 
 // css
 const styles: any = theme => ({
@@ -90,34 +92,39 @@ class Container extends React.Component<any, any> {
         <BrandTemplate serviceButtonName="绑定新商户"
                        routePath={routerPath.merchantBinding}
         >
-          <Typography variant="h5"
-                      component="h3"
-                      gutterBottom
-          >
-            {'已绑定的商户'}
-          </Typography>
-          <form>
-            <FormControl className={classes.formControl}>
-
-              <RadioGroup aria-label={merchantNo}
-                          name={merchantNo}
-                          value={merchantNo}
-                          onChange={this.handleChange}
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography variant="h5"
+                          component="h3"
+                          gutterBottom
               >
-                {
-                  merchants.map(({...merchant}, index) => (
-                      <FormControlLabel label={`${merchant.merchantNo}-${merchant.merchantName}`}
-                                        key={index}
-                                        value={merchant.merchantNo}
-                                        control={<Radio color="primary"/>}
-                                        labelPlacement={"start"}
-                      >
-                      </FormControlLabel>
-                    ))
-                }
-              </RadioGroup>
-            </FormControl>
-          </form>
+                {'已绑定的商户'}
+              </Typography>
+              <form>
+                <FormControl className={classes.formControl}>
+
+                  <RadioGroup aria-label={merchantNo}
+                              name={merchantNo}
+                              value={merchantNo}
+                              onChange={this.handleChange}
+                  >
+                    {
+                      merchants.map(({...merchant}, index) => (
+                        <FormControlLabel label={`${merchant.merchantNo}-${merchant.merchantName}`}
+                                          key={index}
+                                          value={merchant.merchantNo}
+                                          control={<Radio color="primary"/>}
+                                          labelPlacement={"start"}
+                        >
+                        </FormControlLabel>
+                      ))
+                    }
+                  </RadioGroup>
+                </FormControl>
+              </form>
+            </CardContent>
+          </Card>
+
           <Button onClick={this.loginSubmit}
                   className={classes.contentExitValue}
                   fullWidth={true}
