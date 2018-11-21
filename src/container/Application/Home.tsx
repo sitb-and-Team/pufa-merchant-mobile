@@ -61,6 +61,10 @@ const styles: any = theme => ({
     width: '85%',
     display: 'inline-block'
   },
+  more: {
+    width: '15%',
+    display: 'inline-block'
+  },
   content: {
     paddingTop: 8,
     paddingBottom: 8
@@ -209,7 +213,9 @@ class Container extends React.Component<any> {
               <Typography component="p" className={classes.record}>
                 最近收款记录
               </Typography>
-              <IconButton onClick={() => getActions().navigator.navigate(routerPath.trade)}>
+              <IconButton onClick={() => getActions().navigator.navigate(routerPath.trade)}
+                          className={classes.more}
+              >
                 <MoreIcon />
               </IconButton>
             </CardContent>
