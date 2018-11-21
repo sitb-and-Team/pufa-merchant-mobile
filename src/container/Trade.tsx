@@ -73,7 +73,13 @@ class Container extends React.Component<any, any> {
    */
   componentWillMount() {
     const merchantNo = getMerchantId();
-    this.handleSearch({merchantNo, page: 0})
+    console.log(this.props.page)
+    if (this.props.page.totalElements !== 0){
+      return;
+    }
+    this.handleSearch({merchantNo, page: 0});
+
+    return;
   }
 
   /**
@@ -161,14 +167,15 @@ class Container extends React.Component<any, any> {
    */
   handleLoadMore() {
     const {processing, page} = this.props;
-    // console.log(this.props);
     const {last, number} = page;
     if (processing || last) {
       return;
     }
+    console.log(page);
     this.handleSearch({
       ...this.props.searchParams,
-      page: number + 1
+      page: number + 1,
+      isLoadMore: true
     });
   }
 
@@ -177,7 +184,6 @@ class Container extends React.Component<any, any> {
    * @param params 搜索参数
    */
   handleSearch(params) {
-    /*console.log('search', params);*/
     getActions().payment.searchPaymentTrade(params);
   }
 
