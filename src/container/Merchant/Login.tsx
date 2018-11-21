@@ -15,19 +15,25 @@ import {routerPath} from "../../core/router.config";
 import {getOperator, setMerchantId} from "../../core/SessionServices";
 import alert from '../../component/Alert';
 import {BrandTemplate} from './BrandTemplate';
-import Button from '@material-ui/core/Button';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from "@material-ui/core/es/FormControlLabel/FormControlLabel";
 import FormControl from "@material-ui/core/es/FormControl/FormControl";
 import RadioGroup from "@material-ui/core/es/RadioGroup/RadioGroup";
-import CardContent from "@material-ui/core/CardContent/CardContent";
-import Card from "@material-ui/core/Card/Card";
+import {SitbButton} from "../../component/SitbButton";
 
 // css
 const styles: any = theme => ({
   formControl: {
-    margin: theme.spacing.unit,
-    minWidth: 150
+    width: '100%'
+  },
+  labelControl: {
+    // margin: theme.spacing.unit,
+    margin: 0,
+    borderColor: '#ddd',
+    borderWidth: 2,
+    borderStyle: 'solid',
+    borderRadius: 4,
+    textAlign: 'left'
   },
   listItem: {
     paddingLeft: 0,
@@ -35,6 +41,12 @@ const styles: any = theme => ({
   },
   contentExitValue: {
     paddingRight: 0
+  },
+  radio: {
+    marginLeft: '20%',
+  },
+  formServiceBtn: {
+    marginTop: 10
   }
 });
 
@@ -92,46 +104,41 @@ class Container extends React.Component<any, any> {
         <BrandTemplate serviceButtonName="绑定新商户"
                        routePath={routerPath.merchantBinding}
         >
-          <Card className={classes.card}>
-            <CardContent>
-              <Typography variant="h5"
-                          component="h3"
-                          gutterBottom
-              >
-                {'已绑定的商户'}
-              </Typography>
-              <form>
-                <FormControl className={classes.formControl}>
-
-                  <RadioGroup aria-label={merchantNo}
-                              name={merchantNo}
-                              value={merchantNo}
-                              onChange={this.handleChange}
-                  >
-                    {
-                      merchants.map(({...merchant}, index) => (
-                        <FormControlLabel label={`${merchant.merchantNo}-${merchant.merchantName}`}
-                                          key={index}
-                                          value={merchant.merchantNo}
-                                          control={<Radio color="primary"/>}
-                                          labelPlacement={"start"}
-                        >
-                        </FormControlLabel>
-                      ))
-                    }
-                  </RadioGroup>
-                </FormControl>
-              </form>
-            </CardContent>
-          </Card>
-
-          <Button onClick={this.loginSubmit}
-                  className={classes.contentExitValue}
-                  fullWidth={true}
-                  color="primary"
+          <Typography variant="h5"
+                      component="h3"
+                      gutterBottom
           >
-            {"确认"}
-          </Button>
+            {'已绑定的商户'}
+          </Typography>
+          <form>
+            <FormControl className={classes.formControl}>
+              <RadioGroup aria-label={merchantNo}
+                          name={merchantNo}
+                          value={merchantNo}
+                          onChange={this.handleChange}
+              >
+                {
+                  merchants.map(({...merchant}, index) => (
+                    <FormControlLabel label={`${merchant.merchantNo}-${merchant.merchantName}`}
+                                      key={index}
+                                      value={merchant.merchantNo}
+                                      control={<Radio color="primary" className={classes.radio}/>}
+                                      labelPlacement={"start"}
+                                      className={classes.labelControl}
+                    >
+                    </FormControlLabel>
+                  ))
+                }
+              </RadioGroup>
+            </FormControl>
+          </form>
+          <SitbButton key="submit"
+                      size="large"
+                      className={classes.formServiceBtn}
+                      onClick={this.loginSubmit}
+          >
+            {'确认'}
+          </SitbButton>
         </BrandTemplate>
       </Grid>
     )
