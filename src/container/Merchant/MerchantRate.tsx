@@ -6,15 +6,17 @@
 import * as React from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
+import { lang } from '../../locale';
+import { SitbCard } from '../../component/Card';
+import weChat from '@sitb/svg-icon/weChat';
+import aliPay from '@sitb/svg-icon/aliPay';
+import quickPay from '@sitb/svg-icon/quickPay';
+import mposPay from '@sitb/svg-icon/mpos';
 import { connect } from "react-redux";
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { background } from "../../styles/color";
 import {getMerchantId, getOperator} from "../../core/SessionServices";
-import CardMedia from "@material-ui/core/CardMedia/CardMedia";
-import CardActionArea from "@material-ui/core/CardActionArea/CardActionArea";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ColumnUtil from "../../utils/ColumnUtil";
 
 // css
 const styles: any = theme => ({});
@@ -25,7 +27,7 @@ const styles: any = theme => ({});
 }))
 
 class Container extends React.Component<any, any> {
-  /*render() {
+  render() {
     const loginMerchant = getOperator() && getOperator().find(merchant => merchant.merchantNo === getMerchantId()) || {};
     const configs: any = [];
 
@@ -34,9 +36,9 @@ class Container extends React.Component<any, any> {
     businesses.map((business) => {
       console.log(business);
       let Default_business: any = {};
-      /!**
+      /**
        * 公有
-       *!/
+       */
       const basic = [{
         label: lang.serviceFeeRate.fee,
         value: 'serviceFeeRate.fee',
@@ -62,9 +64,9 @@ class Container extends React.Component<any, any> {
         value: 'normalFeeRate.max',
         setValue: rate => rate && (business.normalFeeRate.type && `${rate}${ColumnUtil.unitJudgment(business.normalFeeRate.type)}` || `${rate}元`)
       }];
-      /!**
+      /**
        * POS独有
-       *!/
+       */
       const posRate = [{
         label: lang.creditFeeRate.fee,
         value: 'creditFeeRate.fee',
@@ -94,6 +96,7 @@ class Container extends React.Component<any, any> {
         Default_business = {
           title: lang.weChat,
           titleIcon: weChat({fill: background.weChat, width: 30, height: 30}),
+          ActionIcon: ExpandMoreIcon,
           config: basic
         }
       }
@@ -102,6 +105,7 @@ class Container extends React.Component<any, any> {
         Default_business = {
           title: lang.aliPay,
           titleIcon: aliPay({fill: background.aliPay, width: 30, height: 30}),
+          ActionIcon: ExpandMoreIcon,
           config: basic
         }
       }
@@ -110,6 +114,7 @@ class Container extends React.Component<any, any> {
         Default_business = {
           title: lang.quickPay,
           titleIcon: quickPay({fill: background.quickPay, width: 30, height: 30}),
+          ActionIcon: ExpandMoreIcon,
           config: basic
         }
       }
@@ -118,6 +123,7 @@ class Container extends React.Component<any, any> {
         Default_business = {
           title: lang.mpos,
           titleIcon: mposPay({fill: background.default, width: 30, height: 30}),
+          ActionIcon: ExpandMoreIcon,
           config: basic
         }
       }
@@ -125,91 +131,10 @@ class Container extends React.Component<any, any> {
     });
     return (
       <SitbCard configs={configs}
+                isExpansionPanel
                 dataResource={loginMerchant.businesses}
       />
     )
-  }*/
-  state = {
-    expanded: null,
-  };
-  handleChange = panel => (event, expanded) => {
-    this.setState({
-      expanded: expanded ? panel : false,
-    });
-  };
-  render() {
-    const { classes } = this.props;
-    const { expanded } = this.state;
-    const loginMerchant = getOperator() && getOperator().find(merchant => merchant.merchantNo === getMerchantId()) || {};
-
-    const businesses = loginMerchant && loginMerchant.businesses || [];
-    // 匹配出当前loginMerchantBusiness
-    businesses.map((business) => {})
-
-    return (
-      <div className={classes.root}>
-        <CardActionArea>
-          <CardMedia component="img"
-                     className={classes.cardMedia}
-                     image={require('../../assets/pictureInfo.png')}
-                     title="Contemplative Reptile"
-          />
-        </CardActionArea>
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-            <Typography className={classes.heading}>General settings</Typography>
-            <Typography className={classes.secondaryHeading}>I am an expansion panel</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
-              maximus est, id dignissim quam.
-            </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-            <Typography className={classes.heading}>Users</Typography>
-            <Typography className={classes.secondaryHeading}>
-              You are currently not an owner
-            </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus, varius pulvinar
-              diam eros in elit. Pellentesque convallis laoreet laoreet.
-            </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel3'} onChange={this.handleChange('panel3')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-            <Typography className={classes.heading}>Advanced settings</Typography>
-            <Typography className={classes.secondaryHeading}>
-              Filtering has been entirely disabled for whole web server
-            </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas
-              eros, vitae egestas augue. Duis vel est augue.
-            </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel4'} onChange={this.handleChange('panel4')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-            <Typography className={classes.heading}>Personal data</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas
-              eros, vitae egestas augue. Duis vel est augue.
-            </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-      </div>
-
-
-    );
   }
 }
 
