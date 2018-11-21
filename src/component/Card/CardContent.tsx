@@ -14,7 +14,11 @@ import Divider from '@material-ui/core/Divider';
 // css
 const styles: any = theme => ({
   cardItem: {
-    marginBottom: 10
+    marginBottom: 10,
+    width: '100%'
+  },
+  title: {
+    lineHeight: "2"
   },
   itemLabel_mode: {
     color: theme.palette.text.secondary
@@ -67,6 +71,10 @@ export interface Props {
    */
   dataResource?: any;
   titleIcon?: any;
+  /**
+   * 点击按钮图标
+   */
+  ActionIcon?: any;
 }
 
 class Container extends React.Component<Props> {
@@ -140,6 +148,7 @@ class Container extends React.Component<Props> {
           <Grid item
                 container
                 alignItems="center"
+                className={classes.title}
           >
             {titleIcon}
             {title}

@@ -6,13 +6,14 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import { CardContent as SitbCardContent, Props as CardProps } from './CardContent';
+import {CardContent as SitbCardContent, Props as CardProps} from './CardContent';
 import Grid from '@material-ui/core/Grid';
+import {ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Typography} from "@material-ui/core";
 
 // css
 const styles: any = theme => ({
@@ -25,6 +26,12 @@ const styles: any = theme => ({
   },
   cardMedia: {
     objectFit: 'cover'
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(16),
+    flexBasis: '80%',
+    flexShrink: 0,
+    lineHeight: '2'
   }
 });
 
@@ -38,9 +45,70 @@ export interface Props {
    * 后台数据
    */
   dataResource: any;
+
+  /**
+   * 判断是否包裹折叠面板
+   */
+  isExpansionPanel?: boolean;
 }
 
 class Container extends React.Component<Props> {
+
+  /**
+   * 渲染内容
+   * @param configItem    config配置,见CardProps
+   * @param index         下标
+   * @param dataResource  数据源
+   */
+  renderContent({configItem, index, dataResource}) {
+    const {isExpansionPanel = false, classes} = this.props;
+    const {title, config, titleIcon, ActionIcon} = configItem;
+
+    /*let props = {
+      key: {index},
+      title: {title},
+      titleIcon: {titleIcon},
+      config: {config},
+      dataResource: {dataResource}
+    }
+
+    if (!isExpansionPanel) {
+      props = {
+        ...props,
+        title: {title},
+        titleIcon: {titleIcon},
+      }
+    }*/
+
+    // 内容模板
+    const template = (
+      <SitbCardContent key={index}
+                       title={title}
+                       config={config}
+                       titleIcon={titleIcon}
+                       dataResource={dataResource}
+      />
+    );
+
+    // 折叠内容模板
+    const templateExpansion = (
+      <SitbCardContent key={index}
+                       config={config}
+                       dataResource={dataResource}
+      />
+    );
+    return isExpansionPanel && (
+      <ExpansionPanel key={index}>
+        <ExpansionPanelSummary expandIcon={<ActionIcon/>}>
+          <Typography>{titleIcon}</Typography>
+          <Typography className={classes.heading}>{title}</Typography>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          {templateExpansion}
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+    ) || template;
+  }
 
   render() {
     const {classes, configs, dataResource} = this.props;
@@ -60,19 +128,12 @@ class Container extends React.Component<Props> {
           <CardContent>
             {
               (configs.length === 0 || dataResource.length === 0) && '无数据' ||
-              configs.map((config, index) => {
+              configs.map((config: CardProps, index) => {
                 let newDataResource: any = dataResource;
                 if (Array.isArray(dataResource)) {
                   newDataResource = dataResource[index];
                 }
-                return (
-                  <SitbCardContent key={index}
-                                   title={config.title}
-                                   config={config.config}
-                                   titleIcon={config.titleIcon}
-                                   dataResource={newDataResource}
-                  />
-                )
+                return this.renderContent({configItem: config, index, dataResource: newDataResource});
               })
             }
           </CardContent>
