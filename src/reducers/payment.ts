@@ -4,12 +4,12 @@
  * date: 2018/9/13
  */
 import compose from './composeReducer';
-import { payment as types } from '../constants/ActionTypes';
+import {payment as types} from '../constants/ActionTypes';
 
 export interface StoreState {
   page: any;
+  homePage: any;
   processing: boolean;
-  isLoadMore: boolean;
   searchParams: object;
 }
 
@@ -19,14 +19,18 @@ const DEFAULT_STATE = {
     size: 10,
     totalElements: 0
   },
+  homePage: {
+    content: [],
+    size: 10,
+    totalElements: 0
+  },
   processing: false,
-  isLoadMore: false,
   searchParams: {}
 };
 
 export default compose((state = DEFAULT_STATE, action): StoreState => {
   // type是动作类型，payload是发送请求的其他参数
-  const {payload, type, status, success} = action;
+  const {payload, type, status} = action;
   switch (type) {
     case types.searchPaymentTrade: {
       return {
@@ -39,15 +43,22 @@ export default compose((state = DEFAULT_STATE, action): StoreState => {
       };
     }
     case types.searchPaymentTradeComplete: {
-      const {content} = payload;
-      const oldItem: any = state.page.content;
-      if (success === true){
-        content.push(...oldItem)
+      const {success, inputValue = false} = payload;
+      let content = [];
+      content = payload.payload.content.slice(0);
+      let oldItem = [];
+      if (success === true) {
+        oldItem.push(...state.page.content);
+        content.push(...oldItem);
       }
-
+      let newPage = {
+        ...payload.payload,
+        content,
+        oldItem: []
+      };
       return {
         ...state,
-        page: (status === '0000' && payload instanceof Object) && payload || state.page,
+        page: (!inputValue && success && payload instanceof Object) && newPage || state.page,
         processing: false
       };
     }
@@ -55,7 +66,7 @@ export default compose((state = DEFAULT_STATE, action): StoreState => {
 
       return {
         ...state,
-        page: (status === '0000' && payload instanceof Object) && payload || state.page,
+        homePage: (status === '0000' && payload instanceof Object) && payload || state.homePage,
         processing: false
       };
     }
