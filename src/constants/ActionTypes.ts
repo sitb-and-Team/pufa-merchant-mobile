@@ -46,7 +46,9 @@ export const payment: any = create('payment', {
    * 交易信息查询
    */
   searchPaymentTrade: null,
-  searchPaymentTradeComplete: null
+  searchPaymentTradeComplete: null,
+  searchAppPayment: null,
+  searchAppPaymentComplete: null,
 });
 
 export const binding: any = create('binding', {
