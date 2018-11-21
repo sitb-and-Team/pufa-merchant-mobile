@@ -73,7 +73,6 @@ class Container extends React.Component<any, any> {
    */
   componentWillMount() {
     const merchantNo = getMerchantId();
-    console.log(this.props.page)
     if (this.props.page.totalElements !== 0){
       return;
     }
@@ -171,7 +170,6 @@ class Container extends React.Component<any, any> {
     if (processing || last) {
       return;
     }
-    console.log(page);
     this.handleSearch({
       ...this.props.searchParams,
       page: number + 1,
@@ -189,7 +187,6 @@ class Container extends React.Component<any, any> {
 
   render() {
     const {classes, page} = this.props;
-    console.log(page);
     return (
       <React.Fragment>
         <Paper elevation={1}>
