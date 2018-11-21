@@ -15,9 +15,6 @@ import Grid from '@material-ui/core/Grid';
 import Tab from '@material-ui/core/Tab';
 import grey from '@material-ui/core/colors/grey';
 
-import EventNoteIcon from '@material-ui/icons/EventNote';
-
-import {menu} from '../../locale';
 import {routerPath} from '../../core/router.config';
 import {getActions} from '../../core/store';
 import List from "veigar/List";
@@ -25,6 +22,7 @@ import {autoBind} from "@sitb/wbs/autoBind";
 import weChat from "@sitb/svg-icon/weChat";
 import aliPay from "@sitb/svg-icon/aliPay";
 import quickPay from "@sitb/svg-icon/quickPay";
+import MoreIcon from '@material-ui/icons/ArrowRightAlt';
 import {momentCommon} from "../../constants/objectKey";
 import ListItem from "@material-ui/core/ListItem/ListItem";
 import Avatar from "@material-ui/core/Avatar/Avatar";
@@ -33,12 +31,17 @@ import money from "@sitb/svg-icon/money";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import {tradeStatusOptions} from "../../constants/tradeStatus";
 import {getMerchantId} from "../../core/SessionServices";
+import IconButton from "@material-ui/core/es/IconButton/IconButton";
 
 // css
 const styles: any = theme => ({
   header: {
     paddingTop: 40,
     paddingBottom: 40
+  },
+  card: {
+    height: 60,
+    fontSize: '16'
   },
   header_mode: {
     backgroundColor: theme.palette.primary.main
@@ -53,6 +56,14 @@ const styles: any = theme => ({
   foot: {
     paddingTop: 10,
     paddingBottom: 72
+  },
+  record: {
+    width: '85%',
+    display: 'inline-block'
+  },
+  content: {
+    paddingTop: 8,
+    paddingBottom: 8
   }
 });
 
@@ -175,11 +186,11 @@ class Container extends React.Component<any> {
   render() {
     const {classes, homePage} = this.props;
     // tab配置
-    const config = [{
+    /*const config = [{
       label: menu.tradeRecord,
       Icon: EventNoteIcon,
       path: routerPath.trade
-    }];
+    }];*/
     return (
       <React.Fragment>
         <Grid>
@@ -192,17 +203,17 @@ class Container extends React.Component<any> {
               <span className={classes.headerMoney_mode}>{'0'}</span>
             </TabContainer>
           </Grid>
-          <Card className={classes.card}>
-            <CardContent>
-              <Grid container
-                    spacing={24}
-              >
-                {
-                  this.renderTabItem(config)
-                }
-              </Grid>
+          {<Card className={classes.card}>
+            <CardContent className={classes.content}>
+
+              <Typography component="p" className={classes.record}>
+                最近收款记录
+              </Typography>
+              <IconButton onClick={() => getActions().navigator.navigate(routerPath.trade)}>
+                <MoreIcon />
+              </IconButton>
             </CardContent>
-          </Card>
+          </Card>}
         </Grid>
         <List data={homePage.content}
               className={classes.foot}
@@ -211,7 +222,8 @@ class Container extends React.Component<any> {
               useBodyScroll
         />
       </React.Fragment>
-    )
+    );
+
   }
 }
 
