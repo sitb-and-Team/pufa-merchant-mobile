@@ -14,7 +14,6 @@ export function searchPaymentTrade(action$) {
     ofType(types.searchPaymentTrade),
     switchMap(({payload}: any) => {
       const {merchantNo, isLoadMore, paymentAt,  ...other} = payload;
-      console.log(paymentAt);
       return execute({
         url: `${URL.payment}/trades/${merchantNo}?${urlArgs(other)}`,
         inputValue: isLoadMore
