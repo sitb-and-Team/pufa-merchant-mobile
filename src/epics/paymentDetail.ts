@@ -13,10 +13,11 @@ export function searchPaymentTrade(action$) {
   return action$.pipe(
     ofType(types.searchPaymentTrade),
     switchMap(({payload}: any) => {
-      const {merchantNo, isHome, ...other} = payload;
+      const {merchantNo, isLoadMore, paymentAt,  ...other} = payload;
+      console.log(paymentAt);
       return execute({
         url: `${URL.payment}/trades/${merchantNo}?${urlArgs(other)}`,
-        inputValue: isHome
+        inputValue: isLoadMore
       })
     }),
     map((payload) => {
