@@ -251,8 +251,8 @@ class Container extends React.Component<any, any> {
           <Toolbar>
             <form className={classes.search}>
               <TextField id="date"
-                         label="Birthday"
                          type="date"
+                         label="交易日期"
                          defaultValue=""
                          className={classes.textField}
                          InputLabelProps={{
