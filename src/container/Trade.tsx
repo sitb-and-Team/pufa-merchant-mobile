@@ -89,16 +89,25 @@ const styles = theme => ({
 @autoBind
 class Container extends React.Component<any, any> {
 
+  constructor(props, content) {
+    super(props, content);
+    this.state = {
+      paymentAt: '',
+      totalElement: ''
+    };
+  }
+
   /**
    * 交易信息查询
    */
   componentWillMount() {
     const merchantNo = getMerchantId();
-    if (this.props.page.totalElements !== 0) {
+    console.log(this.props.totalElements);
+    if (this.props.page.totalElements !== this.props.page.totalElements) {
       return;
     }
     this.handleSearch({merchantNo, page: 0});
-
+    this.setState({[this.state.totalElement]: this.props.page.totalElements});
     return;
   }
 
@@ -110,17 +119,6 @@ class Container extends React.Component<any, any> {
       routeName: routerPath.paymentDetail,
       params
     });
-  }
-
-
-  /**
-   * 搜索日期保存
-   */
-  constructor(props, content) {
-    super(props, content);
-    this.state = {
-      paymentAt: ''
-    };
   }
 
   /**
