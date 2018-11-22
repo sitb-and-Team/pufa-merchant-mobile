@@ -43,25 +43,28 @@ export default compose((state = DEFAULT_STATE, action): StoreState => {
       };
     }
     case types.searchPaymentTradeComplete: {
-      const {success, inputValue = false} = payload;
-      let content = [];
-      content = payload.payload.content.slice(0);
-      let oldItem = [];
-      if (success === true) {
-        oldItem.push(...state.page.content);
-        content.push(...oldItem);
+      const {success, inputValue = false, paymentAt} = payload;
+      let oldItem = state.page.content;
+      let page = state.page;
+
+      if (success && payload instanceof Object) {
+        page = payload.payload;
+        let content = payload.payload.content;
+        if (inputValue && !paymentAt) {
+          content.push(...oldItem);
+          page = {
+            ...payload.payload,
+            content
+          }
+        }
       }
-      let newPage = {
-        ...payload.payload,
-        content,
-        oldItem: []
-      };
       return {
         ...state,
-        page: (!inputValue && success && payload instanceof Object) && newPage || state.page,
+        page,
         processing: false
       };
     }
+
     case types.searchAppPaymentComplete: {
 
       return {
