@@ -5,12 +5,13 @@
  */
 import * as React from 'react';
 import {connect} from "react-redux";
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 
-import { IdTypeOptions } from '../../constants/selectObj/IdType';
-import { lang } from '../../locale';
-import { SitbCard } from '../../component/Card';
+import {IdTypeOptions} from '../../constants/selectObj/IdType';
+import {lang} from '../../locale';
+import {SitbCard} from '../../component/Card';
 import {getMerchantId, getOperator} from "../../core/SessionServices";
+// import {SitbButton} from "../../component/SitbButton";
 
 
 // css
@@ -32,23 +33,29 @@ class Container extends React.Component<any, any> {
       label: lang.merchantName,
       value: 'merchantName'
     }, {
-      label: lang.legalPerson,
+      label: lang.title,
+      value: 'title'
+    }, {
+      label: lang.legalInfo.legalPerson,
       value: 'legalPerson.name',
       // setValue: string => new Array(string.length).join('*') + string.substr(-1)
       setValue: string => string.replace(/.(?=.)/, '*')
     }, {
-      label: lang.legalPersonPhone,
-      value: 'legalPerson.phoneNo'
+      label: lang.legalInfo.legalPersonPhone,
+      value: 'legalPerson.phoneNo',
+      setValue: string => string.replace(/^(\d{3})\d*(\d{4})$/, '$1****$2')
     }, {
-      label: lang.legalEmail,
-      value: 'legalPerson.email'
+      label: lang.legalInfo.legalEmail,
+      value: 'legalPerson.email',
+      setValue: string => string.replace(/(.=?)/, '*')
     }, {
       label: lang.idType,
       value: 'legalPerson.idCard.type',
       mappingObject: IdTypeOptions
     }, {
       label: lang.idNo,
-      value: 'legalPerson.idCard.number'
+      value: 'legalPerson.idCard.number',
+      setValue: string => string.replace(/^(\d{6})\d*(\d{4})$/, '$1****$2')
     }, {
       label: lang.address,
       value: [
@@ -81,9 +88,17 @@ class Container extends React.Component<any, any> {
     }];
     const loginMerchant = getOperator() && getOperator().find(merchant => merchant.merchantNo === getMerchantId()) || {};
     return (
-      <SitbCard configs={configs}
-                dataResource={loginMerchant}
-      />
+      <React.Fragment>
+        <SitbCard configs={configs}
+                  dataResource={loginMerchant}
+        />
+        {/*<SitbButton key="submit"
+                    size="large"
+                    // onClick={this.handleClick}
+        >
+          {'修改基本信息'}
+        </SitbButton>*/}
+      </React.Fragment>
     )
 
   }
