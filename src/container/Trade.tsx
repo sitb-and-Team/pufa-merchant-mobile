@@ -94,7 +94,7 @@ class Container extends React.Component<any, any> {
    */
   componentWillMount() {
     const merchantNo = getMerchantId();
-    if (this.props.page.totalElements === this.props.searchParams.page) {
+    if (this.props.page.totalElements !== 0) {
       return;
     }
     this.handleSearch({merchantNo, page: 0});
