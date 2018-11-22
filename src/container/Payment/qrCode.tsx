@@ -12,15 +12,25 @@ import {getMerchantId} from "../../core/SessionServices";
 import URL from "../../constants/URL";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import CardContent from '@material-ui/core/CardContent';
+import Grid from "@material-ui/core/Grid/Grid";
 
 
 // css
 const styles = theme => ({
+  main: {
+    background: theme.palette.background.paper,
+  },
   cardMedia: {
     objectFit: 'cover'
   },
+  mainForm: {
+    marginLeft: 32,
+    marginRight: 32,
+    marginTop: 150
+  },
   title: {
-    marginLeft: 30
+    marginLeft: 30,
+    marginBottom: 0
   }
 });
 
@@ -33,30 +43,32 @@ class Container extends React.Component<any, any> {
 
   render() {
     const {classes} = this.props;
-    // @ts-ignore
-    // @ts-ignore
     return (
-      <div>
-        <Card component="nav">
-          <CardActionArea>
-            <CardContent>
-              <Typography gutterBottom
-                          variant="h5"
-                          component="h2"
-                          className={classes.title}
-              >
-                我的银联收款码
-              </Typography>
-            </CardContent>
-            <CardMedia component="img"
-                       className={classes.cardMedia}
-                       image={`${URL.qrCode}?merchantCode=${getMerchantId()}`}
-                       title="Contemplative Reptile"
-            />
-          </CardActionArea>
-        </Card>
-        {/*<img className={classes.barcode} src={`${URL.qrCode}/barcode?content=${getMerchantId()}`}/>*/}
-      </div>
+      <Grid className={classes.main}>
+        <Grid xs={12}
+              className={classes.mainForm}
+        >
+          <Card>
+            <CardActionArea>
+              <CardContent>
+                <Typography gutterBottom
+                            variant="h5"
+                            component="h2"
+                            className={classes.title}
+                >
+                  我的银联收款码
+                </Typography>
+              </CardContent>
+              <CardMedia component="img"
+                         className={classes.cardMedia}
+                         image={`${URL.qrCode}?merchantCode=${getMerchantId()}`}
+                         title="Contemplative Reptile"
+              />
+            </CardActionArea>
+          </Card>
+          {/*<img className={classes.barcode} src={`${URL.qrCode}/barcode?content=${getMerchantId()}`}/>*/}
+        </Grid>
+      </Grid>
     )
   }
 }
