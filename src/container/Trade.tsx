@@ -14,6 +14,7 @@ import Avatar from '@material-ui/core/Avatar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {autoBind} from '@sitb/wbs/autoBind';
 import {getActions} from '../core/store';
+import objectPath from 'object-path';
 
 import Grid from '@material-ui/core/Grid';
 import weChat from '@sitb/svg-icon/weChat';
@@ -26,11 +27,17 @@ import {momentCommon} from "../constants/objectKey";
 import {tradeStatusOptions} from '../constants/tradeStatus';
 import {getMerchantId} from "../core/SessionServices";
 import Typography from "@material-ui/core/es/Typography/Typography";
-import Paper from "@material-ui/core/es/Paper/Paper";
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import TextField from '@material-ui/core/TextField';
+import {SitbButton} from "../component/SitbButton";
 
 
 // css
 const styles = theme => ({
+  header: {
+    height: 105
+  },
   root: {
     width: '100%',
     maxWidth: 360,
@@ -57,7 +64,21 @@ const styles = theme => ({
     right: 0,
     margin: 0,
     display: 'inline-block'
-  }
+  },
+  btn: {
+    width: '20%'
+  },
+  search: {
+    width: '100%'
+  },
+  list: {
+    marginTop: 105
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
 });
 
 @connect(({payment}) => ({
@@ -73,7 +94,7 @@ class Container extends React.Component<any, any> {
    */
   componentWillMount() {
     const merchantNo = getMerchantId();
-    if (this.props.page.totalElements !== 0){
+    if (this.props.page.totalElements === this.props.searchParams.page) {
       return;
     }
     this.handleSearch({merchantNo, page: 0});
@@ -90,6 +111,36 @@ class Container extends React.Component<any, any> {
       params
     });
   }
+
+
+  /**
+   * 搜索日期保存
+   */
+  constructor(props, content) {
+    super(props, content);
+    this.state = {
+      paymentAt: ''
+    };
+  }
+
+  /**
+   * 保存日期
+   * @param name
+   * @returns {(event) => void}
+   */
+  handleChange = paymentAt => event => {
+    this.setState({[paymentAt]: event.target.value});
+  };
+
+  /**
+   * 搜索日期查看交易
+   */
+  handleClick(){
+    const merchantNo = getMerchantId();
+    this.handleSearch({merchantNo, page: 0, paymentAt: this.state.paymentAt});
+
+  }
+
 
   /**
    * 渲染list
@@ -115,9 +166,9 @@ class Container extends React.Component<any, any> {
     }
     if (businessType.search("UNION") !== -1) {
       type = "quickPay";
-    }
+    };
 
-    item.paymentAt = item && moment(item.paymentAt).format(momentCommon.DATETIME_FORMAT);
+    item.paymentAt = item && `${moment(item.paymentAt).format(momentCommon.DATETIME_FORMAT)}` || '';
 
     return (
       <ListItem button
@@ -166,6 +217,7 @@ class Container extends React.Component<any, any> {
    */
   handleLoadMore() {
     const {processing, page} = this.props;
+    const {paymentAt} = this.state;
     const {last, number} = page;
     if (processing || last) {
       return;
@@ -173,7 +225,8 @@ class Container extends React.Component<any, any> {
     this.handleSearch({
       ...this.props.searchParams,
       page: number + 1,
-      isLoadMore: true
+      isLoadMore: true,
+      paymentAt
     });
   }
 
@@ -181,7 +234,12 @@ class Container extends React.Component<any, any> {
    * search
    * @param params 搜索参数
    */
-  handleSearch(params) {
+  handleSearch(params = this.props.searchParams) {
+    // 判断 交易时间
+    let paymentAt = objectPath.get(params, 'paymentAt');
+    params.startTime = paymentAt && `${moment(paymentAt).hours(0).minutes(0).seconds(0).format(momentCommon.DATE_FORMAT)} 00:00:00` || '';
+    params.endTime = paymentAt && `${moment(paymentAt).hours(23).minutes(59).seconds(59).format(momentCommon.DATETIME_FORMAT)}` || '';
+    Reflect.deleteProperty(params, 'paymentAt');
     getActions().payment.searchPaymentTrade(params);
   }
 
@@ -189,19 +247,43 @@ class Container extends React.Component<any, any> {
     const {classes, page} = this.props;
     return (
       <React.Fragment>
-        <Paper elevation={1}>
-          <Typography component="p" className={classes.left} paragraph={true}>
-            总笔数： {page.totalElements} 笔
-          </Typography>
-          <Typography component="p" className={classes.right} paragraph={true}>
-            总交易金额： {page.value} 元
-          </Typography>
-        </Paper>
+        <AppBar position="fixed" color="default" className={classes.header}>
+          <Toolbar>
+            <form className={classes.search}>
+              <TextField id="date"
+                         label="Birthday"
+                         type="date"
+                         defaultValue=""
+                         className={classes.textField}
+                         InputLabelProps={{
+                           shrink: true,
+                         }}
+                         onChange={this.handleChange('paymentAt')}
+              />
+            </form>
+            <SitbButton key="submit"
+                        size="large"
+                        className={classes.btn}
+                        onClick={this.handleClick}
+            >
+              {'确认'}
+            </SitbButton>
+          </Toolbar>
+          <Toolbar>
+            <Typography component="p" className={classes.left} paragraph={true}>
+              总笔数： {page.totalElements} 笔
+            </Typography>
+            <Typography component="p" className={classes.right} paragraph={true}>
+              总交易金额： {page.value} 元
+            </Typography>
+          </Toolbar>
+        </AppBar>
         <List data={page.content}
               renderItem={this.renderItem}
               renderFooter={this.renderFooter}
               onEndReached={this.handleLoadMore}
               onEndReachedThreshold={50}
+              className={classes.list}
               useBodyScroll
         />
       </React.Fragment>
