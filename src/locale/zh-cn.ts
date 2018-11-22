@@ -11,10 +11,12 @@ export const lang = {
   address: '地址',
   confirm: '确认',
   cancel: '取消',
-  legalPerson: '法人姓名',
-  legalPersonPhone: '法人电话',
-  legalIdNo: '法人身份证号码',
-  legalEmail: '法人邮箱',
+  legalInfo: {
+    legalPerson: '法人姓名',
+    legalPersonPhone: '法人电话',
+    legalIdNo: '法人身份证号码',
+    legalEmail: '法人邮箱',
+  },
   idType: '证件类型',
   idNo: '证件号',
 
@@ -61,6 +63,7 @@ export const lang = {
   accountNumber: '结算账户号',
   auditNumber: "交易流水号",
   merchantName: '商户名',
+  title: '商户简称',
   merchantNo: '商户号',
   checkValue: '验证码',
   merchant: {
