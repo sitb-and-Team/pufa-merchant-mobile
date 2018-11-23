@@ -63,7 +63,7 @@ class Container extends React.Component<any, any> {
               <CardMedia component="img"
                          className={classes.cardMedia}
                          image={`${URL.qrCode}?merchantCode=${getMerchantId()}`}
-                         title="Contemplative Reptile"
+                         title="我的银联收款码"
               />
             </CardActionArea>
           </Card>
