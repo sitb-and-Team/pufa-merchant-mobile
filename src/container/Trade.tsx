@@ -179,7 +179,7 @@ class Container extends React.Component<any, any> {
         </Avatar>
         <ListItemText primary={`${item.merchant.merchantName}`}
                       secondary={`${item.paymentAt}`}/>
-        <ListItemText primary={`${item.totalAmount} 元`} secondary={`${tradeStatusOptions[item.status]}`}/>
+        <ListItemText primary={`${item.totalAmount.toFixed(2)} 元`} secondary={`${tradeStatusOptions[item.status]}`}/>
       </ListItem>
     )
   }
