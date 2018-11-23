@@ -5,15 +5,15 @@
  */
 import * as React from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
-import { lang } from '../../locale';
-import { SitbCard } from '../../component/Card';
+import {withStyles} from '@material-ui/core/styles';
+import {lang} from '../../locale';
+import {SitbCard} from '../../component/Card';
 import weChat from '@sitb/svg-icon/weChat';
 import aliPay from '@sitb/svg-icon/aliPay';
 import quickPay from '@sitb/svg-icon/quickPay';
 import mposPay from '@sitb/svg-icon/mpos';
-import { connect } from "react-redux";
-import { background } from "../../styles/color";
+import {connect} from "react-redux";
+import {background} from "../../styles/color";
 import {getMerchantId, getOperator} from "../../core/SessionServices";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ColumnUtil from "../../utils/ColumnUtil";
@@ -34,7 +34,6 @@ class Container extends React.Component<any, any> {
     const businesses = loginMerchant && loginMerchant.businesses || [];
     // 匹配出当前loginMerchantBusiness
     businesses.map((business) => {
-      console.log(business);
       let Default_business: any = {};
       /**
        * 公有
@@ -130,10 +129,13 @@ class Container extends React.Component<any, any> {
       configs.push(Default_business);
     });
     return (
-      <SitbCard configs={configs}
-                isExpansionPanel
-                dataResource={loginMerchant.businesses}
-      />
+      <React.Fragment>
+        <SitbCard configs={configs}
+                  isExpansionPanel
+                  isTel
+                  dataResource={loginMerchant.businesses}
+        />
+      </React.Fragment>
     )
   }
 }
