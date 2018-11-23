@@ -32,8 +32,7 @@ const styles: any = theme => ({
     borderColor: '#ddd',
     borderWidth: 2,
     borderStyle: 'solid',
-    borderRadius: 4,
-    textAlign: 'left'
+    borderRadius: 4
   },
   listItem: {
     paddingLeft: 0,
@@ -41,9 +40,6 @@ const styles: any = theme => ({
   },
   contentExitValue: {
     paddingRight: 0
-  },
-  radio: {
-    marginLeft: '20%',
   },
   formServiceBtn: {
     marginTop: 10
@@ -123,7 +119,7 @@ class Container extends React.Component<any, any> {
                                       key={index}
                                       value={merchant.merchantNo}
                                       control={<Radio color="primary" className={classes.radio}/>}
-                                      labelPlacement={"start"}
+                                      labelPlacement={"end"}
                                       className={classes.labelControl}
                     >
                     </FormControlLabel>
