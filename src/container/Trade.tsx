@@ -133,7 +133,7 @@ class Container extends React.Component<any, any> {
   /**
    * 搜索日期查看交易
    */
-  handleClick(){
+  handleClick() {
     const merchantNo = getMerchantId();
     this.handleSearch({merchantNo, page: 0, paymentAt: this.state.paymentAt});
 
@@ -193,7 +193,12 @@ class Container extends React.Component<any, any> {
     const {last} = page;
     // 判断是否是最后一页，是否需要加载
     if (last) {
-      return <Grid className={classes.foot}>{'已经到底了，别扯了'}</Grid>;
+      return <Grid container
+                   justify={"center"}
+                   className={classes.foot}
+             >
+               {'已经到底了，别扯了'}
+             </Grid>;
     }
     if (processing) {
       return (
