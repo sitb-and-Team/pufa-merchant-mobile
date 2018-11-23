@@ -45,7 +45,8 @@ class Container extends React.Component<any, any> {
     const {classes} = this.props;
     return (
       <Grid className={classes.main}>
-        <Grid xs={12}
+        <Grid item
+              xs={12}
               className={classes.mainForm}
         >
           <Card>
