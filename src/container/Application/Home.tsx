@@ -22,12 +22,12 @@ import {autoBind} from "@sitb/wbs/autoBind";
 import weChat from "@sitb/svg-icon/weChat";
 import aliPay from "@sitb/svg-icon/aliPay";
 import quickPay from "@sitb/svg-icon/quickPay";
+import money from "@sitb/svg-icon/money";
 import MoreIcon from '@material-ui/icons/ArrowRightAlt';
 import {momentCommon} from "../../constants/objectKey";
 import ListItem from "@material-ui/core/ListItem/ListItem";
 import Avatar from "@material-ui/core/Avatar/Avatar";
 import {background} from "../../styles/color";
-import money from "@sitb/svg-icon/money";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import {tradeStatusOptions} from "../../constants/tradeStatus";
 import {getMerchantId} from "../../core/SessionServices";
@@ -87,13 +87,21 @@ function TabContainer(props) {
   searchParams: payment.searchParams,
   processing: payment.processing,
   isLoadMore: payment.isLoadMore,
-  homePage: payment.homePage
+  homePage: payment.homePage,
+  page: payment.page
 }))
 @autoBind
 class Container extends React.Component<any> {
+
+  state = {
+    isToday: new Date()
+  };
+
   componentWillMount(){
+    let {isToday} = this.state;
     const merchantNo = getMerchantId();
     this.handleSearch({merchantNo, page: 0});
+    this.handleSearchToday({merchantNo, page: 0, isToday});
   }
 
   /**
@@ -108,6 +116,18 @@ class Container extends React.Component<any> {
    */
   handleSearch(params) {
     getActions().payment.searchAppPayment(params);
+  }
+  /**
+   * search
+   * @param params 搜索今日收入参数
+   */
+  handleSearchToday(params) {
+    let {isToday} = this.state;
+    // 判断 交易时间
+    params.startTime = isToday && `${moment(isToday).hours(0).minutes(0).seconds(0).format(momentCommon.DATE_FORMAT)} 00:00:00` || '';
+    params.endTime = isToday && `${moment(isToday).hours(23).minutes(59).seconds(59).format(momentCommon.DATETIME_FORMAT)}` || '';
+    Reflect.deleteProperty(params, 'isToday');
+    getActions().payment.searchPaymentTrade(params);
   }
   /**
    * 路由跳转
@@ -146,6 +166,8 @@ class Container extends React.Component<any> {
     }
 
     item.paymentAt = item && moment(item.paymentAt).format(momentCommon.DATETIME_FORMAT);
+    let {totalAmount} = item;
+    totalAmount = totalAmount.toFixed(2);
 
     return (
       <ListItem button
@@ -158,7 +180,7 @@ class Container extends React.Component<any> {
         </Avatar>
         <ListItemText primary={`${item.merchant.merchantName}`}
                       secondary={`${item.paymentAt}`}/>
-        <ListItemText primary={`${item.totalAmount} 元`} secondary={`${tradeStatusOptions[item.status]}`}/>
+        <ListItemText primary={`${totalAmount} 元`} secondary={`${tradeStatusOptions[item.status]}`}/>
       </ListItem>
     )
   }
@@ -188,7 +210,7 @@ class Container extends React.Component<any> {
   }
 
   render() {
-    const {classes, homePage} = this.props;
+    const {classes, homePage, page} = this.props;
     // tab配置
     /*const config = [{
       label: menu.tradeRecord,
@@ -204,7 +226,7 @@ class Container extends React.Component<any> {
           >
             <TabContainer align="center">
               <p className={classes.headerTitle_mode}>{'今日收入(元)'}</p>
-              <span className={classes.headerMoney_mode}>{'0'}</span>
+              <span className={classes.headerMoney_mode}>{page.value}</span>
             </TabContainer>
           </Grid>
           {<Card className={classes.card}>
