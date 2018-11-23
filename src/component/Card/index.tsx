@@ -32,6 +32,16 @@ const styles: any = theme => ({
     flexBasis: '80%',
     flexShrink: 0,
     lineHeight: '2'
+  },
+  serviceTel: {
+    fontSize: theme.typography.pxToRem(16),
+    flexBasis: '80%',
+    flexShrink: 0,
+    marginTop: 10,
+    marginBottom: 0,
+    textAlign: 'center',
+    display: 'block',
+    textDecoration: 'none'
   }
 });
 
@@ -50,6 +60,11 @@ export interface Props {
    * 判断是否包裹折叠面板
    */
   isExpansionPanel?: boolean;
+
+  /**
+   * 判断是否有电话
+   */
+  isTel?: boolean;
 }
 
 class Container extends React.Component<Props> {
@@ -97,6 +112,7 @@ class Container extends React.Component<Props> {
                        dataResource={dataResource}
       />
     );
+
     return isExpansionPanel && (
       <ExpansionPanel key={index}>
         <ExpansionPanelSummary expandIcon={<ActionIcon/>}>
@@ -111,7 +127,7 @@ class Container extends React.Component<Props> {
   }
 
   render() {
-    const {classes, configs, dataResource} = this.props;
+    const {classes, configs, dataResource, isTel = false} = this.props;
     return (
       <Grid container
             justify="center"
@@ -135,6 +151,16 @@ class Container extends React.Component<Props> {
                 }
                 return this.renderContent({configItem: config, index, dataResource: newDataResource});
               })
+            }
+            {
+              isTel
+                ?
+                <a href='tel: 15090266125'
+                   className={classes.serviceTel}>
+                  服务热线：15090266125
+                </a>
+                :
+                <br/>
             }
           </CardContent>
         </Card>
