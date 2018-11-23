@@ -11,7 +11,6 @@ import {IdTypeOptions} from '../../constants/selectObj/IdType';
 import {lang} from '../../locale';
 import {SitbCard} from '../../component/Card';
 import {getMerchantId, getOperator} from "../../core/SessionServices";
-// import {SitbButton} from "../../component/SitbButton";
 
 
 // css
@@ -88,17 +87,9 @@ class Container extends React.Component<any, any> {
     }];
     const loginMerchant = getOperator() && getOperator().find(merchant => merchant.merchantNo === getMerchantId()) || {};
     return (
-      <React.Fragment>
-        <SitbCard configs={configs}
-                  dataResource={loginMerchant}
-        />
-        {/*<SitbButton key="submit"
-                    size="large"
-                    // onClick={this.handleClick}
-        >
-          {'修改基本信息'}
-        </SitbButton>*/}
-      </React.Fragment>
+      <SitbCard configs={configs}
+                dataResource={loginMerchant}
+      />
     )
 
   }
