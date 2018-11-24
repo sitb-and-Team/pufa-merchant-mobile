@@ -13,9 +13,9 @@ export function searchPaymentTrade(action$) {
   return action$.pipe(
     ofType(types.searchPaymentTrade),
     switchMap(({payload}: any) => {
-      const {merchantNo, isLoadMore, ...other} = payload;
+      const {isLoadMore, ...other} = payload;
       return execute({
-        url: `${URL.payment}/trades/${merchantNo}?${urlArgs(other)}`,
+        url: `${URL.payment}?${urlArgs(other)}`,
         inputValue: isLoadMore
       })
     }),
@@ -37,11 +37,9 @@ export function searchPaymentTrade(action$) {
 export function searchAppPayment(action$) {
   return action$.pipe(
     ofType(types.searchAppPayment),
-    switchMap(({payload}: any) => {
-      const {merchantNo, ...other} = payload;
-      return execute({
-        url: `${URL.payment}/trades/${merchantNo}?${urlArgs(other)}`,
+    switchMap(({payload}: any) => execute({
+        url: `${URL.payment}?${urlArgs(payload)}`,
         type: types.searchAppPaymentComplete
       })
-    }))
+    ))
 }
