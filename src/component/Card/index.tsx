@@ -155,7 +155,7 @@ class Container extends React.Component<Props> {
             {
               isTel
                 ?
-                <a href='tel: 15090266125'
+                <a href='tel: *********'
                    className={classes.serviceTel}>
                   服务热线：15090266125
                 </a>
