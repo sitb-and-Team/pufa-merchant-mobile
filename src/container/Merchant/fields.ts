@@ -7,18 +7,18 @@ import ColumnUtil from "../../utils/ColumnUtil";
  * @param prefixString
  */
 export const rateTemplate: any = (prefixString) => [{
-  label: lang[`${prefixString}`].value,
+  label: objectPath.get(lang, `${prefixString}.value`),
   value: `${prefixString}.value`,
   setValue: (rate, dataResource) => {
     const type = objectPath.get(dataResource, `${prefixString}.type`);
     return rate && (type && `${rate}${ColumnUtil.unitJudgment(type)}` || `${rate}元`)
   }
 }, {
-  label: lang[`${prefixString}`].min,
+  label: objectPath.get(lang, `${prefixString}.min`),
   value: `${prefixString}.min`,
   setValue: min => min && `${min}元`
 }, {
-  label: lang[`${prefixString}`].max,
+  label: objectPath.get(lang, `${prefixString}.max`),
   value: `${prefixString}.max`,
   setValue: max => max && `${max}元`
 }];
