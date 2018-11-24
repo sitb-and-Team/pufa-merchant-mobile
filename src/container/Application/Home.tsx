@@ -30,7 +30,6 @@ import Avatar from "@material-ui/core/Avatar/Avatar";
 import {background} from "../../styles/color";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import {tradeStatusOptions} from "../../constants/tradeStatus";
-import {getMerchantId} from "../../core/SessionServices";
 import IconButton from "@material-ui/core/es/IconButton/IconButton";
 
 // css
@@ -97,11 +96,10 @@ class Container extends React.Component<any> {
     isToday: new Date()
   };
 
-  componentWillMount(){
+  componentWillMount() {
     let {isToday} = this.state;
-    const merchantNo = getMerchantId();
-    this.handleSearch({merchantNo, page: 0});
-    this.handleSearchToday({merchantNo, page: 0, isToday});
+    this.handleSearch({page: 0});
+    this.handleSearchToday({page: 0, isToday});
   }
 
   /**
@@ -110,6 +108,7 @@ class Container extends React.Component<any> {
   handleGoToTrade(path) {
     getActions().navigator.navigate(path);
   }
+
   /**
    * search
    * @param params 搜索参数
@@ -117,6 +116,7 @@ class Container extends React.Component<any> {
   handleSearch(params) {
     getActions().payment.searchAppPayment(params);
   }
+
   /**
    * search
    * @param params 搜索今日收入参数
@@ -129,6 +129,7 @@ class Container extends React.Component<any> {
     Reflect.deleteProperty(params, 'isToday');
     getActions().payment.searchPaymentTrade(params);
   }
+
   /**
    * 路由跳转
    */
@@ -238,7 +239,7 @@ class Container extends React.Component<any> {
               <IconButton onClick={() => getActions().navigator.navigate(routerPath.trade)}
                           className={classes.more}
               >
-                <MoreIcon />
+                <MoreIcon/>
               </IconButton>
             </CardContent>
           </Card>}
