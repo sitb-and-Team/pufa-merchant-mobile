@@ -34,28 +34,54 @@ export const lang = {
   cap: '固定值',
 
   normalFeeRate: {
-    fee: '费率',
+    value: '费率',
     type: '费率类型',
-    min: '最低费率',
-    max: '最高费率'
+    min: '最低收费',
+    max: '最高收费'
   },
   serviceFeeRate: {
-    fee: '服务费率',
+    value: '服务费率',
     type: '服务费类型',
-    min: '最低服务费',
-    max: '最高服务费'
+    min: '最低收费',
+    max: '最高收费'
   },
-  debitFeeRate: {
-    fee: '借记卡费率',
-    type: '借记卡类型',
-    min: '最低借记费',
-    max: '最高借记费'
-  },
-  creditFeeRate: {
-    fee: '贷记卡费率',
-    type: '贷记卡类型',
-    min: '最低贷记费',
-    max: '最高贷记费'
+  posFeeRate: {
+    debit: {
+      value: '借记卡费率',
+      type: '借记卡类型',
+      min: '最低收费',
+      max: '最高收费'
+    },
+    ownerDebit: {
+      value: '本行借记卡费率',
+      type: '本行借记卡类型',
+      min: '最低收费',
+      max: '最高收费'
+    },
+    credit: {
+      value: '贷记卡费率',
+      type: '贷记卡类型',
+      min: '最低收费',
+      max: '最高收费'
+    },
+    ownerCredit: {
+      value: '本行贷记卡费率',
+      type: '本行贷记卡类型',
+      min: '最低收费',
+      max: '最高收费'
+    },
+    abroadDebit: {
+      value: '外卡-借记卡费率',
+      type: '外卡-借记卡类型',
+      min: '最低收费',
+      max: '最高收费'
+    },
+    abroadCredit: {
+      value: '外卡-贷记卡费率',
+      type: '外卡-贷记卡类型',
+      min: '最低收费',
+      max: '最高收费'
+    }
   },
   settleBankName: '结算银行名称',
   settleBankNo: '结算银行行号',
