@@ -83,10 +83,28 @@ class Container extends React.Component<any, any> {
       return;
     }
     setMerchantId(merchantNo.toString());
-    getActions().navigator.navigate(routerPath.app);
+    getActions().navigator.navigate(`${routerPath.app}/Home`);
     this.setState({
       merchantNo: ''
     });
+  }
+
+  /**
+   * 渲染radio
+   * @param merchants 商户信息
+   */
+  renderRadioGroup(merchants) {
+    const {classes} = this.props;
+    return merchants.merchants.map((merchant, index) => (
+      <FormControlLabel label={`${merchant.merchantNo}-${merchant.merchantName}`}
+                        key={index}
+                        value={merchant.merchantNo}
+                        control={<Radio color="primary" className={classes.radio}/>}
+                        labelPlacement={"end"}
+                        className={classes.labelControl}
+      >
+      </FormControlLabel>
+    ));
   }
 
 
@@ -94,7 +112,7 @@ class Container extends React.Component<any, any> {
     const {merchantNo} = this.state;
     const {classes} = this.props;
     // 取缓存merchants
-    const merchants = getOperator() || [];
+    const merchants: any = getOperator() || [];
     return (
       <Grid>
         <BrandTemplate serviceButtonName="绑定新商户"
@@ -107,26 +125,21 @@ class Container extends React.Component<any, any> {
             {'已绑定的商户'}
           </Typography>
           <form>
-            <FormControl className={classes.formControl}>
-              <RadioGroup aria-label={merchantNo}
-                          name={merchantNo}
-                          value={merchantNo}
-                          onChange={this.handleChange}
-              >
-                {
-                  merchants.map(({...merchant}, index) => (
-                    <FormControlLabel label={`${merchant.merchantNo}-${merchant.merchantName}`}
-                                      key={index}
-                                      value={merchant.merchantNo}
-                                      control={<Radio color="primary" className={classes.radio}/>}
-                                      labelPlacement={"end"}
-                                      className={classes.labelControl}
-                    >
-                    </FormControlLabel>
-                  ))
-                }
-              </RadioGroup>
-            </FormControl>
+            {
+              (merchants && merchants.length !== 0) && (
+                <FormControl className={classes.formControl}>
+                  <RadioGroup aria-label={merchantNo}
+                              name={merchantNo}
+                              value={merchantNo}
+                              onChange={this.handleChange}
+                  >
+                    {
+                      this.renderRadioGroup(merchants)
+                    }
+                  </RadioGroup>
+                </FormControl>
+              ) || <p>{'获取数据失败'}</p>
+            }
           </form>
           <SitbButton key="submit"
                       size="large"
