@@ -10,6 +10,6 @@ export default {
   session: `${api}/session`,
   binding: `${api}/session/operators/merchants`,
   bindSend: `${api}/merchant-check-value`,
-  payment: `${api}/payment`,
+  payment: `${api}/payment-records`,
   qrCode: `${api}/qr-codes`,
 }
