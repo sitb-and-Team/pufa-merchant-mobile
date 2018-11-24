@@ -15,6 +15,7 @@ import { QrCode } from '../container/Payment/qrCode';
 // 路由列表
 export const routerPath = {
   app: '/app',
+  home: '/app/Home',
   trade: '/trade',
   merchantBinding: '/binding',
   merchantLogin: '/login',
