@@ -5,7 +5,6 @@
  */
 import * as React from 'react';
 import {withStyles} from '@material-ui/core/styles';
-import CardMedia from "@material-ui/core/CardMedia/CardMedia";
 import CardActionArea from "@material-ui/core/CardActionArea/CardActionArea";
 import Card from "@material-ui/core/es/Card/Card";
 import {getMerchantId} from "../../core/SessionServices";
@@ -13,6 +12,7 @@ import URL from "../../constants/URL";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import CardContent from '@material-ui/core/CardContent';
 import Grid from "@material-ui/core/Grid/Grid";
+import {CardMedia} from "@material-ui/core";
 
 
 // css
@@ -67,7 +67,6 @@ class Container extends React.Component<any, any> {
               />
             </CardActionArea>
           </Card>
-          {/*<img className={classes.barcode} src={`${URL.qrCode}/barcode?content=${getMerchantId()}`}/>*/}
         </Grid>
       </Grid>
     )
