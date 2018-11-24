@@ -42,8 +42,9 @@ export default class App extends React.Component<any, any> {
   }
 
   render() {
+    const operator = (getOperator() && Object.keys((getOperator().merchants).length !== 0)) && getOperator();
     // 判断绑定状态，跳转path
-    const path = ((getOperator() && getOperator().length > 0) && getAccessToken() && getMerchantId()) && routerPath.app || routerPath.merchantIndex;
+    const path = (operator && getAccessToken() && getMerchantId()) && routerPath.home || routerPath.merchantIndex;
     return (
       <HashRouter>
         <React.Fragment>
