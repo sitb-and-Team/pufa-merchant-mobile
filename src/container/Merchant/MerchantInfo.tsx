@@ -10,7 +10,7 @@ import {withStyles} from '@material-ui/core/styles';
 import {IdTypeOptions} from '../../constants/selectObj/IdType';
 import {lang} from '../../locale';
 import {SitbCard} from '../../component/Card';
-import {getMerchantId, getOperator} from "../../core/SessionServices";
+import {getMerchantId, getOperator, nowOperator} from "../../core/SessionServices";
 
 
 // css
@@ -85,7 +85,7 @@ class Container extends React.Component<any, any> {
       title: lang.merchant.cost,
       config: cost
     }];
-    const loginMerchant = getOperator() && getOperator().find(merchant => merchant.merchantNo === getMerchantId()) || {};
+    const loginMerchant = nowOperator(getOperator(), getMerchantId());
     return (
       <SitbCard configs={configs}
                 dataResource={loginMerchant}
