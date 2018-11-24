@@ -19,11 +19,10 @@ export function startQuery(action$) {
     ofType(types.startQuery),
     switchMap(({payload}: any) => {
       let newPayload = Object.assign({}, payload);
-      const {merchantNo, checkValue} = newPayload;
       return execute({
-        url: `${URL.binding}/${merchantNo}`,
-        method: 'PUT',
-        body: checkValue,
+        url: `${URL.binding}`,
+        method: 'POST',
+        body: JSON.stringify(newPayload),
       })
     }),
     tap(actionToast()),
