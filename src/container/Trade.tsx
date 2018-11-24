@@ -25,7 +25,6 @@ import {background} from '../styles/color';
 import {routerPath} from "../core/router.config";
 import {momentCommon} from "../constants/objectKey";
 import {tradeStatusOptions} from '../constants/tradeStatus';
-import {getMerchantId} from "../core/SessionServices";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -101,12 +100,11 @@ class Container extends React.Component<any, any> {
    * 交易信息查询
    */
   componentWillMount() {
-    const merchantNo = getMerchantId();
     console.log(this.props.totalElements);
     if (this.props.page.totalElements !== this.props.page.totalElements) {
       return;
     }
-    this.handleSearch({merchantNo, page: 0});
+    this.handleSearch({page: 0});
     this.setState({[this.state.totalElement]: this.props.page.totalElements});
     return;
   }
@@ -134,8 +132,7 @@ class Container extends React.Component<any, any> {
    * 搜索日期查看交易
    */
   handleClick() {
-    const merchantNo = getMerchantId();
-    this.handleSearch({merchantNo, page: 0, paymentAt: this.state.paymentAt});
+    this.handleSearch({page: 0, paymentAt: this.state.paymentAt});
 
   }
 
@@ -164,7 +161,8 @@ class Container extends React.Component<any, any> {
     }
     if (businessType.search("UNION") !== -1) {
       type = "quickPay";
-    };
+    }
+    ;
 
     item.paymentAt = item && `${moment(item.paymentAt).format(momentCommon.DATETIME_FORMAT)}` || '';
 
@@ -196,9 +194,9 @@ class Container extends React.Component<any, any> {
       return <Grid container
                    justify={"center"}
                    className={classes.foot}
-             >
-               {'已经到底了，别扯了'}
-             </Grid>;
+      >
+        {'已经到底了，别扯了'}
+      </Grid>;
     }
     if (processing) {
       return (
