@@ -19,7 +19,7 @@ import {getActions} from '../../core/store';
 import {User} from './User';
 import {Home} from './Home';
 import {menu} from '../../locale';
-import {getMerchantId, getOperator} from "../../core/SessionServices";
+import {getMerchantId, getOperator, nowOperator} from "../../core/SessionServices";
 
 const styles: any = theme => ({
   tabs: {
@@ -56,11 +56,8 @@ class Container extends React.Component<any, any> {
   };
 
   render() {
-    // 判断operator
-    const operator = (getOperator() && Object.keys((getOperator()).length !== 0)) && getOperator();
     // 获取当前商户信息
-    const loginMerchant = operator && getOperator().merchants.find(merchant => merchant.merchantNo === getMerchantId()) || {};
-    const {merchantName} = loginMerchant;
+    const {merchantName} = nowOperator(getOperator(), getMerchantId());
     const {match, location, classes} = this.props;
     // 导航路由配置
     const routes = [{
