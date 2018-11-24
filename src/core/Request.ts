@@ -11,7 +11,7 @@ export async function execute({headers, url, method, ...args}: Params) {
   const newHeaders: any = {
     ...headers,
     authorization: `Bearer ${getAccessToken()}`,
-    ['X-Agency-ID']: getMerchantId()
+    ['X-Merchant-ID']: getMerchantId()
   };
   let newUrl = url;
   let newArgs: any = Object.assign({}, args);
