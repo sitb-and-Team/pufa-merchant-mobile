@@ -19,6 +19,19 @@ export function getOperator() {
   return null;
 }
 
+/**
+ * 获取当前操作员信息
+ * @param operator    操作员list
+ * @param merchantId  当前商户id
+ */
+export function nowOperator(operator, merchantId) {
+  // 判断operator
+  const operators = (operator && Object.keys((operator.merchants).length !== 0)) && operator;
+  // 获取当前商户信息
+  return operators && operator.merchants.find(merchant => merchant.merchantNo === merchantId) || {};
+}
+
+
 export function getAccessToken() {
   return sessionStorage.getItem(SessionKey.accessToken) || '';
 }
