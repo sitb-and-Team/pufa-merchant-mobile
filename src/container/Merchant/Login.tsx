@@ -95,7 +95,7 @@ class Container extends React.Component<any, any> {
    */
   renderRadioGroup(merchants) {
     const {classes} = this.props;
-    return merchants.merchants.map((merchant, index) => (
+    return merchants.map((merchant, index) => (
       <FormControlLabel label={`${merchant.merchantNo}-${merchant.merchantName}`}
                         key={index}
                         value={merchant.merchantNo}
@@ -111,8 +111,8 @@ class Container extends React.Component<any, any> {
   render() {
     const {merchantNo} = this.state;
     const {classes} = this.props;
-    // 取缓存merchants
-    const merchants: any = getOperator() || [];
+    // 取缓存operator
+    const operator: any = getOperator() || [];
     return (
       <Grid>
         <BrandTemplate serviceButtonName="绑定新商户"
@@ -126,7 +126,7 @@ class Container extends React.Component<any, any> {
           </Typography>
           <form>
             {
-              (merchants && merchants.length !== 0) && (
+              (operator && operator.merchants.length !== 0) && (
                 <FormControl className={classes.formControl}>
                   <RadioGroup aria-label={merchantNo}
                               name={merchantNo}
@@ -134,7 +134,7 @@ class Container extends React.Component<any, any> {
                               onChange={this.handleChange}
                   >
                     {
-                      this.renderRadioGroup(merchants)
+                      this.renderRadioGroup(operator.merchants)
                     }
                   </RadioGroup>
                 </FormControl>
