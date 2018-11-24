@@ -8,8 +8,8 @@ const {api} = (global as any).config;
 export default {
   setUrl: url => `${api}/${url}`,
   session: `${api}/session`,
-  binding: `${api}/binding`,
-  bindSend: `${api}/agency-check-value`,
+  binding: `${api}/session/operators/merchants`,
+  bindSend: `${api}/merchant-check-value`,
   payment: `${api}/payment`,
   qrCode: `${api}/qr-codes`,
 }
