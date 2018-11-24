@@ -132,7 +132,7 @@ class Container extends React.Component<Props> {
     }
     // set设置
     if (setValue) {
-      RENDER_VALUE = setValue(RENDER_VALUE);
+      RENDER_VALUE = setValue(RENDER_VALUE, dataResource);
     }
     return RENDER_VALUE;
   }
