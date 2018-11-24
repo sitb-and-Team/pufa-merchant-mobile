@@ -51,19 +51,19 @@ class Container extends React.Component<any, any> {
       const basicConfig: any = [];
       // pos
       const posConfig: any = [];
-      // 判断费率
-      if (business.normalFeeRate) {
-        basicConfig.push(...rateTemplate('normalFeeRate'));
-      }
       // 判断服务费
       if (business.serviceFeeRate) {
         basicConfig.push(...rateTemplate('serviceFeeRate'));
+      }
+      // 判断费率
+      if (business.normalFeeRate) {
+        basicConfig.push(...rateTemplate('normalFeeRate'));
       }
       // 判断是否有pos
       if (business.posFeeRate) {
         Object.keys(business.posFeeRate).forEach(type => {
           if (this.someBusinessType(type)) {
-            posConfig.push(...rateTemplate(type));
+            posConfig.push(...rateTemplate(`posFeeRate.${type}`));
           }
         });
         basicConfig.push(...posConfig);
