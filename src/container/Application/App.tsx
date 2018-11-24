@@ -56,9 +56,11 @@ class Container extends React.Component<any, any> {
   };
 
   render() {
-    const loginMerchant = getOperator() && getOperator().find(merchant => merchant.merchantNo === getMerchantId()) || {};
+    // 判断operator
+    const operator = (getOperator() && Object.keys((getOperator()).length !== 0)) && getOperator();
+    // 获取当前商户信息
+    const loginMerchant = operator && getOperator().merchants.find(merchant => merchant.merchantNo === getMerchantId()) || {};
     const {merchantName} = loginMerchant;
-
     const {match, location, classes} = this.props;
     // 导航路由配置
     const routes = [{
