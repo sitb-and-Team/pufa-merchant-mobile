@@ -1,12 +1,14 @@
 import compose from './composeReducer';
-import { session as types } from '../constants/ActionTypes';
+import {session as types} from '../constants/ActionTypes';
 
 const DEFAULT_STATE = {
   /**
    * 判断是否绑定
    */
   hasBinding: false,
-  merchants: []
+  merchants: {
+    merchants: []
+  }
 };
 
 /**
@@ -25,8 +27,8 @@ export default compose((state = DEFAULT_STATE, action) => {
     case types.profileComplete: {
       return {
         ...state,
-        hasBinding: success && payload.length > 0,
-        merchants: success && payload || state.merchants
+        hasBinding: success && payload.merchants.length > 0,
+        merchants: success && payload.merchants || state.merchants
       };
     }
     default:
