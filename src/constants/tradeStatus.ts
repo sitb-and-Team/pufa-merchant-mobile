@@ -14,9 +14,15 @@ export const tradeStatusOptions = {
   FAILURE: lang.payment.failure,
   WAIT_PAYMENT: lang.payment.waitPayment,
   PROCESSING: lang.payment.processing,
-  CANCELLED: lang.payment.cancelled,
-  REFUNDED: lang.payment.refunded,
-  REFUNDED_PART: lang.payment.refundedPart,
   CLOSE: lang.payment.close,
   DELETE: lang.payment.delete
+};
+// 操作类型select-color
+export const tradeStatusColorOptions = {
+  SUCCESS: '#2b2',
+  FAILURE: '#fb1122',
+  WAIT_PAYMENT: '#f90',
+  PROCESSING: '#0bb',
+  CLOSE: '#888',
+  DELETE: '#888'
 };
