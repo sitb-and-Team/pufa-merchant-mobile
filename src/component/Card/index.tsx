@@ -33,15 +33,23 @@ const styles: any = theme => ({
     flexShrink: 0,
     lineHeight: '2'
   },
+  content: {
+    marginBottom: 70
+  },
+  service: {
+    width: '100%',
+    position: 'fixed',
+    bottom: 0,
+    paddingLeft: 0,
+    flexBasis: '80%',
+    textAlign: 'center',
+    backgroundColor: theme.palette.background.paper
+  },
   serviceTel: {
     fontSize: theme.typography.pxToRem(16),
-    flexBasis: '80%',
-    flexShrink: 0,
-    marginTop: 10,
-    marginBottom: 0,
     textAlign: 'center',
     display: 'block',
-    textDecoration: 'none'
+    textDecoration: 'none',
   }
 });
 
@@ -141,7 +149,7 @@ class Container extends React.Component<Props> {
                        title="Contemplative Reptile"
             />
           </CardActionArea>
-          <CardContent>
+          <CardContent className={classes.content}>
             {
               (configs.length === 0 || dataResource.length === 0) && '无数据' ||
               configs.map((config: CardProps, index) => {
@@ -152,11 +160,13 @@ class Container extends React.Component<Props> {
                 return this.renderContent({configItem: config, index, dataResource: newDataResource});
               })
             }
+          </CardContent>
+          <CardContent className={classes.service}>
             {
               isTel
                 ?
                 <a href='tel: *********'
-                   className={classes.serviceTel}>
+                  className={classes.serviceTel}>
                   服务热线：***-*******
                 </a>
                 :
