@@ -100,7 +100,6 @@ class Container extends React.Component<any, any> {
    * 交易信息查询
    */
   componentWillMount() {
-    console.log(this.props.totalElements);
     if (this.props.page.totalElements !== this.props.page.totalElements) {
       return;
     }
@@ -165,6 +164,7 @@ class Container extends React.Component<any, any> {
     ;
 
     item.paymentAt = item && `${moment(item.paymentAt).format(momentCommon.DATETIME_FORMAT)}` || '';
+    item.totalAmount = parseFloat(item.totalAmount).toFixed(2);
 
     return (
       <ListItem button
@@ -177,7 +177,7 @@ class Container extends React.Component<any, any> {
         </Avatar>
         <ListItemText primary={`${item.merchant.merchantName}`}
                       secondary={`${item.paymentAt}`}/>
-        <ListItemText primary={`${item.totalAmount.toFixed(2)} 元`} secondary={`${tradeStatusOptions[item.status]}`}/>
+        <ListItemText primary={`${item.totalAmount} 元`} secondary={`${tradeStatusOptions[item.status]}`}/>
       </ListItem>
     )
   }
