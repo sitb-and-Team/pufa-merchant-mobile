@@ -118,9 +118,6 @@ export const lang = {
     failure: "交易失败",
     waitPayment: "待支付",
     processing: "处理中",
-    cancelled: "交易撤销",
-    refunded: "交易已经退货",
-    refundedPart: "已经部分退货",
     close: "交易关闭",
     delete: "删除"
   },
