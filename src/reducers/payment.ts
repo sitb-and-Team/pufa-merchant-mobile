@@ -44,12 +44,12 @@ export default compose((state = DEFAULT_STATE, action): StoreState => {
     }
     case types.searchPaymentTradeComplete: {
       const {success, inputValue = false, paymentAt} = payload;
-      let oldItem = state.page.content;
+      let content: any = state.page.content;
       let page = state.page;
 
       if (success && payload instanceof Object) {
         page = payload.payload;
-        let content = payload.payload.content;
+        let oldItem = payload.payload.content;
         if (inputValue && !paymentAt) {
           content.push(...oldItem);
           page = {
