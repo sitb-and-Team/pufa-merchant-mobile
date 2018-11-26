@@ -11,15 +11,15 @@ export const rateTemplate: any = (prefixString) => [{
   value: `${prefixString}.value`,
   setValue: (rate, dataResource) => {
     const type = objectPath.get(dataResource, `${prefixString}.type`);
-    return rate && (type && `${rate}${ColumnUtil.unitJudgment(type)}` || `${rate}元`)
+    return rate && (type && `${rate}${ColumnUtil.unitJudgment(type)}` || `${parseFloat(rate).toFixed(2)}元`)
   }
 }, {
   label: objectPath.get(lang, `${prefixString}.min`),
   value: `${prefixString}.min`,
-  setValue: min => min && `${min}元`
+  setValue: min => min && `${parseFloat(min).toFixed(2)}元`
 }, {
   label: objectPath.get(lang, `${prefixString}.max`),
   value: `${prefixString}.max`,
-  setValue: max => max && `${max}元`
+  setValue: max => max && `${parseFloat(max).toFixed(2)}元`
 }];
 
