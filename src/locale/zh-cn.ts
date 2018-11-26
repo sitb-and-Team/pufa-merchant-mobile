@@ -92,10 +92,22 @@ export const lang = {
   title: '商户简称',
   merchantNo: '商户号',
   checkValue: '验证码',
+  settleMode: '结算模式',
+  merchantStatus: '商户状态',
+  mode: {
+    difference: '差额结算',
+    fullAmount: '等额结算'
+  },
   merchant: {
     basic: '基本信息',
     cost: '结算信息',
-    list: '商户列表'
+    list: '商户列表',
+    status: {
+      normal: '正常',
+      waitActive: '等待激活',
+      disabled: '禁用',
+      delete: '已删除'
+    }
   },
   payment: {
     at: "支付时间",
