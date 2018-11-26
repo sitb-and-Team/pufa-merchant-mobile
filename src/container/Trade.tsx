@@ -24,7 +24,7 @@ import money from '@sitb/svg-icon/money';
 import {background} from '../styles/color';
 import {routerPath} from "../core/router.config";
 import {momentCommon} from "../constants/objectKey";
-import {tradeStatusOptions} from '../constants/tradeStatus';
+import {tradeStatusColorOptions, tradeStatusOptions} from '../constants/tradeStatus';
 import Typography from "@material-ui/core/es/Typography/Typography";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -177,7 +177,15 @@ class Container extends React.Component<any, any> {
         </Avatar>
         <ListItemText primary={`${item.merchant.merchantName}`}
                       secondary={`${item.paymentAt}`}/>
-        <ListItemText primary={`${item.totalAmount} 元`} secondary={`${tradeStatusOptions[item.status]}`}/>
+        <ListItemText primary={`${item.totalAmount} 元`}
+                      style={{minWidth: 80}}
+                      secondary={
+                        <div>
+                          <span style={{width: 10, height: 10, backgroundColor: tradeStatusColorOptions[item.status], display: 'inline-block', borderRadius: '50%'}} />
+                          <span>{tradeStatusOptions[item.status]}</span>
+                        </div>
+                      }
+        />
       </ListItem>
     )
   }
