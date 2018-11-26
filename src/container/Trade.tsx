@@ -180,10 +180,10 @@ class Container extends React.Component<any, any> {
         <ListItemText primary={`${item.totalAmount} 元`}
                       style={{minWidth: 80}}
                       secondary={
-                        <div>
+                        <span>
                           <span style={{width: 10, height: 10, backgroundColor: tradeStatusColorOptions[item.status], display: 'inline-block', borderRadius: '50%'}} />
                           <span>{tradeStatusOptions[item.status]}</span>
-                        </div>
+                        </span>
                       }
         />
       </ListItem>
