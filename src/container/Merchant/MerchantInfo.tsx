@@ -7,10 +7,11 @@ import * as React from 'react';
 import {connect} from "react-redux";
 import {withStyles} from '@material-ui/core/styles';
 
-import {IdTypeOptions} from '../../constants/selectObj/IdType';
 import {lang} from '../../locale';
 import {SitbCard} from '../../component/Card';
 import {getMerchantId, getOperator, nowOperator} from "../../core/SessionServices";
+import {settleModeOptions} from "../../constants/settleMode";
+import {merchantStatusOptions} from "../../constants/merchantStatus";
 
 
 // css
@@ -40,21 +41,9 @@ class Container extends React.Component<any, any> {
       // setValue: string => new Array(string.length).join('*') + string.substr(-1)
       setValue: string => string.replace(/.(?=.)/, '*')
     }, {
-      label: lang.legalInfo.legalPersonPhone,
-      value: 'legalPerson.phoneNo',
-      setValue: string => string.replace(/^(\d{3})\d*(\d{4})$/, '$1****$2')
-    }, {
-      label: lang.legalInfo.legalEmail,
-      value: 'legalPerson.email',
-      setValue: string => string.replace(/(.=?)/, '*')
-    }, {
-      label: lang.idType,
-      value: 'legalPerson.idCard.type',
-      mappingObject: IdTypeOptions
-    }, {
-      label: lang.idNo,
-      value: 'legalPerson.idCard.number',
-      setValue: string => string.replace(/^(\d{6})\d*(\d{4})$/, '$1****$2')
+      label: lang.merchantStatus,
+        value: 'status',
+        setValue: string => `${merchantStatusOptions[string]}`
     }, {
       label: lang.address,
       value: [
@@ -66,17 +55,9 @@ class Container extends React.Component<any, any> {
     }];
     // 商户结算信息
     const cost = [{
-      label: lang.settleBankName,
-      value: 'settleAccount.bankName'
-    }, {
-      label: lang.settleBankNo,
-      value: 'settleAccount.bankNo'
-    }, {
-      label: lang.accountName,
-      value: 'settleAccount.name'
-    }, {
-      label: lang.accountNumber,
-      value: 'settleAccount.number'
+      label: lang.settleMode,
+      value: 'settleMode',
+      setValue: string => `${settleModeOptions[string]}`
     }];
     const configs = [{
       title: lang.merchant.basic,
