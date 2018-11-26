@@ -168,7 +168,7 @@ class Container extends React.Component<any> {
 
     item.paymentAt = item && moment(item.paymentAt).format(momentCommon.DATETIME_FORMAT);
     let {totalAmount} = item;
-    totalAmount = totalAmount.toFixed(2);
+    totalAmount = parseFloat(totalAmount).toFixed(2);
 
     return (
       <ListItem button
@@ -181,7 +181,7 @@ class Container extends React.Component<any> {
         </Avatar>
         <ListItemText primary={`${item.merchant.merchantName}`}
                       secondary={`${item.paymentAt}`}/>
-        <ListItemText primary={`${totalAmount} 元`} secondary={`${tradeStatusOptions[item.status]}`}/>
+        <ListItemText primary={`${totalAmount} 元`} secondary={`${tradeStatusOptions[item.status]}`} style={{color: '#f00'}}/>
       </ListItem>
     )
   }
@@ -212,6 +212,8 @@ class Container extends React.Component<any> {
 
   render() {
     const {classes, homePage, page} = this.props;
+    // page.value = (page.value && (page.value.length !== 0)) || '0.00';
+    page.value = page.value ? parseFloat(page.value).toFixed(2) : '0.00';
     // tab配置
     /*const config = [{
       label: menu.tradeRecord,
@@ -230,7 +232,7 @@ class Container extends React.Component<any> {
               <span className={classes.headerMoney_mode}>{page.value}</span>
             </TabContainer>
           </Grid>
-          {<Card className={classes.card}>
+          <Card className={classes.card}>
             <CardContent className={classes.content}>
 
               <Typography component="p" className={classes.record}>
@@ -242,7 +244,7 @@ class Container extends React.Component<any> {
                 <MoreIcon/>
               </IconButton>
             </CardContent>
-          </Card>}
+          </Card>
         </Grid>
         <List data={homePage.content}
               className={classes.foot}
