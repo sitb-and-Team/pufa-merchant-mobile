@@ -29,7 +29,7 @@ import ListItem from "@material-ui/core/ListItem/ListItem";
 import Avatar from "@material-ui/core/Avatar/Avatar";
 import {background} from "../../styles/color";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
-import {tradeStatusOptions} from "../../constants/tradeStatus";
+import {tradeStatusColorOptions, tradeStatusOptions} from "../../constants/tradeStatus";
 import IconButton from "@material-ui/core/es/IconButton/IconButton";
 
 // css
@@ -181,7 +181,15 @@ class Container extends React.Component<any> {
         </Avatar>
         <ListItemText primary={`${item.merchant.merchantName}`}
                       secondary={`${item.paymentAt}`}/>
-        <ListItemText primary={`${totalAmount} 元`} secondary={`${tradeStatusOptions[item.status]}`} style={{color: '#f00'}}/>
+        <ListItemText primary={`${totalAmount} 元`}
+                      style={{minWidth: 80}}
+                      secondary={
+                        <div>
+                          <span style={{width: 10, height: 10, backgroundColor: tradeStatusColorOptions[item.status], display: 'inline-block', borderRadius: '50%'}} />
+                          <span>{tradeStatusOptions[item.status]}</span>
+                        </div>
+                      }
+        />
       </ListItem>
     )
   }
