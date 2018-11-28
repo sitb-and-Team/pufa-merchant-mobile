@@ -72,6 +72,11 @@ export interface Props {
   /**
    * 判断是否有电话
    */
+  noCard?: boolean;
+
+  /**
+   * 判断是否有卡片
+   */
   isTel?: boolean;
 }
 
@@ -135,20 +140,26 @@ class Container extends React.Component<Props> {
   }
 
   render() {
-    const {classes, configs, dataResource, isTel = false} = this.props;
+    const {classes, configs, dataResource, isTel = false, noCard = true} = this.props;
     return (
       <Grid container
             justify="center"
             className={classNames(classes.main, classes.main_mode)}
       >
         <Card>
-          <CardActionArea>
-            <CardMedia component="img"
-                       className={classes.cardMedia}
-                       image={require('../../assets/pictureInfo.png')}
-                       title="Contemplative Reptile"
-            />
-          </CardActionArea>
+          {
+            noCard
+              ?
+              <CardActionArea>
+                <CardMedia component="img"
+                           className={classes.cardMedia}
+                           image={require('../../assets/pictureInfo.png')}
+                           title="Contemplative Reptile"
+                />
+              </CardActionArea>
+              :
+              <br/>
+          }
           <CardContent className={classes.content}>
             {
               (configs.length === 0 || dataResource.length === 0) && '无数据' ||
@@ -166,7 +177,7 @@ class Container extends React.Component<Props> {
               isTel
                 ?
                 <a href='tel: *********'
-                  className={classes.serviceTel}>
+                   className={classes.serviceTel}>
                   服务热线：***-*******
                 </a>
                 :
