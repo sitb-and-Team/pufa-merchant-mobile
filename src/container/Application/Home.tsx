@@ -13,6 +13,9 @@ import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Tab from '@material-ui/core/Tab';
 import grey from '@material-ui/core/colors/grey';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 import {routerPath} from '../../core/router.config';
 import {getActions} from '../../core/store';
@@ -21,6 +24,7 @@ import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import MoneyOffRoundedIcon from '@material-ui/icons/MoneyOffRounded';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import {menu} from "../../locale";
+import ListSubheader from "@material-ui/core/es/ListSubheader/ListSubheader";
 
 // css
 const styles: any = theme => ({
@@ -41,6 +45,17 @@ const styles: any = theme => ({
   headerMoney_mode: {
     fontSize: 40,
     color: '#fff'
+  },
+  left: {
+    width: '60%',
+    paddingRight: 0,
+    margin: 0,
+    display: 'inline-block'
+  },
+  right: {
+    right: 0,
+    margin: 0,
+    display: 'inline-block'
   },
   foot: {
     paddingTop: 10,
@@ -135,30 +150,38 @@ class Container extends React.Component<any> {
       path: routerPath.outAccount
     }];
     return (
-      <React.Fragment>
-        <Grid>
-          <Grid item
-                xs={12}
-                className={classNames(classes.header, classes.header_mode)}
-          >
-            <TabContainer align="center">
-              <p className={classes.headerTitle_mode}>{'总收入(元)'}</p>
-              <span className={classes.headerMoney_mode}>{page.value}</span>
-            </TabContainer>
-          </Grid>
-          <Card className={classes.card}>
-            <CardContent>
-              <Grid container
-                    spacing={24}
-              >
-                {
-                  this.renderTabItem(config)
-                }
-              </Grid>
-            </CardContent>
-          </Card>
+      <Grid>
+        <Grid item
+              xs={12}
+              className={classNames(classes.header, classes.header_mode)}
+        >
+          <TabContainer align="center">
+            <p className={classes.headerTitle_mode}>{'总收入(元)'}</p>
+            <span className={classes.headerMoney_mode}>{page.value}</span>
+          </TabContainer>
         </Grid>
-      </React.Fragment>
+        <Card className={classes.card}>
+          <CardContent>
+            <Grid container
+                  spacing={24}
+            >
+              {
+                this.renderTabItem(config)
+              }
+            </Grid>
+          </CardContent>
+        </Card>
+        <List subheader={<ListSubheader component="div">统计信息</ListSubheader>}>
+          <ListItem>
+            <ListItemText primary="总笔数: " className={classes.left}/>
+            <ListItemText primary={`${page.totalElements} 笔`}  className={classes.right}/>
+          </ListItem>
+          <ListItem>
+            <ListItemText primary='总金额: ' className={classes.left}/>
+            <ListItemText primary={`${page.value} 元`} className={classes.right}/>
+          </ListItem>
+        </List>
+      </Grid>
     )
   }
 }
