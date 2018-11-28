@@ -20,9 +20,7 @@ const DEFAULT_STATE = {
     totalElements: 0
   },
   homePage: {
-    content: [],
-    size: 10,
-    totalElements: 0
+    content: []
   },
   processing: false,
   searchParams: {}
@@ -30,7 +28,7 @@ const DEFAULT_STATE = {
 
 export default compose((state = DEFAULT_STATE, action): StoreState => {
   // type是动作类型，payload是发送请求的其他参数
-  const {payload, type, status} = action;
+  const {payload, type} = action;
   switch (type) {
     case types.searchPaymentTrade: {
       return {
@@ -64,15 +62,44 @@ export default compose((state = DEFAULT_STATE, action): StoreState => {
         processing: false
       };
     }
-
-    case types.searchAppPaymentComplete: {
-
+    // 获取统计信息start
+    case types.searchStats:
       return {
         ...state,
-        homePage: (status === '0000' && payload instanceof Object) && payload || state.homePage,
+        processing: true
+      };
+    // 获取统计信息end
+    case types.searchStatsComplete: {
+      const {success} = payload;
+      let content: any = state.page.content;
+      let homePage = state.homePage;
+
+      if (success && payload instanceof Object) {
+        homePage = payload;
+        // 转换成对象
+        let newPayload = {...payload.payload};
+        // 临时content
+        let newContent: any = [];
+        Object.keys(newPayload).forEach(key => {
+          newContent.push({
+            businessType: key,
+            totalAmount: newPayload[key].totalAmount,
+            totalElements: newPayload[key].totalElements
+          });
+        });
+        content = newContent;
+        homePage = {
+          ...homePage,
+          content
+        }
+      }
+      return {
+        ...state,
+        homePage,
         processing: false
       };
     }
+
     default:
       return state;
   }
