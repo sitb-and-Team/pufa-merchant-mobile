@@ -51,6 +51,14 @@ export const payment: any = create('payment', {
   searchAppPaymentComplete: null,
 });
 
+export const settle: any = create('settle', {
+  /**
+   * 交易信息查询
+   */
+  searchEnterAccount: null,
+  searchEnterAccountComplete: null,
+});
+
 export const binding: any = create('binding', {
   startQuery: null,
   queryComplete: null,
