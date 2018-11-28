@@ -10,7 +10,7 @@ import {getActions} from "../../core/store";
 import {routerPath} from "../../core/router.config";
 import {lang} from "../../locale";
 import {BusinessTypeColor, BusinessTypeData} from "../../constants/BusinessType";
-import {tradeStatusOptions} from "../../constants/tradeStatus";
+import {settleStatusOptions} from "../../constants/settleStatus";
 
 
 // css
@@ -35,11 +35,11 @@ class Container extends React.Component<any, any> {
     }, {
       label: lang.settle.settleAmount,
       value: 'settleAmount',
-      setValue: string => `${string} 元`
-    },  {
+      setValue: string => `${parseFloat(string).toFixed(2)} 元`
+    }, {
       label: lang.settle.realSettleAmount,
       value: 'realSettleAmount',
-      setValue: string => `${string} 元`
+      setValue: string => `${parseFloat(string).toFixed(2)} 元`
     }, {
       label: lang.settle.businessType,
       value: 'paymentRecord.businessType',
@@ -47,18 +47,30 @@ class Container extends React.Component<any, any> {
       color: BusinessTypeColor[params.paymentRecord.businessType]
     }, {
       label: lang.settle.at,
-      value: 'paymentRecord.paymentAt'
+      value: 'settleAt'
     }, {
       label: lang.settle.status,
       value: 'status',
-      setValue: string => `${tradeStatusOptions[string]}`
+      setValue: string => `${settleStatusOptions[string]}`
     }];
+    const refund = [{
+      label: lang.settle.refundAmount,
+      value: 'paymentRecord.refundAmount',
+      setValue: string => `${parseFloat(string).toFixed(2)} 元`
+    }];
+    if (params.paymentRecord.refundAmount){
+      basic.push(...refund);
+    }
+    if (params.paymentRecord.refundAmount && (params.status === 'SUCCESS') && (params.settleAmount === params.paymentRecord.refundAmount)) {
+      params.status = 'FULLREFUND';
+    }
     const configs = [{
       title: lang.enterAccountDetail,
       config: basic
     }];
     return (
-      <SitbCard configs={configs}
+      <SitbCard noCard
+                configs={configs}
                 dataResource={params}
       />
     )
