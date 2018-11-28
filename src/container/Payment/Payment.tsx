@@ -10,6 +10,7 @@ import {SitbCard} from "../../component/Card";
 import {getActions} from "../../core/store";
 import {routerPath} from "../../core/router.config";
 import {tradeStatusOptions} from "../../constants/tradeStatus";
+import {BusinessTypeData} from "../../constants/BusinessType";
 
 
 // css
@@ -30,10 +31,11 @@ class Container extends React.Component<any, any> {
     params.totalAmount = parseFloat(params.totalAmount).toFixed(2);
     const basic = [{
       label: lang.merchantNo,
-      value: 'merchant.merchantNo'
+      value: 'channelMerchantNo'
     }, {
-      label: lang.merchantName,
-      value: 'merchant.merchantName'
+      label: lang.payment.businessType,
+      value: 'businessType',
+      setValue: string => `${BusinessTypeData[string]}`
     }, {
       label: lang.auditNumber,
       value: 'auditNumber'
@@ -50,7 +52,7 @@ class Container extends React.Component<any, any> {
       value: 'paymentAt'
     }, {
       label: lang.payment.remark,
-      value: 'remark'
+      value: 'describe'
     }];
     const configs = [{
       title: lang.paymentDetail,
