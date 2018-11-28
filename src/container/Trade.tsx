@@ -30,6 +30,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import TextField from '@material-ui/core/TextField';
 import {SitbButton} from "../component/SitbButton";
+import {BusinessTypeData} from "../constants/BusinessType";
 
 
 // css
@@ -175,7 +176,7 @@ class Container extends React.Component<any, any> {
         <Avatar style={{background: background[type] || background.default}}>
           {svg[type] && svg[type](svgProps) || money(svgProps)}
         </Avatar>
-        <ListItemText primary={`${item.merchant.merchantName}`}
+        <ListItemText primary={BusinessTypeData[businessType]}
                       secondary={`${item.paymentAt}`}/>
         <ListItemText primary={`${item.totalAmount} 元`}
                       style={{minWidth: 80, textAlign: 'right'}}
