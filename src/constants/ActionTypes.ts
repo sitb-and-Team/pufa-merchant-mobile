@@ -47,8 +47,8 @@ export const payment: any = create('payment', {
    */
   searchPaymentTrade: null,
   searchPaymentTradeComplete: null,
-  searchAppPayment: null,
-  searchAppPaymentComplete: null,
+  searchStats: null,
+  searchStatsComplete: null,
 });
 
 export const settle: any = create('settle', {
@@ -58,6 +58,7 @@ export const settle: any = create('settle', {
   searchEnterAccount: null,
   searchEnterAccountComplete: null,
 });
+
 
 export const binding: any = create('binding', {
   startQuery: null,
