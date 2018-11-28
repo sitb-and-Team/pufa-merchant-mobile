@@ -3,6 +3,7 @@ import navigator from './navigator';
 import binding from './binding';
 import trade from './trade';
 import payment from './payment';
+import settle from './settle';
 
 import session from './session';
 import root from './root';
@@ -15,6 +16,7 @@ export {
   binding,
   trade,
   payment,
+  settle,
   session,
   root
 };
