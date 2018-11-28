@@ -280,10 +280,10 @@ class Container extends React.Component<any, any> {
           </Toolbar>
           <Toolbar>
             <Typography component="p" className={classes.left} paragraph={true}>
-              总笔数： {page.totalElements} 笔
+              总笔数:{page.totalElements} 笔
             </Typography>
             <Typography component="p" className={classes.right} paragraph={true}>
-              总交易金额： {page.value} 元
+              总金额:{page.value} 元
             </Typography>
           </Toolbar>
         </AppBar>
