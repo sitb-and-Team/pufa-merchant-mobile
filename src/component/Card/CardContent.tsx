@@ -51,6 +51,10 @@ export interface Item {
    */
   setValue?: (any) => void;
   /**
+   * 颜色color
+   */
+  color?: string;
+  /**
    * 默认值
    */
   defaultValue?: string;
@@ -71,10 +75,6 @@ export interface Props {
    */
   dataResource?: any;
   titleIcon?: any;
-  /**
-   * 点击按钮图标
-   */
-  ActionIcon?: any;
 }
 
 class Container extends React.Component<Props> {
@@ -158,17 +158,24 @@ class Container extends React.Component<Props> {
                     component="div"
         >
           {
-            config.map((values, index) => (
-              <Grid item
-                    container
-                    key={index}
-                    justify="space-between"
-                    className={classes.cardItem}
-              >
-                <div className={classes.itemLabel_mode}>{`${values.label}:`}</div>
-                <div className={classes.itemValue_mode}>{this.filterValue(dataResource, values)}</div>
-              </Grid>
-            ))
+            config.map((values, index) => {/*
+              let value = values.value.lastIndexOf('.', values.value.lastIndexOf('.'));
+              let color = values.color;
+              console.log(color);
+              console.log(value);*/
+              return (
+                <Grid item
+                      container
+                      key={index}
+                      justify="space-between"
+                      className={classes.cardItem}
+                >
+                  <div className={classes.itemLabel_mode} style={{color: values.color}}>{`${values.label}:`}</div>
+                  <div className={classes.itemValue_mode} style={{color: values.color}}>{this.filterValue(dataResource, values)}</div>
+                </Grid>
+              )
+            }
+              )
           }
         </Typography>
         <Divider component="div"/>
