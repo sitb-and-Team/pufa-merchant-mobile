@@ -161,7 +161,7 @@ class Container extends React.Component<any, any> {
     if (businessType.search("UNION") !== -1) {
       type = "quickPay";
     }
-    ;
+
 
     item.paymentAt = item && `${moment(item.paymentAt).format(momentCommon.DATETIME_FORMAT)}` || '';
     item.totalAmount = parseFloat(item.totalAmount).toFixed(2);
@@ -178,7 +178,7 @@ class Container extends React.Component<any, any> {
         <ListItemText primary={`${item.merchant.merchantName}`}
                       secondary={`${item.paymentAt}`}/>
         <ListItemText primary={`${item.totalAmount} 元`}
-                      style={{minWidth: 80}}
+                      style={{minWidth: 80, textAlign: 'right'}}
                       secondary={
                         <span>
                           <span style={{width: 10, height: 10, backgroundColor: tradeStatusColorOptions[item.status], display: 'inline-block', borderRadius: '50%'}} />
@@ -196,6 +196,7 @@ class Container extends React.Component<any, any> {
    */
   renderFooter() {
     const {page, processing, classes} = this.props;
+    page.value = page.value ? parseFloat(page.value).toFixed(2) : '0.00';
     const {last} = page;
     // 判断是否是最后一页，是否需要加载
     if (last) {
