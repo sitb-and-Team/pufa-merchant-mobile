@@ -11,6 +11,13 @@ export const BusinessTypeData = require('./businessType.json');
 
 export const firstBusinessType = Object.keys(BusinessTypeData)[0];
 
+export const BusinessTypeColor = {
+  POS_PAY_REFUND: '#fb1122',
+  WeChat_REFUND: '#fb1122',
+  AliPay_REFUND: '#fb1122',
+  UNION_REFUND: '#fb1122'
+};
+
 /**
  *   "POS_PAY_REFUND": "POS支付-退货",
  "WeChat_REFUND": "微信退款",
