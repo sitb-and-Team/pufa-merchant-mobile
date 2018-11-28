@@ -11,5 +11,6 @@ export default {
   binding: `${api}/session/operators/merchants`,
   bindSend: `${api}/merchant-check-value`,
   payment: `${api}/payment-records`,
+  settle: `${api}/settle`,
   qrCode: `${api}/qr-codes`,
 }
