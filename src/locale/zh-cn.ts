@@ -101,6 +101,9 @@ export const lang = {
   merchant: {
     basic: '基本信息',
     cost: '结算信息',
+    account: '统计信息',
+    totalElements: '总笔数',
+    value: '总金额',
     list: '商户列表',
     status: {
       normal: '正常',
@@ -114,14 +117,17 @@ export const lang = {
     remark: "描述",
     status: "支付状态",
     totalAmount: "支付金额",
-    success: "交易成功",
-    failure: "交易失败",
-    waitPayment: "待支付",
-    processing: "处理中",
-    close: "交易关闭",
-    delete: "删除"
   },
-  paymentDetail: '交易详情'
+  settle: {
+    at: "支付时间",
+    remark: "描述",
+    status: "支付状态",
+    totalAmount: "支付金额",
+    businessType: '业务类型'
+  },
+
+  paymentDetail: '交易详情',
+  enterAccountDetail: '入账查询详情'
 };
 
 
@@ -129,6 +135,8 @@ export const menu = {
   home: '首页',
   user: '我',
   tradeRecord: '交易记录',
+  enterAccount: '入账查询',
+  enterAccountDetail: '入账查询详情',
   merchantIndex: '商户平台',
   merchantBinding: '商户绑定',
   merchantLogin: '商户登录',
