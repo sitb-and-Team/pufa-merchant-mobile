@@ -46,16 +46,8 @@ const styles: any = theme => ({
     fontSize: 40,
     color: '#fff'
   },
-  left: {
-    width: '60%',
-    paddingRight: 0,
-    margin: 0,
-    display: 'inline-block'
-  },
   right: {
-    right: 0,
-    margin: 0,
-    display: 'inline-block'
+    textAlign: 'right'
   },
   foot: {
     paddingTop: 10,
@@ -173,11 +165,11 @@ class Container extends React.Component<any> {
         </Card>
         <List subheader={<ListSubheader component="div">统计信息</ListSubheader>}>
           <ListItem>
-            <ListItemText primary="总笔数: " className={classes.left}/>
-            <ListItemText primary={`${page.totalElements} 笔`}  className={classes.right}/>
+            <ListItemText primary="总笔数: "/>
+            <ListItemText primary={`${page.totalElements} 笔`} className={classes.right}/>
           </ListItem>
           <ListItem>
-            <ListItemText primary='总金额: ' className={classes.left}/>
+            <ListItemText primary='总金额: '/>
             <ListItemText primary={`${page.value} 元`} className={classes.right}/>
           </ListItem>
         </List>
