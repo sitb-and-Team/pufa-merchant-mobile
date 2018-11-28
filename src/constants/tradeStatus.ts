@@ -4,7 +4,7 @@
  * date: 2018/11/15
  */
 /**
- * 比较操作符类型
+ * 交易状态类型
  */
 import { lang } from '../locale/index';
 
