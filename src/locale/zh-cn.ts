@@ -117,12 +117,24 @@ export const lang = {
     remark: "描述",
     status: "支付状态",
     totalAmount: "支付金额",
+    success: "交易成功",
+    failure: "交易失败",
+    waitPayment: "待支付",
+    processing: "处理中",
+    close: "交易关闭",
+    delete: "删除"
   },
   settle: {
     at: "支付时间",
     remark: "描述",
     status: "支付状态",
     totalAmount: "支付金额",
+    success: "交易成功",
+    failure: "交易失败",
+    waitPayment: "待支付",
+    processing: "处理中",
+    close: "交易关闭",
+    delete: "删除",
     businessType: '业务类型'
   },
 
