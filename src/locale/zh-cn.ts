@@ -124,6 +124,8 @@ export const lang = {
     failure: "交易失败",
     waitPayment: "待支付",
     processing: "处理中",
+    refundAmount: '已经退货金额',
+    fullRefund: '已全额退款',
     close: "交易关闭",
     delete: "删除"
   },
