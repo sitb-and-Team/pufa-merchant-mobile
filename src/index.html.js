@@ -7,7 +7,7 @@ const PROFILE_API = {
 module.exports = function ({htmlWebpackPlugin}) {
   const {debug, env} = htmlWebpackPlugin.options;
 
-  const api = debug ? `http://' + location.hostname + ':' + location.port + '/api` : location.protocol + '//' + location.hostname + (location.port ? ':'+location.port : '') + '/api/v1';
+  const api = debug ? `'http://' + location.hostname + ':' + location.port + '/api'` : `location.protocol + '//' + location.hostname + (location.port ? ':'+location.port : '') + '/api/v1'`;
 
   return `
 <!DOCTYPE html>
@@ -18,7 +18,7 @@ module.exports = function ({htmlWebpackPlugin}) {
   <title>webApp</title>
     <script>
     window.config = {
-      api: '${api}'
+      api: ${api}
     };
   </script>
 </head>
