@@ -6,12 +6,15 @@
 import compose from './composeReducer';
 import {payment as types} from '../constants/ActionTypes';
 
-export interface StoreState {
-  page: any;
-  homePage: any;
-  processing: boolean;
-  searchParams: object;
-}
+const keyMap = {
+  AliPay_PAY: 'aliPay',
+  POS_PAY_DIRECT: 'posPayDirect',
+  POS_PAY_INDIRECT: 'posPayIndirect',
+  UNION_PAY: 'unionPay',
+  WeChat_PAY: 'weChatPay'
+};
+
+const defaultStats = {totalElements: 0, totalAmount: 0};
 
 const DEFAULT_STATE = {
   page: {
@@ -22,13 +25,18 @@ const DEFAULT_STATE = {
   homePage: {
     content: []
   },
+  aliPay: defaultStats,
+  weChatPay: defaultStats,
+  unionPay: defaultStats,
+  posPayDirect: defaultStats,
+  posPayIndirect: defaultStats,
   processing: false,
   searchParams: {}
 };
 
-export default compose((state = DEFAULT_STATE, action): StoreState => {
+export default compose((state = DEFAULT_STATE, action) => {
   // type是动作类型，payload是发送请求的其他参数
-  const {payload, type} = action;
+  const {payload, type, success} = action;
   switch (type) {
     case types.searchPaymentTrade: {
       return {
@@ -70,34 +78,17 @@ export default compose((state = DEFAULT_STATE, action): StoreState => {
       };
     // 获取统计信息end
     case types.searchStatsComplete: {
-      const {success} = payload;
-      let content: any = state.page.content;
-      let homePage = state.homePage;
-
-      if (success && payload instanceof Object) {
-        homePage = payload;
-        // 转换成对象
-        let newPayload = {...payload.payload};
-        // 临时content
-        let newContent: any = [];
-        Object.keys(newPayload).forEach(key => {
-          newContent.push({
-            businessType: key,
-            totalAmount: newPayload[key].totalAmount,
-            totalElements: newPayload[key].totalElements
-          });
-        });
-        content = newContent;
-        homePage = {
-          ...homePage,
-          content
-        }
-      }
-      return {
+      const result = {
         ...state,
-        homePage,
         processing: false
       };
+
+      if (success) {
+        Object.keys(payload).forEach(key => {
+          result[keyMap[key]] = payload[key]
+        })
+      }
+      return result;
     }
 
     default:
