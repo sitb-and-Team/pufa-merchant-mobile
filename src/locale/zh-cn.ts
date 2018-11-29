@@ -91,6 +91,7 @@ export const lang = {
   merchantName: '商户名',
   title: '商户简称',
   merchantNo: '商户号',
+  channelMerchantNo: '渠道商户号',
   checkValue: '验证码',
   settleMode: '结算模式',
   merchantStatus: '商户状态',

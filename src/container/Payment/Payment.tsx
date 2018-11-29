@@ -31,6 +31,9 @@ class Container extends React.Component<any, any> {
     params.totalAmount = parseFloat(params.totalAmount).toFixed(2);
     const basic = [{
       label: lang.merchantNo,
+      value: 'merchantNo'
+    }, {
+      label: lang.channelMerchantNo,
       value: 'channelMerchantNo'
     }, {
       label: lang.payment.businessType,
