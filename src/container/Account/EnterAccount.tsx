@@ -163,7 +163,7 @@ class Container extends React.Component<any, any> {
       type = "unionCloudPay";
     }
 
-    item.paymentRecord.paymentAt = item && `${moment(item.paymentRecord.paymentAt).format(momentCommon.DATETIME_FORMAT)}` || '';
+    item.settleAt = item && `${moment(item.settleAt).format(momentCommon.DATETIME_FORMAT)}` || '';
     item.totalAmount = parseFloat(item.totalAmount).toFixed(2);
 
     return (
@@ -176,7 +176,7 @@ class Container extends React.Component<any, any> {
           {svg[type] && svg[type](svgProps) || money(svgProps)}
         </Avatar>
         <ListItemText primary={BusinessTypeData[businessType]}
-                      secondary={`${item.paymentRecord.paymentAt}`}/>
+                      secondary={`${item.settleAt}`}/>
         <ListItemText primary={
                         <span>
                           {item.settleAmount} 元
