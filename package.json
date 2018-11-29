@@ -17,7 +17,7 @@
     ]
   },
   "devServer": {
-    "api": "http://120.132.102.226/merchant/api/v1/",
+    "api": "http://192.168.88.213：7007",
     "port": "8000"
   },
   "dependencies": {
@@ -26,6 +26,7 @@
     "@material-ui/icons": "^3.0.1",
     "@sitb/svg-icon": "^1.0.1-es5",
     "@sitb/wbs": "^1.0.83",
+    "accounting": "^0.4.1",
     "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.6",
     "connected-react-router": "^4.5.0",
@@ -43,6 +44,7 @@
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.0.0",
     "@sitb/arapp-cli": "^1.0.0-Aplha.35",
     "autoprefixer": "^9.3.1",
     "awesome-typescript-loader": "^5.2.1",
