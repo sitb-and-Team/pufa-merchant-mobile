@@ -1,6 +1,6 @@
 import 'whatwg-fetch'
 import 'babel-polyfill';
-import 'es6-promise';
+import 'es6-promise/auto';
 import './styles/index.scss';
 import * as React from 'react';
 import bootstrap from 'veigar/bootstrap';
@@ -11,10 +11,8 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import create from '@sitb/svg-icon/create';
 import cyan from '@material-ui/core/colors/cyan';
 import grey from '@material-ui/core/colors/grey';
-
 import { create as createAppStore } from './core/store';
 import App from './container';
-require('es6-promise').polyfill();
 
 // Create a history of your choosing (we're using a browser history in this case)
 const hashHistory = createHashHistory();
