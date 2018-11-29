@@ -1,17 +1,26 @@
-import '@babel/polyfill';
-import './styles/index.scss';
+import 'whatwg-fetch'
+import 'babel-polyfill';
+import 'es6-promise';
+import './styles/common.scss';
+
 import * as React from 'react';
 import bootstrap from 'veigar/bootstrap';
+
 import { Provider } from 'react-redux';
-import { ConnectedRouter, connectRouter, routerMiddleware } from 'connected-react-router';
-import createHashHistory from 'history/createHashHistory';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { HashRouter as Router } from 'react-router-dom';
+import { ConnectedRouter, connectRouter, routerMiddleware } from 'connected-react-router'
+import { createHashHistory } from 'history'
+
 import create from '@sitb/svg-icon/create';
-import cyan from '@material-ui/core/colors/cyan';
-import grey from '@material-ui/core/colors/grey';
+import { LocaleProvider } from 'antd';
+import antdZhCN from 'antd/lib/locale-provider/zh_CN';
 
 import { create as createAppStore } from './core/store';
-import App from './container';
+import App from './container/Application';
+require('es6-promise').polyfill();
+
+// web common svg create 初始化
+(global as any).createSvgComponent = create;
 
 // Create a history of your choosing (we're using a browser history in this case)
 const hashHistory = createHashHistory();
@@ -21,30 +30,14 @@ const historyMiddleware = routerMiddleware(hashHistory);
 
 const store = createAppStore({}, {}, [historyMiddleware], reducer => connectRouter(hashHistory)(reducer));
 
-(global as any).createSvgComponent = create;
-
-// 主题配置
-const theme = createMuiTheme({
-  palette: {
-    primary: {main: cyan[500]},
-    secondary: {main: cyan[200]},
-    background: {
-      default: cyan[500],
-      paper: 'rgba(255,255,255,1)'
-    },
-    text: {
-      primary: grey[900],
-      secondary: grey[700]
-    }
-  }
-});
-
 bootstrap(() => (
   <Provider store={store}>
     <ConnectedRouter history={hashHistory}>
-      <MuiThemeProvider theme={theme}>
-        <App/>
-      </MuiThemeProvider>
+      <Router>
+        <LocaleProvider locale={antdZhCN}>
+          <App/>
+        </LocaleProvider>
+      </Router>
     </ConnectedRouter>
   </Provider>
 ));
