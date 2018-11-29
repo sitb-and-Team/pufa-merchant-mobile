@@ -16,18 +16,8 @@ import {autoBind} from "@sitb/wbs/autoBind";
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import {menu} from "../../locale";
-/*import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import weChat from "@sitb/svg-icon/weChat";
-import aliPay from "@sitb/svg-icon/aliPay";
-import quickPay from "@sitb/svg-icon/quickPay";
-import Avatar from "@material-ui/core/Avatar/Avatar";
-import {background} from "../../styles/color";
-import money from "@sitb/svg-icon/money";*/
-// import {List} from "veigar/List/List";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import {grey} from "@material-ui/core/es/colors";
-import {BusinessTypeData} from "../../constants/BusinessType";
 
 // css
 const styles: any = theme => ({
@@ -74,8 +64,8 @@ const styles: any = theme => ({
   }
 });
 
-const POS = ['POS直连', 'POS间连'];
-const MOBILE = ['支付宝', '微信', '银联'];
+const POS = ['POS支付-直连', 'POS支付-间连'];
+const MOBILE = ['支付宝支付', '微信支付', '银联支付'];
 
 function TabContainer(props) {
   const {children, ...other} = props;
@@ -151,30 +141,6 @@ class Container extends React.Component<any> {
     })
   }
 
-  /**
-   * 渲染list
-   * @param {any} item  当前行数据
-   * @param {any} index 下标
-   * @returns {any}
-   */
-  renderItem({item, index}) {
-    const {businessType} = item;
-    const {classes} = this.props;
-
-    item.totalAmount = parseFloat(item.totalAmount).toFixed(2);
-
-    return (
-      <Grid item
-            xs={4}
-            key={index}
-            className={classNames(classes.header, classes.header_mode)}
-      >
-        <span>{BusinessTypeData[businessType]}</span>
-        <span>{`交易笔数：${item.totalElements} 笔`}</span>
-        <span>{`交易总额：${item.totalAmount} 笔`}</span>
-      </Grid>
-    )
-  }
 
   render() {
     const {classes, page, aliPay, weChatPay, unionPay, posPayDirect, posPayIndirect} = this.props;
