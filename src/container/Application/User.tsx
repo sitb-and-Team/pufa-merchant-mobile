@@ -25,12 +25,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { withStyles } from '@material-ui/core/styles';
-import { autoBind } from "@sitb/wbs/autoBind";
-import { getActions } from '../../core/store';
-import { getMerchantId } from '../../core/SessionServices';
-import { routerPath } from '../../core/router.config';
-import { menu } from '../../locale';
+import {withStyles} from '@material-ui/core/styles';
+import {autoBind} from "@sitb/wbs/autoBind";
+import {getActions} from '../../core/store';
+import {getMerchantId, getOperator, nowOperator} from '../../core/SessionServices';
+import {routerPath} from '../../core/router.config';
+import {menu} from '../../locale';
 
 const styles: any = theme => ({
   header_mode: {
@@ -124,19 +124,20 @@ class Container extends React.Component<any, any> {
   }
 
   render() {
+    const {merchantName} = nowOperator(getOperator(), getMerchantId());
     const {classes} = this.props;
     const config = [{
       name: menu.merchantInfo,
       Icon: PersonIcon,
       path: routerPath.merchantInfo
     }, {
-      name: menu.merchantRate,
-      Icon: StoreIcon,
-      path: routerPath.merchantRate
-    }, {
       name: menu.qrCode,
       Icon: MoneyIcon,
       path: routerPath.qrCode
+    }, {
+      name: menu.spdQrCode,
+      Icon: MoneyIcon,
+      path: routerPath.spdQrCode
     }];
 
     return (
@@ -155,7 +156,8 @@ class Container extends React.Component<any, any> {
                 </Avatar>
               </ListItemIcon>
               <ListItemText inset
-                            primary={<span className={classes.itemMerchantNo_mode}>{getMerchantId()}</span>}
+                            primary={<span className={classes.itemMerchantNo_mode}>{merchantName}</span>}
+                            secondary={<span className={classes.itemMerchantNo_mode}>{getMerchantId()}</span>}
               />
             </ListItem>
           </List>
@@ -196,7 +198,6 @@ class Container extends React.Component<any, any> {
                 </DialogActions>
               </Dialog>
             </ListItem>}
-
           </List>
         </Grid>
       </Grid>
