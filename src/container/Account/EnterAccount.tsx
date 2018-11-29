@@ -20,7 +20,7 @@ import money from "@sitb/svg-icon/money";
 import Avatar from "@material-ui/core/Avatar/Avatar";
 import weChat from "@sitb/svg-icon/weChat";
 import aliPay from "@sitb/svg-icon/aliPay";
-import quickPay from "@sitb/svg-icon/quickPay";
+import unionCloudPay from '@sitb/svg-icon/unionCloudPay';
 import Grid from "@material-ui/core/es/Grid/Grid";
 import CircularProgress from "@material-ui/core/es/CircularProgress/CircularProgress";
 import withStyles from "@material-ui/core/es/styles/withStyles";
@@ -148,10 +148,10 @@ class Container extends React.Component<any, any> {
     let type = businessType;
     // svg默认props
     let svgProps = {fill: '#fff', width: 30, height: 30};
-    let svg: { weChat: ({fill, ...props}?: any) => any; aliPay: ({...props}?: any) => any; quickPay: ({...props}?: any) => any } = {
+    let svg: { weChat: ({fill, ...props}?: any) => any; aliPay: ({...props}?: any) => any; unionCloudPay: ({...props}?: any) => any } = {
       'weChat': weChat,
       'aliPay': aliPay,
-      'quickPay': quickPay
+      'unionCloudPay': unionCloudPay
     };
     if (businessType.search("We") !== -1) {
       type = "weChat";
@@ -160,7 +160,7 @@ class Container extends React.Component<any, any> {
       type = "aliPay";
     }
     if (businessType.search("UNION") !== -1) {
-      type = "quickPay";
+      type = "unionCloudPay";
     }
 
     item.paymentRecord.paymentAt = item && `${moment(item.paymentRecord.paymentAt).format(momentCommon.DATETIME_FORMAT)}` || '';
