@@ -31,7 +31,6 @@ export function searchPaymentTrade(action$) {
 }
 
 
-
 /**
  * 查看统计信息
  * @param action$
@@ -40,16 +39,9 @@ export function searchStats(action$) {
   return action$.pipe(
     ofType(types.searchStats),
     switchMap(() => execute({
-        url: `${URL.payment}/stats`
+        url: `${URL.payment}/stats`,
+        type: types.searchStatsComplete
       })
-    ),
-    map((payload) => {
-      return {
-        type: types.searchStatsComplete,
-        payload: {
-          ...payload
-        }
-      }
-    })
+    )
   )
 }
