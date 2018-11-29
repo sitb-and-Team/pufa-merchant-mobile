@@ -1,4 +1,8 @@
 import '@babel/polyfill';
+import 'whatwg-fetch'
+import 'babel-polyfill';
+import 'es6-promise';
+
 import './styles/index.scss';
 import * as React from 'react';
 import bootstrap from 'veigar/bootstrap';
@@ -12,6 +16,7 @@ import grey from '@material-ui/core/colors/grey';
 
 import { create as createAppStore } from './core/store';
 import App from './container';
+require('es6-promise').polyfill();
 
 // Create a history of your choosing (we're using a browser history in this case)
 const hashHistory = createHashHistory();
