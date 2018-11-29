@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {HashRouter, Redirect, Route, Switch} from 'react-router-dom';
-import {queryToObjectWithUrl} from '@sitb/wbs/utils/HttpUtil';
+import {getQueryArgs, queryToObjectWithUrl} from '@sitb/wbs/utils/HttpUtil';
 
 import {getActions, getState} from '../core/store';
 import {getAccessToken, getMerchantId, getOperator, setAccessToken} from '../core/SessionServices';
@@ -25,17 +25,17 @@ function createRender(route) {
 export default class App extends React.Component<any, any> {
 
   componentWillMount() {
-    // 获取当前链接url，判断是否有token
-    let nowHref = location.href;
-    if (nowHref.indexOf('?') > -1) {
-      // 获取当前token，返回search object
-      const {access_token} = queryToObjectWithUrl(nowHref);
-      if (access_token) {
-        // session 保存access token
-        setAccessToken(access_token);
-        // 截取掉url？之后掉链接 并跳转
-        location.href = nowHref.substr(0, nowHref.indexOf('?'));
-      }
+    let {access_token} = getQueryArgs();
+    if (!access_token && location.hash.includes('?')) {
+      const hash = location.hash;
+      access_token = queryToObjectWithUrl(hash);
+    }
+
+    if (access_token) {
+      // session 保存access token
+      setAccessToken(access_token);
+      // 截取掉url？之后掉链接 并跳转
+      location.href = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + location.pathname + location.hash;
     }
     // 加载当前用户信息
     getActions().session.startProfile();
