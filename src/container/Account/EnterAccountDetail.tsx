@@ -41,6 +41,10 @@ class Container extends React.Component<any, any> {
       value: 'realSettleAmount',
       setValue: string => `${parseFloat(string).toFixed(2)} 元`
     }, {
+      label: lang.settle.refundAmount,
+      value: 'paymentRecord.refundAmount',
+      setValue: string => `${parseFloat(string).toFixed(2)} 元`
+    }, {
       label: lang.settle.businessType,
       value: 'paymentRecord.businessType',
       setValue: string => `${BusinessTypeData[string]}`,
@@ -53,15 +57,8 @@ class Container extends React.Component<any, any> {
       value: 'status',
       setValue: string => `${settleStatusOptions[string]}`
     }];
-    const refund = [{
-      label: lang.settle.refundAmount,
-      value: 'paymentRecord.refundAmount',
-      setValue: string => `${parseFloat(string).toFixed(2)} 元`
-    }];
-    if (params.paymentRecord.refundAmount){
-      basic.push(...refund);
-    }
-    if (params.paymentRecord.refundAmount && (params.status === 'SUCCESS') && (params.settleAmount === params.paymentRecord.refundAmount)) {
+
+    if (params.paymentRecord.refundAmount && (params.settleAmount === params.paymentRecord.refundAmount)) {
       params.status = 'FULLREFUND';
     }
     const configs = [{
