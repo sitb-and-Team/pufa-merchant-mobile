@@ -78,7 +78,7 @@ class Container extends React.Component<any, any> {
       color: BusinessTypeColor[params.paymentRecord.businessType]
     }, {
       label: lang.settle.at,
-      value: 'paymentRecord.settleAt'
+      value: 'settleAt'
     }, {
       label: lang.settle.status,
       value: 'status',
