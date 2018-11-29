@@ -6,16 +6,15 @@ const PROFILE_API = {
 
 module.exports = function ({htmlWebpackPlugin}) {
   const {debug, env} = htmlWebpackPlugin.options;
-  const {PROFILE = 'development'} = env;
 
-  const api = debug ? `http://' + location.hostname + ':' + location.port + '/api` : PROFILE_API[PROFILE];
+  const api = debug ? `http://' + location.hostname + ':' + location.port + '/api` : location.protocol + '//' + location.hostname + (location.port ? ':'+location.port : '') + '/api/v1';
 
   return `
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta name="viewport" content=" width=device-width,initial-scale=1,user-scalable=no">
   <title>webApp</title>
     <script>
     window.config = {
