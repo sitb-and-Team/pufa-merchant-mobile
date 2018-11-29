@@ -140,13 +140,13 @@ class Container extends React.Component<Props> {
   }
 
   render() {
-    const {classes, configs, dataResource, isTel = false, noCard = true} = this.props;
+    const {classes, configs, dataResource, isTel = false, noCard = false} = this.props;
     return (
       <Grid container
             justify="center"
             className={classNames(classes.main, classes.main_mode)}
       >
-        <Card>
+        <Card style={{width: '100%'}}>
           {
             noCard
               ?
@@ -158,7 +158,8 @@ class Container extends React.Component<Props> {
                 />
               </CardActionArea>
               :
-              <br/>
+              <CardActionArea>
+              </CardActionArea>
           }
           <CardContent className={classes.content}>
             {
