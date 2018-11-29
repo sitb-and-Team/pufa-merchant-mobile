@@ -15,6 +15,7 @@ import { MerchantInfo } from '../container/Merchant/MerchantInfo';
 import { MerchantRate } from '../container/Merchant/MerchantRate';
 
 import { QrCode } from '../container/Payment/qrCode';
+import { SpdQrCode } from '../container/Payment/SpdQrCode';
 
 // 路由列表
 export const routerPath = {
@@ -30,6 +31,7 @@ export const routerPath = {
   merchantRate: '/merchantRate',
   paymentDetail: '/paymentDetail',
   qrCode: '/qrCode',
+  spdQrCode: '/spdQrCode',
 };
 
 export default [{
@@ -75,4 +77,8 @@ export default [{
   path: routerPath.qrCode,
   component: QrCode,
   title: menu.qrCode
+}, {
+  path: routerPath.spdQrCode,
+  component: SpdQrCode,
+  title: menu.spdQrCode
 }];
