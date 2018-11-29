@@ -19,7 +19,7 @@ import objectPath from 'object-path';
 import Grid from '@material-ui/core/Grid';
 import weChat from '@sitb/svg-icon/weChat';
 import aliPay from '@sitb/svg-icon/aliPay';
-import quickPay from '@sitb/svg-icon/quickPay';
+import unionCloudPay from '@sitb/svg-icon/unionCloudPay';
 import money from '@sitb/svg-icon/money';
 import {background} from '../styles/color';
 import {routerPath} from "../core/router.config";
@@ -151,16 +151,14 @@ class Container extends React.Component<any, any> {
     let svg = {
       'weChat': weChat,
       'aliPay': aliPay,
-      'quickPay': quickPay
+      'unionCloudPay': unionCloudPay
     };
-    if (businessType.search("We") !== -1) {
+    if (businessType.includes('WeChat')) {
       type = "weChat";
-    }
-    if (businessType.search("Ali") !== -1) {
+    } else if (businessType.includes("Ali")) {
       type = "aliPay";
-    }
-    if (businessType.search("UNION") !== -1) {
-      type = "quickPay";
+    } else if (businessType.includes("UNION")) {
+      type = "unionCloudPay";
     }
 
 
@@ -182,7 +180,13 @@ class Container extends React.Component<any, any> {
                       style={{minWidth: 80, textAlign: 'right'}}
                       secondary={
                         <span>
-                          <span style={{width: 10, height: 10, backgroundColor: tradeStatusColorOptions[item.status], display: 'inline-block', borderRadius: '50%'}} />
+                          <span style={{
+                            width: 10,
+                            height: 10,
+                            backgroundColor: tradeStatusColorOptions[item.status],
+                            display: 'inline-block',
+                            borderRadius: '50%'
+                          }}/>
                           <span>{tradeStatusOptions[item.status]}</span>
                         </span>
                       }
