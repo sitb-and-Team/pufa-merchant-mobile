@@ -175,9 +175,11 @@ class Container extends React.Component<any> {
                            key={index}
                            xs={4}
               >
+                <span
+                  className={classNames(classes.headerTitle_mode, classes.span)}>{POS[index]}</span>
                 <span className={classNames(classes.headerMoney_second, classes.span)}>{item.totalAmount}</span>
                 <span
-                  className={classNames(classes.headerTitle_mode, classes.span)}>{`${POS[index]} ${item.totalElements}笔`}</span>
+                  className={classNames(classes.headerTitle_mode, classes.span)}>{`${item.totalElements}笔`}</span>
               </Grid>
             })}
           </Grid>
@@ -188,9 +190,11 @@ class Container extends React.Component<any> {
                            key={index}
                            xs={4}
               >
+                <span
+                  className={classNames(classes.headerTitle_mode, classes.span)}>{MOBILE[index]}</span>
                 <span className={classNames(classes.headerMoney_second, classes.span)}>{item.totalAmount}</span>
                 <span
-                  className={classNames(classes.headerTitle_mode, classes.span)}>{`${MOBILE[index]} ${item.totalElements}笔`}</span>
+                  className={classNames(classes.headerTitle_mode, classes.span)}>{`${item.totalElements}笔`}</span>
               </Grid>
             })}
           </Grid>
