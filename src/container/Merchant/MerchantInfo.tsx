@@ -42,8 +42,8 @@ class Container extends React.Component<any, any> {
       setValue: string => string.replace(/.(?=.)/, '*')
     }, {
       label: lang.merchantStatus,
-        value: 'status',
-        setValue: string => `${merchantStatusOptions[string]}`
+      value: 'status',
+      setValue: string => `${merchantStatusOptions[string]}`
     }, {
       label: lang.address,
       value: [
@@ -68,7 +68,8 @@ class Container extends React.Component<any, any> {
     }];
     const loginMerchant = nowOperator(getOperator(), getMerchantId());
     return (
-      <SitbCard configs={configs}
+      <SitbCard noCard
+                configs={configs}
                 dataResource={loginMerchant}
       />
     )
