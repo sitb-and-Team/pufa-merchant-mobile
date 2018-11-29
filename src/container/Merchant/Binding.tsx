@@ -5,17 +5,19 @@
  */
 import * as React from 'react';
 import Form from 'veigar/Form';
-import { connect } from "react-redux";
-import { autoBind } from '@sitb/wbs/autoBind';
-import { withStyles } from '@material-ui/core/styles';
-import { SitbButton } from '../../component/SitbButton';
-import { getActions } from '../../core/store';
-import { renderFieldGroup } from '../../component/Form/Input';
+import {connect} from "react-redux";
+import {autoBind} from '@sitb/wbs/autoBind';
+import {withStyles} from '@material-ui/core/styles';
+import {SitbButton} from '../../component/SitbButton';
+import {getActions} from '../../core/store';
+import {renderFieldGroup} from '../../component/Form/Input';
 
-import { lang } from '../../locale';
+import {lang} from '../../locale';
 import alert from '../../component/Alert';
-import { BrandTemplate } from './BrandTemplate';
-import { routerPath } from '../../core/router.config';
+import {BrandTemplate} from './BrandTemplate';
+import {routerPath} from '../../core/router.config';
+import URL from "../../constants/URL";
+// import URL from "../../constants/URL";
 
 // css
 const styles: any = theme => ({
@@ -44,6 +46,9 @@ class Container extends React.Component<any, any> {
     const values: any = this.form.getValue();
     getActions().binding.startQuery(values);
     console.log('submit', values);
+  }
+  handleExit() {
+    location.href = `${URL.session}/auth-server?redirectUri=${encodeURIComponent(location.href)}&appUri=${URL.session}/access-token`;
   }
 
   /**
@@ -94,14 +99,23 @@ class Container extends React.Component<any, any> {
     }];
     // 绑定按钮
     const serviceElement: any = (
-      <SitbButton loading={processing}
-                  key="submit"
-                  size="large"
-                  className={classes.formServiceBtn}
-                  onClick={e => this.handleSubmit(e)}
-      >
-        {'立即绑定'}
-      </SitbButton>
+      <React.Fragment>
+        <SitbButton loading={processing}
+                    key="submit"
+                    size="large"
+                    className={classes.formServiceBtn}
+                    onClick={e => this.handleSubmit(e)}
+        >
+          {'立即绑定'}
+        </SitbButton>
+        <SitbButton key="exit"
+                    size="large"
+                    className={classes.formServiceBtn}
+                    onClick={this.handleExit}
+        >
+          {'退出绑定'}
+        </SitbButton>
+      </React.Fragment>
     );
     return (
       <BrandTemplate serviceButtonName="返回商户管理"
