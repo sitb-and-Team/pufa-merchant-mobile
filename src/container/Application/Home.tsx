@@ -9,6 +9,7 @@ import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Tab from '@material-ui/core/Tab';
 import classNames from 'classnames';
+import accounting from 'accounting';
 
 import {routerPath} from '../../core/router.config';
 import {getActions} from '../../core/store';
@@ -144,7 +145,6 @@ class Container extends React.Component<any> {
 
   render() {
     const {classes, page, aliPay, weChatPay, unionPay, posPayDirect, posPayIndirect} = this.props;
-    page.value = page.value ? parseFloat(page.value).toFixed(2) : '0.00';
     // tab配置
     const config = [{
       label: menu.tradeRecord,
@@ -164,20 +164,21 @@ class Container extends React.Component<any> {
         >
           <TabContainer align="center">
             <p className={classes.headerTitle_mode}>{'今日收入(元)'}</p>
-            <span className={classes.headerMoney_mode}>{page.value}</span>
+            <span className={classes.headerMoney_mode}>{accounting.formatMoney(page.value, '', 2)}</span>
           </TabContainer>
           <Grid style={{marginBottom: 20, marginTop: 20}}
                 container
           >
             {[posPayDirect, posPayIndirect].map((item, index) => {
-              item.totalAmount = item.totalAmount ? parseFloat(item.totalAmount).toFixed(2) : '0.00';
               return <Grid item
                            key={index}
                            xs={4}
               >
                 <span
                   className={classNames(classes.headerTitle_mode, classes.span)}>{POS[index]}</span>
-                <span className={classNames(classes.headerMoney_second, classes.span)}>{item.totalAmount}</span>
+                <span className={classNames(classes.headerMoney_second, classes.span)}>
+                  {accounting.formatMoney(item.totalAmount, '', 2)}
+                  </span>
                 <span
                   className={classNames(classes.headerTitle_mode, classes.span)}>{`${item.totalElements}笔`}</span>
               </Grid>
@@ -185,14 +186,15 @@ class Container extends React.Component<any> {
           </Grid>
           <Grid container>
             {[aliPay, weChatPay, unionPay].map((item, index) => {
-              item.totalAmount = item.totalAmount ? parseFloat(item.totalAmount).toFixed(2) : '0.00';
               return <Grid item
                            key={index}
                            xs={4}
               >
                 <span
                   className={classNames(classes.headerTitle_mode, classes.span)}>{MOBILE[index]}</span>
-                <span className={classNames(classes.headerMoney_second, classes.span)}>{item.totalAmount}</span>
+                <span className={classNames(classes.headerMoney_second, classes.span)}>
+                  {accounting.formatMoney(item.totalAmount, '', 2)}
+                  </span>
                 <span
                   className={classNames(classes.headerTitle_mode, classes.span)}>{`${item.totalElements}笔`}</span>
               </Grid>
