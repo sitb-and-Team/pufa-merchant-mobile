@@ -16,6 +16,7 @@ import grey from '@material-ui/core/colors/grey';
 
 import { create as createAppStore } from './core/store';
 import App from './container';
+
 require('es6-promise').polyfill();
 
 // Create a history of your choosing (we're using a browser history in this case)
