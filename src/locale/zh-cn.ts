@@ -115,6 +115,7 @@ export const lang = {
   },
   payment: {
     at: "支付时间",
+    createAt: "下单时间",
     remark: "描述",
     status: "支付状态",
     businessType: "业务类型",
@@ -127,7 +128,7 @@ export const lang = {
     delete: "删除"
   },
   settle: {
-    at: "支付时间",
+    at: "入账时间",
     status: "结算状态",
     totalAmount: "总交易金额",
     settleAmount: '结算金额',
