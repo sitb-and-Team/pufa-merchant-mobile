@@ -15,12 +15,14 @@ export const tradeStatusOptions = {
   WAIT_PAYMENT: lang.payment.waitPayment,
   PROCESSING: lang.payment.processing,
   CLOSE: lang.payment.close,
-  DELETE: lang.payment.delete
+  DELETE: lang.payment.delete,
+  FULLREFUND: lang.payment.fullRefund
 };
 // 操作类型select-color
 export const tradeStatusColorOptions = {
   SUCCESS: '#2b2',
   FAILURE: '#fb1122',
+  FULLREFUND: '#888',
   WAIT_PAYMENT: '#f90',
   PROCESSING: '#0bb',
   CLOSE: '#888',
