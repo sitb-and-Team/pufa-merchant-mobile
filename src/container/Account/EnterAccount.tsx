@@ -257,6 +257,7 @@ class Container extends React.Component<any, any> {
 
   render() {
     const {classes, page} = this.props;
+    page.value = page.value ? parseFloat(page.value).toFixed(2) : '0.00';
     return (
       <React.Fragment>
         <AppBar position="fixed" color="default" className={classes.header}>
