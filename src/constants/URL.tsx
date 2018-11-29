@@ -13,4 +13,5 @@ export default {
   payment: `${api}/payment-records`,
   settle: `${api}/settle`,
   qrCode: `${api}/qr-codes`,
+  spdQrCode: `${api}/qr-codes`,
 }
