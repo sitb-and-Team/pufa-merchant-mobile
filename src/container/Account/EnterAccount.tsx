@@ -52,13 +52,14 @@ const styles = theme => ({
     background: '#62b900'
   },
   left: {
-    width: '50%',
+    width: '60%',
     padding: 15,
     paddingRight: 0,
     margin: 0,
     display: 'inline-block'
   },
   right: {
+    width: '40%',
     padding: 10,
     right: 0,
     margin: 0,
@@ -282,12 +283,12 @@ class Container extends React.Component<any, any> {
               {'确认'}
             </SitbButton>
           </Toolbar>
-          <Toolbar>
-            <Typography component="p" className={classes.left} paragraph={true}>
-              总笔数:{page.totalElements} 笔
-            </Typography>
-            <Typography component="p" className={classes.right} paragraph={true}>
+          <Toolbar style={{padding: 0}}>
+            <Typography className={classes.left}>
               总金额:{page.value} 元
+            </Typography>
+            <Typography className={classes.right} style={{textAlign: 'right'}}>
+              总笔数:{page.totalElements} 笔
             </Typography>
           </Toolbar>
         </AppBar>
