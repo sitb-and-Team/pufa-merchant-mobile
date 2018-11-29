@@ -179,7 +179,7 @@ class Container extends React.Component<any, any> {
                       secondary={`${item.paymentRecord.paymentAt}`}/>
         <ListItemText primary={
                         <span>
-                          {item.totalAmount} 元
+                          {item.settleAmount} 元
                         </span>
                       }
                       style={{minWidth: 80, textAlign: 'right'}}
