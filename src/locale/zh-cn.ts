@@ -116,7 +116,7 @@ export const lang = {
     at: "支付时间",
     remark: "描述",
     status: "支付状态",
-    businessType: "业务状态",
+    businessType: "业务类型",
     totalAmount: "支付金额",
     success: "交易成功",
     failure: "交易失败",
