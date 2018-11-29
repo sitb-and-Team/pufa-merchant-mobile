@@ -162,7 +162,7 @@ class Container extends React.Component<any, any> {
     }
 
 
-    item.paymentAt = item && `${moment(item.paymentAt).format(momentCommon.DATETIME_FORMAT)}` || '';
+    item.createAt = item && `${moment(item.createAt).format(momentCommon.DATETIME_FORMAT)}` || '';
     item.totalAmount = parseFloat(item.totalAmount).toFixed(2);
 
     return (
@@ -175,7 +175,7 @@ class Container extends React.Component<any, any> {
           {svg[type] && svg[type](svgProps) || money(svgProps)}
         </Avatar>
         <ListItemText primary={BusinessTypeData[businessType]}
-                      secondary={`${item.paymentAt}`}/>
+                      secondary={`${item.createAt}`}/>
         <ListItemText primary={`${item.totalAmount} 元`}
                       style={{minWidth: 80, textAlign: 'right'}}
                       secondary={
