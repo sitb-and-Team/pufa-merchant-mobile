@@ -113,13 +113,19 @@ class Container extends React.Component<any, any> {
     }];
 
     const search = (params.businessType.search('REFUND') !== -1);
-    if (search){
+    if (search) {
       basic.splice(5, 0, ...refund);
     }
 
     if (search && (params.totalAmount === params.refundAmount)) {
       params.status = 'FULLREFUND';
     }
+
+    if (params.status.search('FAILURE') !== -1) {
+      basic.splice(-2, 1);
+    }
+
+    console.log(basic);
 
     const configs = [{
       title: lang.paymentDetail,
