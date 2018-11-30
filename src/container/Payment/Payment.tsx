@@ -106,26 +106,23 @@ class Container extends React.Component<any, any> {
       value: 'describe'
     }];
 
+    // 已经退货金额
     const refund = [{
       label: lang.payment.refundAmount,
       value: 'refundAmount',
       setValue: string => `${parseFloat(string).toFixed(2)} 元`
     }];
 
-    const search = (params.businessType.search('REFUND') !== -1);
-    if (search) {
+    // 如果交易类型为 退款，字段增加 已经退货金额
+    const query = (params.businessType.includes('REFUND'));
+    if (query) {
       basic.splice(5, 0, ...refund);
     }
 
-    if (search && (params.totalAmount === params.refundAmount)) {
+    // 当 交易金额 等于 已经退款金额 时，交易状态类型更改为 已全额退款
+    if (query && (params.totalAmount === params.refundAmount)) {
       params.status = 'FULLREFUND';
     }
-
-    if (params.status.search('FAILURE') !== -1) {
-      basic.splice(-2, 1);
-    }
-
-    console.log(basic);
 
     const configs = [{
       title: lang.paymentDetail,
