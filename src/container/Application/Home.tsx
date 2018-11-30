@@ -181,11 +181,11 @@ class Container extends React.Component<any> {
               xs={12}
               className={classNames(classes.header, classes.header_mode)}
         >
-          <TabContainer align="center">
+          <TabContainer align="center" justfiy={'center'}>
             <p className={classes.headerTitle_mode}>{'今日收入(元)'}</p>
             <span className={classes.headerMoney_mode}>{accounting.formatMoney(page.value, '', 2)}</span>
           </TabContainer>
-          <Grid style={{marginBottom: 20, marginTop: 20}}
+          <Grid style={{marginTop: 20, height: 50}}
                 container
           >
             {[posPayDirect, posPayIndirect].map((item, index) => {
@@ -203,7 +203,9 @@ class Container extends React.Component<any> {
               </Grid>
             })}
           </Grid>
-          <Grid container>
+          <Grid container
+                style={{marginTop: 20, height: 50}}
+          >
             {[aliPay, weChatPay, unionPay].map((item, index) => {
               return <Grid item
                            key={index}
