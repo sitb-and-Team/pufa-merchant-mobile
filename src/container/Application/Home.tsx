@@ -5,6 +5,7 @@
  */
 import * as React from 'react';
 import {connect} from 'react-redux';
+import moment from 'moment';
 import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Tab from '@material-ui/core/Tab';
@@ -19,6 +20,7 @@ import EventNoteIcon from '@material-ui/icons/EventNote';
 import {menu} from "../../locale";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import {grey} from "@material-ui/core/es/colors";
+import {momentCommon} from "../../constants/objectKey";
 
 // css
 const styles: any = theme => ({
@@ -99,8 +101,10 @@ class Container extends React.Component<any> {
   };
 
   componentWillMount() {
+    let {isToday} = this.state;
     this.handleSearch({page: 0});
     getActions().payment.searchStats();
+    this.handleSearchToday({page: 0, isToday});
   }
 
   /**
@@ -115,6 +119,20 @@ class Container extends React.Component<any> {
    * @param params 搜索参数
    */
   handleSearch(params) {
+    getActions().payment.searchPaymentTrade(params);
+  }
+
+
+  /**
+   * search
+   * @param params 搜索今日收入参数
+   */
+  handleSearchToday(params) {
+    let {isToday} = this.state;
+    // 判断 交易时间
+    params.startTime = isToday && `${moment(isToday).hours(0).minutes(0).seconds(0).format(momentCommon.DATE_FORMAT)} 00:00:00` || '';
+    params.endTime = isToday && `${moment(isToday).hours(23).minutes(59).seconds(59).format(momentCommon.DATETIME_FORMAT)}` || '';
+    Reflect.deleteProperty(params, 'isToday');
     getActions().payment.searchPaymentTrade(params);
   }
 
@@ -145,6 +163,7 @@ class Container extends React.Component<any> {
 
   render() {
     const {classes, page, aliPay, weChatPay, unionPay, posPayDirect, posPayIndirect} = this.props;
+    page.value = page.value ? parseFloat(page.value).toFixed(2) : '0.00';
     // tab配置
     const config = [{
       label: menu.tradeRecord,
